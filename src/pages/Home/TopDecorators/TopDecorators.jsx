@@ -62,7 +62,7 @@ const TopDecorators = () => {
   return (
     <section className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-6">
-        <h2 className="text-4xl md:text-5xl font-black text-center mb-16">
+        <h2 className="text-4xl md:text-6xl font-bold text-center mb-16">
           Meet Our Top Decorators
         </h2>
 
