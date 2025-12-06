@@ -7,7 +7,7 @@ const RootLayout = () => {
   return (
     <div className=''>
       <Navbar/>
-      <Outlet/>
+     <div className='mt-40'> <Outlet/></div>
       <Footer/>
     </div>
   );

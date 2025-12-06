@@ -1,11 +1,12 @@
 import React from "react";
-import { Link, useNavigate } from "react-router";
+import { Link, useNavigate, useLocation } from "react-router";
 import useAuth from "../../Hooks/useAuth";
 import toast from "react-hot-toast";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLogout = async () => {
     try {
@@ -22,35 +23,53 @@ const Navbar = () => {
       <li>
         <Link
           to="/"
-          className="flex items-center gap-4 text-white hover:text-[#ff6a4a] text-lg font-medium"
+          className={`flex items-center gap-4 text-white hover:text-[#ff6a4a] text-lg font-medium ${
+            location.pathname === "/" ? "text-[#ff6a4a]" : ""
+          }`}
         >
-          <span className="text-[#ff6a4a] text-3xl font-bold">›</span>
+          <span
+            className={`text-3xl font-bold ${
+              location.pathname === "/" ? "text-[#ff6a4a]" : "text-transparent"
+            }`}
+          >
+            ›
+          </span>
           Home
         </Link>
       </li>
-      {["Services", "About", "Contact Us"].map((item) => (
-        <li key={item}>
-          <Link
-            to={
-              item === "Services"
-                ? "/services"
-                : item === "About"
-                ? "/about"
-                : "/contact"
-            }
-            className="flex items-center justify-between text-white hover:text-[#ff6a4a] text-lg font-medium py-3"
-          >
-            <span>{item}</span>
-            <span className="text-3xl text-gray-500">+</span>
-          </Link>
-        </li>
-      ))}
+      {["Services", "About", "Contact Us"].map((item) => {
+        const path =
+          item === "Services"
+            ? "/services"
+            : item === "About"
+            ? "/about"
+            : "/contact";
+        const isActive = location.pathname === path;
+
+        return (
+          <li key={item}>
+            <Link
+              to={path}
+              className="flex items-center justify-between text-white hover:text-[#ff6a4a] text-lg font-medium py-3"
+            >
+              <span className={isActive ? "text-[#ff6a4a]" : ""}>{item}</span>
+              <span
+                className={`text-3xl ${
+                  isActive ? "text-[#ff6a4a]" : "text-gray-500"
+                }`}
+              >
+                +
+              </span>
+            </Link>
+          </li>
+        );
+      })}
     </>
   );
 
   return (
     <>
-      <div className="navbar bg-white fixed top-0 z-40 shadow-sm px-6 lg:px-20 h-20 border-b">
+      <div className="navbar  justify-between backdrop-blur-sm fixed top-0 z-40 shadow-sm px-6 lg:px-20 h-20 border-b">
         <div className="navbar-start">
           <Link to="/" className="flex items-center gap-3">
             <div className="relative">
@@ -73,22 +92,42 @@ const Navbar = () => {
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal gap-12 text-black font-bold text-lg">
             <li>
-              <Link to="/" className="hover:text-[#ff6a4a] transition">
+              <Link
+                to="/"
+                className={`hover:text-[#ff6a4a] transition ${
+                  location.pathname === "/" ? "text-[#ff6a4a]" : ""
+                }`}
+              >
                 Home
               </Link>
             </li>
             <li>
-              <Link to="/services" className="hover:text-[#ff6a4a] transition">
+              <Link
+                to="/services"
+                className={`hover:text-[#ff6a4a] transition ${
+                  location.pathname === "/services" ? "text-[#ff6a4a]" : ""
+                }`}
+              >
                 Services
               </Link>
             </li>
             <li>
-              <Link to="/about" className="hover:text-[#ff6a4a] transition">
+              <Link
+                to="/about"
+                className={`hover:text-[#ff6a4a] transition ${
+                  location.pathname === "/about" ? "text-[#ff6a4a]" : ""
+                }`}
+              >
                 About
               </Link>
             </li>
             <li>
-              <Link to="/contact" className="hover:text-[#ff6a4a] transition">
+              <Link
+                to="/contact"
+                className={`hover:text-[#ff6a4a] transition ${
+                  location.pathname === "/contact" ? "text-[#ff6a4a]" : ""
+                }`}
+              >
                 Contact
               </Link>
             </li>

@@ -1,5 +1,5 @@
 import React from "react";
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter } from "react-router";
 
 import RootLayout from "../layouts/RootLayout/RootLayout";
 import DashboardLayout from "../layouts/DashboardLayout/DashboardLayout";

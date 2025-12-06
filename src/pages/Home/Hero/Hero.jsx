@@ -52,7 +52,7 @@ const Hero = () => {
     setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
 
   return (
-    <section className="relative h-[70vh] md:h-screen overflow-hidden -mt-20">
+    <section className="relative h-[70vh] md:h-screen overflow-hidden -mt-40">
       <AnimatePresence mode="wait">
         <motion.div
           key={current}
