@@ -1,4 +1,3 @@
-// src/components/Hero/Hero.jsx
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
