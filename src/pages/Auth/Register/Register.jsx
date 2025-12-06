@@ -193,7 +193,7 @@ const Register = () => {
               <button
                 type="submit"
                 disabled={uploading}
-                className="btn bg-[#ff6a4a] hover:bg-black text-white font-bold w-full h-14 text-xl rounded-2xl shadow-xl flex items-center justify-center gap-3"
+                className="btn bg-[#ff6a4a] hover:bg-black text-white font-bold w-full h-14 text-xl rounded-xl shadow-xl flex items-center justify-center gap-3"
               >
                 {uploading ? (
                   <>
@@ -220,7 +220,7 @@ const Register = () => {
 
               <button
                 onClick={handleGoogle}
-                className="mt-8 btn btn-outline w-full h-14 text-lg hover:bg-[#ff6a4a] hover:text-white font-semibold rounded-2xl "
+                className="mt-8 btn btn-outline w-full h-14 text-lg hover:bg-[#ff6a4a] hover:text-white font-semibold rounded-xl "
               >
                 <FcGoogle className="mx-2" size={24} /> Continue with Google
               </button>
