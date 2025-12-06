@@ -115,7 +115,6 @@ const Register = () => {
                 )}
               </div>
 
-              {/* Email */}
               <div>
                 <label className="flex items-center gap-3 text-gray-700 font-semibold mb-2">
                   <Mail size={22} className="text-[#ff6a4a]" />
@@ -137,7 +136,6 @@ const Register = () => {
                 )}
               </div>
 
-              {/* Password */}
               <div className="relative">
                 <label className="flex items-center gap-3 text-gray-700 font-semibold mb-2">
                   <Lock size={22} className="text-[#ff6a4a]" />
@@ -179,11 +177,7 @@ const Register = () => {
                 <div className="flex items-center gap-5">
                   <div className="avatar">
                     <div className="w-24 h-24 rounded-full ring-4 ring-[#ff6a4a] ring-offset-4 overflow-hidden">
-                      <img
-                        src={
-                          imagePreview
-                        }
-                      />
+                      <img src={imagePreview} />
                     </div>
                   </div>
                   <input
