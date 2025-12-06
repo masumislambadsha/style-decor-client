@@ -80,7 +80,7 @@ const ServiceCoverageArea = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 justify-center items-center">
           <div className="bg-white rounded-3xl shadow-xl p-8">
             <form onSubmit={handleSearch} className="mb-8">
               <div className="flex gap-3">
@@ -135,10 +135,8 @@ const ServiceCoverageArea = () => {
               ))}
             </div>
           </div>
-
-          {/* Right map */}
           <div className="relative">
-            <div className="h-96 md:h-[430px] rounded-3xl shadow-2xl overflow-hidden">
+            <div className="h-96 md:h-[490px] rounded-3xl shadow-2xl overflow-hidden">
               <MapContainer
                 center={[23.685, 90.3563]}
                 zoom={7}
