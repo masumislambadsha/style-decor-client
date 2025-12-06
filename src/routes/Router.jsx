@@ -1,26 +1,141 @@
+import React from "react";
 import { createBrowserRouter } from "react-router";
 import RootLayout from "../layouts/RootLayout/RootLayout";
+import ErrorPage from "../Components/Error/ErrorPage";
 import Home from "../pages/Home/Home";
-import Register from "../pages/Auth/Register/Register";
+import Services from "../pages/Services/Services";
+import ServiceDetails from "../pages/ServiceDetails/ServiceDetails";
 import Login from "../pages/Auth/Login/Login";
-
-export const router = createBrowserRouter([
+import Register from "../pages/Auth/Register/Register";
+import DashboardLayout from "../layouts/DashboardLayout/DashboardLayout";
+import PrivateRoute from "./PrivateRoute"
+import AdminRoute from "./AdminRoute"
+import DecoratorRoute from "./DecoratorRoute"
+import MyBookings from "../layouts/DashboardLayout/Dashboard/MyBookings/MyBookings";
+import UserDashboard from "../layouts/DashboardLayout/Dashboard/UserDashboard/UserDashboard";
+import PaymentHistory from "../layouts/DashboardLayout/Dashboard/PaymentHistory/PaymentHistory";
+import UserProfile from "../layouts/DashboardLayout/Dashboard/UserProfile/UserProfile";
+import AdminDashboard from "../layouts/DashboardLayout/AdminDashboard/AdminDashboard.JSX";
+import ManageServices from "../layouts/DashboardLayout/AdminDashboard/ManageServices/ManageServices";
+import ManageDecorators from "../layouts/DashboardLayout/AdminDashboard/ManageDecorators/ManageDecorators";
+import ManageBookings from "../layouts/DashboardLayout/AdminDashboard/ManageBookings/ManageBookings";
+import Analytics from "../layouts/DashboardLayout/AdminDashboard/Analytics/Analytics.jsx";
+import DecoratorDashboard from "../layouts/DashboardLayout/DecoratorDashboard/DecoratorDashboard";
+import AssignedProjects from "../layouts/DashboardLayout/DecoratorDashboard/AssignedProjects/AssignedProjects";
+import TodaySchedule from "../layouts/DashboardLayout/DecoratorDashboard/TodaySchedule/TodaySchedule";
+import Earnings from "../layouts/DashboardLayout/DecoratorDashboard/Earnings/Earnings";
+const router = createBrowserRouter([
+  // Main Layout (Public + Auth)
   {
-    path:'/',
-    Component: RootLayout,
-    children:[
+    path: "/",
+    element: <RootLayout />,
+    errorElement: <ErrorPage />,
+    children: [
+      { path: "/", element: <Home /> },
+      { path: "/services", element: <Services /> },
+      { path: "/services/:id", element: <ServiceDetails /> },
+      { path: "/login", element: <Login /> },
+      { path: "/register", element: <Register /> },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <PrivateRoute>
+        <DashboardLayout />
+      </PrivateRoute>
+    ),
+    children: [
       {
-        index: true,
-        Component: Home
+        path: "/dashboard",
+        element: <UserDashboard />,
       },
       {
-        path:'/register',
-        Component: Register
+        path: "/dashboard/my-bookings",
+        element: <MyBookings />,
       },
       {
-        path:'/login',
-        Component: Login
-      }
-    ]
-  }
-])
+        path: "/dashboard/payment-history",
+        element: <PaymentHistory />,
+      },
+      {
+        path: "/dashboard/profile",
+        element: <UserProfile />,
+      },
+      {
+        path: "/dashboard/admin",
+        element: (
+          <AdminRoute>
+            <AdminDashboard />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboard/admin/services",
+        element: (
+          <AdminRoute>
+            <ManageServices />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboard/admin/decorators",
+        element: (
+          <AdminRoute>
+            <ManageDecorators />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboard/admin/bookings",
+        element: (
+          <AdminRoute>
+            <ManageBookings />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboard/admin/analytics",
+        element: (
+          <AdminRoute>
+            <Analytics />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboard/decorator",
+        element: (
+          <DecoratorRoute>
+            <DecoratorDashboard />
+          </DecoratorRoute>
+        ),
+      },
+      {
+        path: "/dashboard/decorator/projects",
+        element: (
+          <DecoratorRoute>
+            <AssignedProjects />
+          </DecoratorRoute>
+        ),
+      },
+      {
+        path: "/dashboard/decorator/schedule",
+        element: (
+          <DecoratorRoute>
+            <TodaySchedule />
+          </DecoratorRoute>
+        ),
+      },
+      {
+        path: "/dashboard/decorator/earnings",
+        element: (
+          <DecoratorRoute>
+            <Earnings />
+          </DecoratorRoute>
+        ),
+      },
+    ],
+  },
+]);
+
+export default router;
