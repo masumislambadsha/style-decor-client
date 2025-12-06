@@ -5,14 +5,6 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 const slides = [
   {
     image:
-      "https://www.covethouse.eu/blog/wp-content/uploads/2023/05/fUpiWa3P.jpeg",
-    quote: '"AESTHETICS THAT INSPIRE PRODUCTIVITY."',
-    title: "Luxury Office Design",
-    description:
-      "Create workspaces that blend elegance with functionality. From executive suites to collaborative areas — elevate your professional environment.",
-  },
-  {
-    image:
       "https://www.interiordesignmagazines.eu/wp-content/uploads/2025/11/RS.jpg",
     quote: '"MODERN LUXURY AT HOME."',
     title: "Home Office Excellence",
@@ -74,7 +66,7 @@ const Hero = () => {
             className="w-full h-full bg-cover bg-center bg-no-repeat"
             style={{ backgroundImage: `url(${slides[current].image})` }}
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80" />
+          <div className="absolute inset-0 bg-linear-to-b from-black/70 via-black/50 to-black/80" />
         </motion.div>
       </AnimatePresence>
 
