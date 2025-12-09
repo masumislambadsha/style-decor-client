@@ -3,12 +3,12 @@ import { Link } from "react-router";
 
 const ErrorPage = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-slate-900 to-slate-950 text-white flex items-center justify-center px-4 py-10">
+    <div className="min-h-screen bg-linear-to-br from-black via-slate-900 to-slate-950 text-white flex items-center justify-center px-4 py-10">
       <div className="max-w-3xl w-full flex flex-col sm:flex-row items-center gap-8 sm:gap-10">
         <div className="relative w-full sm:w-1/2 mb-6 sm:mb-0">
-          <div className="h-48 sm:h-64 w-48 sm:w-64 mx-auto rounded-[2rem] sm:rounded-[2.5rem] border border-[#ff6a4a]/30 bg-gradient-to-tr from-slate-950 via-slate-900 to-slate-800 shadow-[0_20px_60px_rgba(0,0,0,0.7)] flex items-center justify-center overflow-hidden">
+          <div className="h-48 sm:h-64 w-48 sm:w-64 mx-auto rounded-4xl sm:rounded-[2.5rem] border border-[#ff6a4a]/30 bg-linear-to-tr from-slate-950 via-slate-900 to-slate-800 shadow-[0_20px_60px_rgba(0,0,0,0.7)] flex items-center justify-center overflow-hidden">
             <div className="" />
-          
+
             <div className="relative z-10 flex flex-col items-center gap-2 sm:gap-3">
               <div className="h-12 sm:h-16 w-12 sm:w-16 rounded-xl sm:rounded-2xl border border-[#ff6a4a]/50 flex items-center justify-center bg-black/40">
                 <span className="text-2xl sm:text-4xl">🪑</span>
@@ -19,13 +19,13 @@ const ErrorPage = () => {
             </div>
           </div>
 
-         
+
           <div className="absolute -bottom-3 sm:-bottom-4 left-1/2 -translate-x-1/2 px-4 sm:px-5 py-2 rounded-full bg-[#ff6a4a] text-black text-xs sm:text-sm font-bold shadow-lg">
             404 · Scene not styled
           </div>
         </div>
 
-       
+
         <div className="w-full sm:w-1/2 text-center sm:text-left space-y-4 sm:space-y-5">
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight">
             This style doesn’t exist yet.
