@@ -25,7 +25,7 @@ const ServiceCoverage = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 py-10 sm:py-12">
-      <div className="container mx-auto px-4 sm:px-6 space-y-6 sm:space-y-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-6 sm:space-y-8">
         <div className="text-center space-y-3">
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-gray-900">
             Service Coverage
@@ -76,8 +76,7 @@ const ServiceCoverage = () => {
             </button>
           </form>
           <p className="mt-2 text-xs text-gray-500">
-            Tip: Start typing a district name to quickly zoom to that area on
-            the map.
+            Tip: Start typing a district name to quickly zoom to that area on the map.
           </p>
         </div>
 

@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
-motion;
+motion
 
 const StatusBadge = ({ status }) => {
   const base =
@@ -144,7 +144,7 @@ const ManageBookings = () => {
   return (
     <div className="min-h-screen bg-gray-50 py-6 sm:py-8 px-4">
       <motion.div
-        className="container mx-auto"
+        className="max-w-5xl mx-auto"
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3, ease: "easeOut" }}
@@ -218,9 +218,7 @@ const ManageBookings = () => {
                           <p className="text-gray-600 text-xs sm:text-sm mt-0.5">
                             Event date:{" "}
                             {b.bookingDate
-                              ? new Date(b.bookingDate).toLocaleDateString(
-                                  "en-GB"
-                                )
+                              ? new Date(b.bookingDate).toLocaleDateString("en-GB")
                               : "N/A"}
                           </p>
                           <p className="text-gray-500 text-xs mt-1">
@@ -263,9 +261,7 @@ const ManageBookings = () => {
                           <div>
                             <span className="text-gray-500">Status: </span>
                             <span className="font-mono font-semibold text-white px-2 py-1 rounded-xl sm:rounded-2xl bg-gray-800">
-                              {b.status === "assigned"
-                                ? "Decorator Assigned"
-                                : "Pending"}
+                              {b.status === "assigned" ? "Decorator Assigned" : "Pending"}
                             </span>
                           </div>
                         </div>
@@ -285,9 +281,7 @@ const ManageBookings = () => {
                           {!isAssigned && (
                             <motion.button
                               whileTap={{ scale: 0.97 }}
-                              onClick={() =>
-                                handleCancelBooking(b._id, isCancelled)
-                              }
+                              onClick={() => handleCancelBooking(b._id, isCancelled)}
                               disabled={actionLoading || isCancelled}
                               className={
                                 isCancelled
@@ -349,9 +343,7 @@ const ManageBookings = () => {
               <p className="text-gray-500">
                 Event date:{" "}
                 {selectedBooking.bookingDate
-                  ? new Date(selectedBooking.bookingDate).toLocaleDateString(
-                      "en-GB"
-                    )
+                  ? new Date(selectedBooking.bookingDate).toLocaleDateString("en-GB")
                   : "N/A"}
               </p>
             </div>

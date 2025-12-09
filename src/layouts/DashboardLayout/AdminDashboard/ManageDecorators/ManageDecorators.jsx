@@ -13,7 +13,7 @@ const StatusBadge = ({ status }) => {
     inactive: "bg-gray-500/10 text-gray-600 border-gray-500/30",
     pending: "bg-[#ff6a4a]/10 text-[#ff6a4a] border-[#ff6a4a]/30",
   };
-  motion;
+  motion
 
   const label = status
     ? status.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
@@ -101,7 +101,7 @@ const ManageDecorators = () => {
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4">
       <motion.div
-        className="container mx-auto"
+        className="max-w-5xl mx-auto"
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3, ease: "easeOut" }}
@@ -250,7 +250,9 @@ const ManageDecorators = () => {
                         {d.location && (
                           <div>
                             <span className="text-gray-500">Location: </span>
-                            <span className="font-semibold">{d.location}</span>
+                            <span className="font-semibold">
+                              {d.location}
+                            </span>
                           </div>
                         )}
                       </div>

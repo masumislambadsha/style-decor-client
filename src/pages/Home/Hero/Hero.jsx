@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-motion;
+motion
 const slides = [
   {
     image:
@@ -71,7 +71,7 @@ const Hero = () => {
       </AnimatePresence>
 
       <div className="relative z-10 h-full flex items-center justify-center px-4 sm:px-6">
-        <div className="text-center text-white max-w-xl sm:max-w-3xl md:container mx-auto">
+        <div className="text-center text-white max-w-xl sm:max-w-3xl md:max-w-5xl mx-auto">
           <AnimatePresence mode="wait">
             <motion.div
               key={current}

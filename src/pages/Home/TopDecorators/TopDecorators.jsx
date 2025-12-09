@@ -61,7 +61,7 @@ const TopDecorators = () => {
 
   return (
     <section className="py-16 sm:py-20 bg-white">
-      <div className="container mx-auto px-4 sm:px-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-center mb-10 sm:mb-16">
           Meet Our Top Decorators
         </h2>

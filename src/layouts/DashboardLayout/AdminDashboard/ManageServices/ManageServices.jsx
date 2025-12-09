@@ -6,7 +6,7 @@ import { Plus, Pencil, Trash2, ToggleLeft, ToggleRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
-motion;
+motion
 const emptyService = {
   service_name: "",
   service_category: "home",
@@ -125,9 +125,7 @@ const ManageServices = () => {
       await axiosSecure.patch(`/services/${service._id}`, {
         isActive: !service.isActive,
       });
-      toast.success(
-        `Service ${service.isActive ? "deactivated" : "activated"}`
-      );
+      toast.success(`Service ${service.isActive ? "deactivated" : "activated"}`);
       refetch();
     } catch {
       toast.error("Failed to update status");
@@ -145,7 +143,7 @@ const ManageServices = () => {
   return (
     <div className="min-h-screen bg-gray-50 py-6 sm:py-8 px-4">
       <motion.div
-        className="container mx-auto"
+        className="max-w-5xl mx-auto"
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3, ease: "easeOut" }}
@@ -343,10 +341,7 @@ const ManageServices = () => {
                 {editing ? "Edit Service" : "Add New Service"}
               </h3>
 
-              <form
-                onSubmit={handleSubmit(onSubmit)}
-                className="space-y-4 sm:space-y-5"
-              >
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 sm:space-y-5">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="font-medium text-gray-700">

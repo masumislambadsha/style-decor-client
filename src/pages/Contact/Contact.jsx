@@ -7,7 +7,7 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen bg-slate-50 pt-24 pb-16 px-4">
-      <div className="container mx-auto grid md:grid-cols-5 gap-10">
+      <div className="max-w-5xl mx-auto grid md:grid-cols-5 gap-10">
         <div className="md:col-span-2 space-y-4">
           <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#ff6a4a]/10 text-[#ff6a4a] text-xs font-semibold uppercase tracking-[0.2em]">
             Contact
@@ -25,7 +25,8 @@ const Contact = () => {
               <span className="font-semibold">Phone:</span> +8801XXXXXXXXX
             </p>
             <p>
-              <span className="font-semibold">Email:</span> hello@styledecor.com
+              <span className="font-semibold">Email:</span>{" "}
+              hello@styledecor.com
             </p>
             <p>
               <span className="font-semibold">Office:</span> Dhaka, Bangladesh

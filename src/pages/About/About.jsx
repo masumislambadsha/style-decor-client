@@ -3,7 +3,7 @@ import React from "react";
 const About = () => {
   return (
     <div className="min-h-screen bg-slate-50 pt-24 pb-16 px-4">
-      <div className="container mx-auto">
+      <div className="max-w-5xl mx-auto">
         <div className="text-center mb-10">
           <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#ff6a4a]/10 text-[#ff6a4a] text-xs font-semibold uppercase tracking-[0.2em]">
             About us

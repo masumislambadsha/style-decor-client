@@ -8,8 +8,7 @@ import LoadingSpinner from "../../../Components/Spinner/LoadingSpinner";
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
-  iconRetinaUrl:
-    "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
+  iconRetinaUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
   iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
   shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
 });
@@ -67,7 +66,7 @@ const ServiceCoverageArea = () => {
 
   return (
     <section className="py-16 sm:py-20 bg-gray-50">
-      <div className="container mx-auto px-4 sm:px-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-10 sm:mb-12">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-black mb-4">
             Our Service Area
