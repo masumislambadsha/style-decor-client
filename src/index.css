@@ -1,2 +1,13 @@
 @import "tailwindcss";
 @plugin "daisyui";
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.animate-spin-slow {
+  animation: spin-slow 1.2s linear infinite;
+}
+.bg-conic-to-r {
+  background-image: conic-gradient(from 90deg, var(--tw-gradient-stops));
+}

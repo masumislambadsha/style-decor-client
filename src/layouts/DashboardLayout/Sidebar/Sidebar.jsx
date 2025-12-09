@@ -1,103 +1,155 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useLocation } from "react-router";
 import {
-  Home, Package, Calendar, CreditCard, Users, Settings,
-  BarChart3, Briefcase, Clock, DollarSign, LogOut
+  User,
+  BookOpen,
+  CreditCard,
+  BarChart3,
+  Briefcase,
+  LogOut,
+  Menu,
+  X,
+  CalendarHeartIcon,
+  CalendarHeart,
+  LayoutDashboard,
 } from "lucide-react";
 import useAuth from "../../../Hooks/useAuth";
-import useRole from "../../../Hooks/useRole";
-import { CgProfile } from "react-icons/cg";
+import { GoSidebarCollapse } from "react-icons/go";
+import Logo from "../../../Components/Logo/Logo";
+import CollapsedLogo from "../../../Components/Logo/CollapsedLogo";
+import { FaUser, FaUserPlus } from "react-icons/fa";
 
-
-const Sidebar = () => {
-  const { logOut } = useAuth();
-  const [role] = useRole();
+const Sidebar = ({ role = "user" }) => {
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [collapsed, setCollapsed] = useState(false);
   const location = useLocation();
+  const { logOut } = useAuth();
 
-  const isActive = (path) => location.pathname.startsWith(path);
+  const isActive = (path) => location.pathname === path;
 
-  const userMenu = [
-    { name: "My Profile", path: "/dashboard/profile", icon: CgProfile  },
-    { name: "My Bookings", path: "/dashboard/my-bookings", icon: Calendar },
-    { name: "Payment History", path: "/dashboard/payment-history", icon: CreditCard },
-  ];
+  const menuGroups = {
+    user: [
+      { label: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
+      { label: "Profile", path: "/dashboard/profile", icon: User },
+      { label: "My Bookings", path: "/dashboard/bookings", icon: BookOpen },
+      {
+        label: "Payment History",
+        path: "/dashboard/payment-history",
+        icon: CreditCard,
+      },
+    ],
+    admin: [
+       { label: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
+      {
+        label: "Analytics",
+        path: "/dashboard/admin/analytics",
+        icon: BarChart3,
+      },
+      {
+        label: "Manage Bookings",
+        path: "/dashboard/admin/manage-bookings",
+        icon: Briefcase,
+      },
+      {
+        label: "Manage Services",
+        path: "/dashboard/admin/manage-services",
+        icon: Briefcase,
+      },
+      {
+        label: "Manage Decorators",
+        path: "/dashboard/admin/manage-decorators",
+        icon: FaUser,
+      },
+      {
+        label: "Accept Decorators",
+        path: "/dashboard/admin/decorator-applications",
+        icon: FaUserPlus,
+      },
+    ],
+    decorator: [
+       { label: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
+      {
+        label: "Assigned Projects",
+        path: "/dashboard/decorator/projects",
+        icon: Briefcase,
+      },
+      { label: "Schedule",
+        path: "/dashboard/decorator/schedule",
+        icon: CalendarHeart
+      },
+      { label: "Earnings",
+        path: "/dashboard/decorator/earnings",
+        icon: CreditCard
+      },
+    ],
+  };
 
-  const adminMenu = [
-    { name: "Admin Home", path: "/dashboard/admin", icon: Home },
-    { name: "Manage Services", path: "/dashboard/admin/services", icon: Package },
-    { name: "Manage Decorators", path: "/dashboard/admin/decorators", icon: Users },
-    { name: "Manage Bookings", path: "/dashboard/admin/bookings", icon: Briefcase },
-    { name: "Analytics", path: "/dashboard/admin/analytics", icon: BarChart3 },
-  ];
-
-  const decoratorMenu = [
-    { name: "Dashboard", path: "/dashboard/decorator", icon: Home },
-    { name: "Assigned Projects", path: "/dashboard/decorator/projects", icon: Briefcase },
-    { name: "Today's Schedule", path: "/dashboard/decorator/schedule", icon: Clock },
-    { name: "Earnings", path: "/dashboard/decorator/earnings", icon: DollarSign },
-  ];
-
-  const menuItems = role === "admin" ? adminMenu : role === "decorator" ? decoratorMenu : userMenu;
+  const currentMenu = menuGroups[role] || menuGroups.user;
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <div className="p-6 border-b border-white/20">
-        <Link to="/" className="flex items-center gap-3">
-          <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-lg">
-            <span className="text-2xl font-black text-[#ff6a4a]">S</span>
-          </div>
-          <div className="hidden xl:block">
-            <h1 className="text-2xl font-black">StyleDecor</h1>
-            <p className="text-xs opacity-90">Dashboard</p>
-          </div>
-        </Link>
-      </div>
+    <>
+      <button
+        onClick={() => setMobileOpen(!mobileOpen)}
+        className="md:hidden fixed md:top-20 md:left-4 right-0 z-50 btn btn-ghost btn-circle"
+      >
+        {mobileOpen ? <X /> : <Menu />}
+      </button>
 
-      <div className="px-6 py-4 hidden xl:block">
-        <span className="px-4 py-2 bg-white/20 rounded-full text-sm font-bold uppercase">
-          {role || "User"}
-        </span>
-      </div>
+      <button
+        onClick={() => setCollapsed(!collapsed)}
+        className={`hidden md:flex items-center justify-center fixed top-22.5 z-30 h-9 w-9 rounded-full bg-gray-800 text-gray-200 border border-gray-600 shadow cursor-pointer transition-all hover:scale-105
+    ${collapsed ? "left-20" : "left-64"}`}
+      >
+        <div className="flex gap-1">
+          <GoSidebarCollapse size={24} />
+        </div>
+      </button>
 
-      <nav className="flex-1 px-4 py-6 space-y-2">
-        {menuItems.map((item) => {
-          const Icon = item.icon;
-          const active = isActive(item.path);
-          return (
-            <div
-              key={item.path}
-              className="tooltip tooltip-right lg:tooltip-none"
-              data-tip={item.name}
-            >
+      <aside
+        className={`fixed md:static inset-y-0 left-0 bg-black text-white transform transition-all z-40
+        ${mobileOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
+        ${collapsed ? "md:w-20" : "md:w-64"} w-64`}
+      >
+        <div className="p-6 border-b border-gray-700 flex items-center gap-3">
+          <Link to="/" className="flex items-center gap-3">
+            {!collapsed ? <Logo /> : <CollapsedLogo />}
+          </Link>
+        </div>
+
+        <nav className="p-4 space-y-1">
+          {currentMenu.map((item) => {
+            const Icon = item.icon;
+            const active = isActive(item.path);
+            return (
               <Link
+                key={item.path}
                 to={item.path}
-                className={`flex items-center gap-4 px-5 py-3.5 rounded-xl transition-all duration-200 font-medium text-lg ${
-                  active
-                    ? "bg-white text-[#ff6a4a] shadow-xl"
-                    : "hover:bg-white/20"
-                }`}
+                onClick={() => setMobileOpen(false)}
+                className={`flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium transition-colors
+                  ${
+                    active
+                      ? "bg-[#ff6a4a] text-white"
+                      : "text-gray-300 hover:bg-gray-900"
+                  }`}
               >
-                <Icon size={24} />
-                <span className="hidden xl:block">{item.name}</span>
+                <Icon size={20} />
+                {!collapsed && <span>{item.label}</span>}
               </Link>
-            </div>
-          );
-        })}
-      </nav>
+            );
+          })}
+        </nav>
 
-      {/* Logout */}
-      <div className="p-6 border-t border-white/20">
-        <div className="tooltip tooltip-right lg:tooltip-none" data-tip="Logout">
+        <div className="absolute bottom-4 left-0 right-0 px-4">
           <button
             onClick={logOut}
-            className="flex items-center gap-4 px-5 py-3.5 rounded-xl hover:bg-white/20 transition-all w-full text-lg font-medium"
+            className="flex items-center gap-3 w-full px-3 py-3 text-red-400 hover:bg-red-500/10 rounded-lg transition text-sm"
           >
-            <LogOut size={24} />
-            <span className="hidden xl:block">Logout</span>
+            <LogOut size={20} />
+            {!collapsed && <span>Logout</span>}
           </button>
         </div>
-      </div>
-    </div>
+      </aside>
+    </>
   );
 };
 

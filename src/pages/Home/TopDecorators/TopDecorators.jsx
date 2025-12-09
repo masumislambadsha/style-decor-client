@@ -18,7 +18,7 @@ const TopDecorators = () => {
         {[...Array(5)].map((_, i) => (
           <svg
             key={i}
-            className={`w-5 h-5 ${
+            className={`w-4 sm:w-5 h-4 sm:h-5 ${
               i < full
                 ? "text-[#ff6a4a] fill-[#ff6a4a]"
                 : i === full && hasHalf
@@ -52,7 +52,7 @@ const TopDecorators = () => {
             )}
           </svg>
         ))}
-        <span className="ml-2 font-bold text-gray-900 text-lg">
+        <span className="ml-1 sm:ml-2 font-bold text-gray-900 text-sm sm:text-lg">
           {rating.toFixed(1)}
         </span>
       </div>
@@ -60,40 +60,41 @@ const TopDecorators = () => {
   };
 
   return (
-    <section className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-6">
-        <h2 className="text-4xl md:text-6xl font-bold text-center mb-16">
+    <section className="py-16 sm:py-20 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-center mb-10 sm:mb-16">
           Meet Our Top Decorators
         </h2>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-10">
-          {topSix.map((decorator) => (
-            <div key={decorator._id} className="text-center group">
-              <div className="relative mx-auto w-32 h-32 mb-5">
-                <div className="relative overflow-hidden rounded-full mx-auto w-32 h-32 mb-4">
-                  <img
-                    src={
-                      decorator.photo || "https://i.ibb.co.com/5Y0X5gY/user.png"
-                    }
-                    alt={decorator.name}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 sm:gap-10">
+          {topSix.map((decorator) => {
+            const imgSrc = decorator.photoURL || decorator.photo;
+            return (
+              <div key={decorator._id} className="text-center group">
+                <div className="relative mx-auto w-24 sm:w-32 h-24 sm:h-32 mb-4">
+                  <div className="relative overflow-hidden rounded-full mx-auto w-24 sm:w-32 h-24 sm:h-32 mb-3">
+                    <img
+                      src={imgSrc}
+                      alt={decorator.name}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </div>
+                </div>
+
+                <h3 className="font-bold text-base sm:text-lg text-gray-900 leading-tight">
+                  {decorator.name}
+                </h3>
+                <p className="text-xs sm:text-sm text-gray-600 mt-1 mb-3">
+                  {decorator.specialty}
+                </p>
+
+                <div className="flex justify-center">
+                  {renderStars(decorator.rating || 4.8)}
                 </div>
               </div>
-
-              <h3 className="font-bold text-lg text-gray-900 leading-tight">
-                {decorator.name}
-              </h3>
-              <p className="text-sm text-gray-600 mt-1 mb-3">
-                {decorator.specialty}
-              </p>
-
-              <div className="flex justify-center">
-                {renderStars(decorator.rating || 4.8)}
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

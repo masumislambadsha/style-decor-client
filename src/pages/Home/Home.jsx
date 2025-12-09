@@ -6,7 +6,7 @@ import ServiceCoverageArea from './ServiceCoverageMap/ServiceCoverageMap';
 
 const Home = () => {
   return (
-    <div className='text-6xl text-center '>
+    <div className=''>
       <Hero/>
       <ServiceCategories/>
       <TopDecorators/>

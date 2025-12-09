@@ -14,9 +14,7 @@ import ErrorPage from "../Components/Error/ErrorPage";
 import UserDashboard from "../layouts/DashboardLayout/Dashboard/UserDashboard/UserDashboard";
 import MyBookings from "../layouts/DashboardLayout/Dashboard/MyBookings/MyBookings";
 import PaymentHistory from "../layouts/DashboardLayout/Dashboard/PaymentHistory/PaymentHistory";
-import UserProfile from "../layouts/DashboardLayout/Dashboard/UserProfile/UserProfile";
 
-import AdminDashboard from "../layouts/DashboardLayout/AdminDashboard/AdminDashboard.JSX";
 import ManageServices from "../layouts/DashboardLayout/AdminDashboard/ManageServices/ManageServices";
 import ManageDecorators from "../layouts/DashboardLayout/AdminDashboard/ManageDecorators/ManageDecorators";
 import ManageBookings from "../layouts/DashboardLayout/AdminDashboard/ManageBookings/ManageBookings";
@@ -30,6 +28,13 @@ import Earnings from "../layouts/DashboardLayout/DecoratorDashboard/Earnings/Ear
 import PrivateRoute from "./PrivateRoute";
 import AdminRoute from "./AdminRoute";
 import DecoratorRoute from "./DecoratorRoute";
+import MyProfile from "../layouts/DashboardLayout/Dashboard/MyProfile/MyProfile";
+import PaymentSuccess from "../layouts/DashboardLayout/Dashboard/Payment/PaymentSuccess";
+import PaymentCancelled from "../layouts/DashboardLayout/Dashboard/Payment/PaymentCancelled";
+import Forbidden from "../Components/ForbiddenPage/Forbidden";
+import ServiceCoverage from "../pages/ServiceCoverage/ServiceCoverage";
+import BeADecorator from "../pages/BeADecorator/BeADecorator";
+import DecoratorApplications from "../layouts/DashboardLayout/AdminDashboard/DecoratorApplications/DecoratorApplications";
 
 const router = createBrowserRouter([
   {
@@ -39,9 +44,23 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <Home /> },
       { path: "/services", element: <Services /> },
+      {
+        path: "/service-coverage",
+        element: <ServiceCoverage />,
+        loader: () => fetch("/serviceCenter.json"),
+      },
       { path: "/services/:id", element: <ServiceDetails /> },
       { path: "/login", element: <Login /> },
       { path: "/register", element: <Register /> },
+      { path: "/forbidden", element: <Forbidden /> },
+      {
+        path: "/be-a-decorator",
+        element: (
+          <PrivateRoute>
+            <BeADecorator />
+          </PrivateRoute>
+        ),
+      },
     ],
   },
 
@@ -54,20 +73,14 @@ const router = createBrowserRouter([
     ),
     children: [
       { index: true, element: <UserDashboard /> },
-      { path: "my-bookings", element: <MyBookings /> },
+      { path: "bookings", element: <MyBookings /> },
+      { path: "profile", element: <MyProfile /> },
       { path: "payment-history", element: <PaymentHistory /> },
-      { path: "profile", element: <UserProfile /> },
+      { path: "payment-success", element: <PaymentSuccess /> },
+      { path: "payment-cancelled", element: <PaymentCancelled /> },
 
       {
-        path: "admin",
-        element: (
-          <AdminRoute>
-            <AdminDashboard />
-          </AdminRoute>
-        ),
-      },
-      {
-        path: "admin/services",
+        path: "admin/manage-services",
         element: (
           <AdminRoute>
             <ManageServices />
@@ -75,7 +88,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "admin/decorators",
+        path: "admin/manage-decorators",
         element: (
           <AdminRoute>
             <ManageDecorators />
@@ -83,13 +96,22 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "admin/bookings",
+        path: "admin/manage-bookings",
         element: (
           <AdminRoute>
             <ManageBookings />
           </AdminRoute>
         ),
       },
+      {
+        path: "admin/decorator-applications",
+        element: (
+          <AdminRoute>
+            <DecoratorApplications />
+          </AdminRoute>
+        ),
+      },
+
       {
         path: "admin/analytics",
         element: (

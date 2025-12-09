@@ -7,7 +7,7 @@ const ServiceCard = ({ service, accentClass }) => {
       <Link
         key={service._id}
         to={`/services/${service._id}`}
-        className="block transition duration-250 hover:-translate-y-3"
+        className="block transition duration-250 h-90 hover:-translate-y-3"
       >
         <article className="bg-white rounded-3xl shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden flex flex-col h-full">
           <div className="h-48 w-full overflow-hidden">
@@ -32,7 +32,7 @@ const ServiceCard = ({ service, accentClass }) => {
 
             <div className="mt-auto pt-2 flex items-baseline gap-2 text-sm">
               <span className="text-lg font-bold text-[#ff6a4a]">
-                ৳{service.cost.toLocaleString()}
+                {service.cost.toLocaleString()} BDT
               </span>
               <span className="text-gray-500">/ {service.unit}</span>
             </div>

@@ -1,13 +1,30 @@
 import React from "react";
+import { Navigate, useLocation } from "react-router";
+import useAuth from "../Hooks/useAuth";
 import useRole from "../Hooks/useRole";
-import { Navigate } from "react-router";
-import LoadingSpinner from "../Components/Spinner/LoadingSpinner";
 
 const DecoratorRoute = ({ children }) => {
-  const [role, isLoading] = useRole();
+  const { user, loading } = useAuth();
+  const [role, roleLoading] = useRole();
+  const location = useLocation();
 
-  if (isLoading) return <LoadingSpinner />;
-  if (role !== "decorator") return <Navigate to="/dashboard" replace />;
+  if (loading || roleLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <span className="loading loading-spinner loading-lg text-[#ff6a4a]" />
+      </div>
+    );
+  }
+
+  if (!user || role !== "decorator") {
+    return (
+      <Navigate
+        to="/forbidden"
+        state={{ from: location }}
+        replace
+      />
+    );
+  }
 
   return children;
 };

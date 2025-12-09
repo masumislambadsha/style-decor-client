@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import { Mail, Lock, Eye, EyeOff, Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
 import useAuth from "../../../Hooks/useAuth";
-
+motion
 const Login = () => {
   const { signInUser, signInGoogle, loading } = useAuth();
   const navigate = useNavigate();
@@ -51,27 +51,27 @@ const Login = () => {
   }
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-gray-50 to-orange-50 flex items-center justify-center py-12 px-4">
+    <div className="min-h-screen bg-linear-to-br from-gray-50 to-orange-50 flex items-center justify-center py-10 px-4">
       <div className="max-w-lg w-full">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="bg-white rounded-3xl shadow-2xl overflow-hidden"
+          className="bg-white rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden"
         >
-          <div className="bg-linear-to-r from-[#ff6a4a] to-orange-600 p-10 text-center">
-            <h1 className="text-5xl font-black text-white">Welcome Back</h1>
-            <p className="text-orange-100 mt-3 text-lg">
+          <div className="bg-linear-to-r from-[#ff6a4a] to-orange-600 p-8 sm:p-10 text-center">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white">Welcome Back</h1>
+            <p className="text-orange-100 mt-3 text-base sm:text-lg">
               Login to your account
             </p>
           </div>
 
-          <div className="p-10">
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
-              {/* Email */}
+          <div className="p-8 sm:p-10">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 sm:space-y-8">
+              {/* email */}
               <div>
                 <label className="flex items-center gap-3 text-gray-700 font-semibold mb-3">
-                  <Mail size={22} className="text-[#ff6a4a]" />
+                  <Mail size={20} sm:size={22} className="text-[#ff6a4a]" />
                   Email Address
                 </label>
                 <input
@@ -80,7 +80,7 @@ const Login = () => {
                     required: "Email is required",
                     pattern: { value: /^\S+@\S+$/i, message: "Invalid email" },
                   })}
-                  className="input input-bordered w-full h-14 pl-12 text-lg"
+                  className="input outline-0 input-bordered w-full h-12 sm:h-14 pl-10 sm:pl-12 text-base sm:text-lg"
                   placeholder="you@example.com"
                 />
                 {errors.email && (
@@ -90,10 +90,10 @@ const Login = () => {
                 )}
               </div>
 
-              {/* Password */}
+              {/* password */}
               <div className="relative">
                 <label className="flex items-center gap-3 text-gray-700 font-semibold mb-3">
-                  <Lock size={22} className="text-[#ff6a4a]" />
+                  <Lock size={20} sm:size={22} className="text-[#ff6a4a]" />
                   Password
                 </label>
                 <input
@@ -101,15 +101,15 @@ const Login = () => {
                   {...register("password", {
                     required: "Password is required",
                   })}
-                  className="input input-bordered w-full h-14 pl-12 pr-14 text-lg"
+                  className="input outline-0 input-bordered w-full h-12 sm:h-14 pl-10 sm:pl-12 pr-12 sm:pr-14 text-base sm:text-lg"
                   placeholder="••••••••"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPass(!showPass)}
-                  className="absolute right-4 top-15.5 -translate-y-1/2 text-gray-600 hover:text-[#ff6a4a] z-10 cursor-pointer"
+                  className="absolute right-3 sm:right-4 top-15.5 -translate-y-1/2 text-gray-600 hover:text-[#ff6a4a] z-10 cursor-pointer"
                 >
-                  {showPass ? <EyeOff size={26} /> : <Eye size={26} />}
+                  {showPass ? <EyeOff size={24} /> : <Eye size={24} />}
                 </button>
                 {errors.password && (
                   <p className="text-red-500 text-sm mt-2">
@@ -119,19 +119,19 @@ const Login = () => {
               </div>
               <button
                 type="submit"
-                className="btn bg-[#ff6a4a] hover:bg-black text-white font-bold w-full h-14 text-xl rounded-xl shadow-xl"
+                className="btn bg-[#ff6a4a] hover:bg-black text-white font-bold w-full h-12 sm:h-14 text-base sm:text-xl rounded-lg sm:rounded-xl shadow-xl"
               >
                 Login Now
               </button>
             </form>
 
-            <div className="mt-10">
+            <div className="mt-8 sm:mt-10">
               <div className="relative">
                 <div className="absolute inset-0 flex items-center">
                   <div className="w-full border-t border-gray-300"></div>
                 </div>
                 <div className="relative flex justify-center text-sm">
-                  <span className="px-6 bg-white text-gray-500">
+                  <span className="px-4 sm:px-6 bg-white text-gray-500">
                     Or continue with
                   </span>
                 </div>
@@ -139,9 +139,9 @@ const Login = () => {
 
               <button
                 onClick={handleGoogle}
-                className="mt-8 btn btn-outline w-full h-14 text-lg hover:bg-[#ff6a4a] hover:text-white font-semibold flex items-center justify-center gap-3 rounded-xl"
+                className="mt-6 sm:mt-8 btn btn-outline w-full h-12 sm:h-14 text-base sm:text-lg hover:bg-[#ff6a4a] hover:text-white font-semibold flex items-center justify-center gap-2 sm:gap-3 rounded-lg sm:rounded-xl"
               >
-                <svg className="w-6 h-6" viewBox="0 0 24 24">
+                <svg className="w-5 sm:w-6 h-5 sm:h-6" viewBox="0 0 24 24">
                   <path
                     fill="#4285F4"
                     d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
@@ -163,7 +163,7 @@ const Login = () => {
               </button>
             </div>
 
-            <p className="text-center mt-10 text-gray-600 text-lg">
+            <p className="text-center mt-8 sm:mt-10 text-gray-600 text-sm sm:text-lg">
               New to StyleDecor?{" "}
               <Link
                 to="/register"

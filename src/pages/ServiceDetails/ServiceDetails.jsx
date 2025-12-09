@@ -1,24 +1,26 @@
 import React, { useState } from "react";
-import { useParams, Link, useNavigate } from "react-router";
+import { useParams, useNavigate } from "react-router";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import toast from "react-hot-toast";
 import useAuth from "../../Hooks/useAuth";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { Calendar, MapPin, User, Mail } from "lucide-react";
 import { motion } from "framer-motion";
-
+motion
 const ServiceDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { data: service, isLoading } = useQuery({
     queryKey: ["service", id],
     queryFn: async () => {
-      const res = await axios.get(`${import.meta.env.VITE_API_URL}/services/${id}`);
+      const res = await axiosSecure.get(`/services/${id}`);
       return res.data;
     },
+    enabled: !!id,
   });
 
   const handleBooking = async (e) => {
@@ -36,16 +38,31 @@ const ServiceDetails = () => {
       userName: user.displayName,
       bookingDate: e.target.date.value,
       location: e.target.location.value,
-      status: "pending",
+      cost: service.cost,
+      status: "pending_payment",
       createdAt: new Date(),
     };
 
     try {
-      await axios.post(`${import.meta.env.VITE_API_URL}/bookings`, bookingData);
-      toast.success("Booking request sent!");
-      setIsModalOpen(false);
+      const res = await axiosSecure.post("/bookings", bookingData);
+
+      if (res.data.insertedId) {
+        toast.success("Booking request sent successfully!");
+        setIsModalOpen(false);
+        navigate("/dashboard/bookings");
+      } else {
+        toast.error("Failed to create booking");
+      }
     } catch (err) {
-      toast.error("Booking failed", err);
+      console.error("Booking error:", err);
+      if (err.response?.status === 401) {
+        toast.error("Please login again to book");
+        navigate("/login");
+      } else if (err.response?.status === 403) {
+        toast.error("You don't have permission to book");
+      } else {
+        toast.error("Booking failed. Please try again.");
+      }
     }
   };
 
@@ -59,135 +76,151 @@ const ServiceDetails = () => {
   if (!service) return <p className="text-center py-20">Service not found</p>;
 
   return (
-    <div className="min-h-screen bg-linear-to-b from-gray-50 to-gray-100 py-20">
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-start">
-
-          {/* Service Image */}
+    <div className="min-h-screen bg-linear-to-b from-gray-50 to-gray-100 py-10 sm:py-20">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-14 items-start">
           <motion.img
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             src={service.image}
             alt={service.service_name}
-            className="w-full h-96 object-cover rounded-3xl shadow-xl border"
+            className="w-full h-64 sm:h-80 md:h-96 object-cover rounded-2xl sm:rounded-3xl shadow-xl border"
           />
 
-          {/* Service Content */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="space-y-8"
+            className="space-y-6 sm:space-y-8"
           >
-            <h1 className="text-5xl font-extrabold text-gray-900 leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-[55px] font-bold text-gray-900 leading-tight">
               {service.service_name}
             </h1>
 
-            <p className="text-lg text-gray-600 leading-relaxed">
+            <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
               {service.description}
             </p>
 
-            {/* Pricing Card */}
-            <div className="bg-white rounded-3xl shadow-lg p-8 border border-gray-100 space-y-6">
+            <div className="bg-white rounded-2xl sm:rounded-3xl shadow-lg p-6 sm:p-8 border border-gray-100 space-y-6">
               <div className="flex items-center justify-between">
-                <span className="text-4xl font-black text-[#ff6a4a]">
-                  ৳{service.cost.toLocaleString()}
+                <span className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#ff6a4a]">
+                  ৳{service.cost?.toLocaleString() || 0}
                 </span>
-                <span className="text-gray-500 text-lg">per {service.unit}</span>
+                <span className="text-gray-500 text-sm sm:text-lg">
+                  per {service.unit}
+                </span>
               </div>
 
-              <div className="badge badge-lg badge-outline text-gray-700">
+              <div className="badge badge-sm sm:badge-lg badge-outline text-gray-700">
                 {service.service_category}
               </div>
 
               <button
-                onClick={() => (user ? setIsModalOpen(true) : navigate("/login"))}
-                className="btn bg-[#ff6a4a] hover:bg-black text-white font-bold w-full h-14 text-xl rounded-full shadow-md transition-all"
+                onClick={() =>
+                  user ? setIsModalOpen(true) : navigate("/login")
+                }
+                className="btn bg-[#ff6a4a] hover:bg-black text-white font-bold w-full h-12 sm:h-14 text-base sm:text-xl rounded-lg sm:rounded-full shadow-md transition-all"
+                disabled={!service.isActive}
               >
-                {user ? "Book Now" : "Login to Book"}
+                {!service.isActive
+                  ? "Service Unavailable"
+                  : user
+                  ? "Book Now"
+                  : "Login to Book"}
               </button>
             </div>
           </motion.div>
         </div>
       </div>
 
-      {/* Booking Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
           <motion.div
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            className="bg-white rounded-3xl shadow-2xl max-w-lg w-full p-10 relative"
+            className="bg-white rounded-2xl sm:rounded-3xl shadow-2xl max-w-lg w-full p-6 sm:p-10 relative"
           >
-            <h2 className="text-3xl font-extrabold mb-8">
+            <button
+              onClick={() => setIsModalOpen(false)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-700"
+            >
+              ✕
+            </button>
+
+            <h2 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8">
               Complete Your Booking
             </h2>
 
             <form onSubmit={handleBooking} className="space-y-6">
-              {/* Name */}
+              <div className="bg-gray-50 p-4 rounded-xl">
+                <p className="font-semibold text-gray-800">
+                  Service: {service.service_name}
+                </p>
+                <p className="text-[#ff6a4a] font-bold">
+                  ৳{service.cost?.toLocaleString() || 0}
+                </p>
+              </div>
+
               <div>
                 <label className="flex items-center gap-3 mb-2 font-medium text-gray-700">
-                  <User size={20} /> Name
+                  <User size={18} sm:size={20} /> Name
                 </label>
                 <input
                   type="text"
-                  value={user?.displayName || ""}
+                  value={user?.displayName || user?.name || ""}
                   readOnly
-                  className="input input-bordered w-full"
+                  className="input input-bordered w-full bg-gray-50 text-xs sm:text-sm"
                 />
               </div>
 
-              {/* Email */}
               <div>
                 <label className="flex items-center gap-3 mb-2 font-medium text-gray-700">
-                  <Mail size={20} /> Email
+                  <Mail size={18} sm:size={20} /> Email
                 </label>
                 <input
                   type="email"
                   value={user?.email || ""}
                   readOnly
-                  className="input input-bordered w-full"
+                  className="input input-bordered w-full bg-gray-50 text-xs sm:text-sm"
                 />
               </div>
 
-              {/* Date */}
               <div>
                 <label className="flex items-center gap-3 mb-2 font-medium text-gray-700">
-                  <Calendar size={20} /> Preferred Date
+                  <Calendar size={18} sm:size={20} /> Preferred Date
                 </label>
                 <input
                   type="date"
                   name="date"
                   required
-                  className="input input-bordered w-full"
+                  min={new Date().toISOString().split("T")[0]}
+                  className="input input-bordered w-full text-xs sm:text-sm"
                 />
               </div>
 
-              {/* Location */}
               <div>
                 <label className="flex items-center gap-3 mb-2 font-medium text-gray-700">
-                  <MapPin size={20} /> Location
+                  <MapPin size={18} sm:size={20} /> Location
                 </label>
                 <input
                   type="text"
                   name="location"
                   required
                   placeholder="Your full address"
-                  className="input input-bordered w-full"
+                  className="input input-bordered w-full text-xs sm:text-sm"
                 />
               </div>
 
-              {/* Buttons */}
               <div className="flex gap-4 pt-4">
                 <button
                   type="submit"
-                  className="btn bg-[#ff6a4a] hover:bg-black text-white flex-1 h-12 text-lg"
+                  className="btn bg-[#ff6a4a] hover:bg-black text-white flex-1 h-10 sm:h-12 text-sm sm:text-lg"
                 >
                   Confirm Booking
                 </button>
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="btn btn-outline flex-1 h-12 text-lg"
+                  className="btn btn-outline flex-1 h-10 sm:h-12 text-sm sm:text-lg"
                 >
                   Cancel
                 </button>

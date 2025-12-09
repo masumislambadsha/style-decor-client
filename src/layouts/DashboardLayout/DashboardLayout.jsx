@@ -1,51 +1,34 @@
 import React from "react";
-import { Outlet } from "react-router";
+import { Outlet, useNavigate } from "react-router";
+import useAuth from "../../Hooks/useAuth";
+import useRole from "../../Hooks/useRole";
 import Sidebar from "./Sidebar/Sidebar";
+import LoadingSpinner from "../../Components/Spinner/LoadingSpinner";
 
 const DashboardLayout = () => {
+  const { user, loading } = useAuth();
+  const [role, roleLoading] = useRole();
+  const navigate = useNavigate();
+
+  if (loading || roleLoading) {
+    return <LoadingSpinner />;
+  }
+
+  if (!user) {
+    navigate("/login");
+    return null;
+  }
+
+  const normalizedRole = (role || "user").toLowerCase();
+
   return (
-    <div className="drawer lg:drawer-open">
-      <input id="dashboard-drawer" type="checkbox" className="drawer-toggle" />
-
-      <div className="drawer-content flex flex-col min-h-screen bg-gray-50">
-        <div className="navbar bg-white border-b border-gray-200 px-6">
-          <div className="flex-none">
-            <label
-              htmlFor="dashboard-drawer"
-              className="btn btn-ghost lg:hidden"
-            >
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
-            </label>
-          </div>
-          <div className="flex-1">
-            <h1 className="text-2xl font-black text-gray-800">
-              StyleDecor Dashboard
-            </h1>
-          </div>
-        </div>
-        <main className="flex-1 p-6 lg:p-10">
+    <div className="flex h-screen bg-gray-50">
+      <Sidebar role={normalizedRole} />
+      <main className="flex-1 overflow-auto">
+        <div className="p-4 md:p-10">
           <Outlet />
-        </main>
-      </div>
-
-      <div className="drawer-side">
-        <label htmlFor="dashboard-drawer" className="drawer-overlay"></label>
-        <aside className="w-64 lg:w-20 xl:w-64 min-h-full bg-linear-to-b from-[#ff6a4a] to-orange-600 text-white">
-          <Sidebar />
-        </aside>
-      </div>
+        </div>
+      </main>
     </div>
   );
 };

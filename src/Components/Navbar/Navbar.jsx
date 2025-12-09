@@ -1,10 +1,13 @@
 import React from "react";
 import { Link, useNavigate, useLocation } from "react-router";
 import useAuth from "../../Hooks/useAuth";
+import useRole from "../../Hooks/useRole";
 import toast from "react-hot-toast";
+import Logo from "../Logo/Logo";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
+  const [role] = useRole(); // "admin" | "decorator" | "user" | undefined
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -37,12 +40,14 @@ const Navbar = () => {
           Home
         </Link>
       </li>
-      {["Services", "About", "Contact Us"].map((item) => {
+      {["Services", "About", "Contact Us", "Coverage"].map((item) => {
         const path =
           item === "Services"
             ? "/services"
             : item === "About"
             ? "/about"
+            : item === "Coverage"
+            ? "/service-coverage"
             : "/contact";
         const isActive = location.pathname === path;
 
@@ -69,22 +74,11 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="navbar  justify-between backdrop-blur-sm fixed top-0 z-40 shadow-sm px-6 lg:px-20 h-20 border-b">
+      <div className="navbar  justify-between backdrop-blur-sm fixed top-0 z-400000 shadow-sm px-6 lg:px-20 h-20 border-b">
         <div className="navbar-start">
           <Link to="/" className="flex items-center gap-3">
             <div className="relative">
-              <div className="w-14 h-14 bg-[#ff6a4a] rounded-full flex items-center justify-center text-white text-3xl font-black shadow-xl">
-                S
-              </div>
-              <div className="absolute -top-1 -right-1 w-7 h-7 bg-white rounded-full border-4 border-[#ff6a4a]"></div>
-            </div>
-            <div>
-              <h1 className="text-2xl font-black text-black leading-none">
-                StyleDecor
-              </h1>
-              <p className="text-xs text-gray-600 font-semibold tracking-wider">
-                Interior Solutions
-              </p>
+              <Logo />
             </div>
           </Link>
         </div>
@@ -131,6 +125,18 @@ const Navbar = () => {
                 Contact
               </Link>
             </li>
+            <li>
+              <Link
+                to="/service-coverage"
+                className={`hover:text-[#ff6a4a] transition ${
+                  location.pathname === "/service-coverage"
+                    ? "text-[#ff6a4a]"
+                    : ""
+                }`}
+              >
+                Coverage
+              </Link>
+            </li>
           </ul>
         </div>
 
@@ -160,6 +166,16 @@ const Navbar = () => {
                     Dashboard
                   </Link>
                 </li>
+                {role !== "decorator" && (
+                  <li>
+                    <Link
+                      to="/be-a-decorator"
+                      className="font-medium text-[#ff6a4a]"
+                    >
+                      Be a Decorator
+                    </Link>
+                  </li>
+                )}
                 <li>
                   <button
                     onClick={handleLogout}
@@ -197,9 +213,12 @@ const Navbar = () => {
           </label>
         </div>
       </div>
-
       <div className="drawer lg:hidden">
-        <input id="mobile-drawer" type="checkbox" className="drawer-toggle" />
+        <input
+          id="mobile-drawer"
+          type="checkbox"
+          className="input outline-0 drawer-toggle"
+        />
         <div className="drawer-side z-50">
           <label
             htmlFor="mobile-drawer"
@@ -207,25 +226,12 @@ const Navbar = () => {
             className="drawer-overlay"
           ></label>
 
-          <div className="min-h-full w-80 bg-black text-white p-8 flex flex-col">
-            <div className="flex justify-between items-start mb-12">
-              <Link to="/" className="flex items-center gap-4">
-                <div className="relative">
-                  <div className="w-16 h-16 bg-[#ff6a4a] rounded-full flex items-center justify-center text-white text-4xl font-black">
-                    S
-                  </div>
-                  <div className="absolute -top-1 -right-1 w-8 h-8 bg-white rounded-full border-4 border-[#ff6a4a]"></div>
-                </div>
-                <div>
-                  <h1 className="text-3xl font-black">StyleDecor</h1>
-                  <p className="text-sm text-gray-400 font-medium">
-                    Interior Solutions
-                  </p>
-                </div>
-              </Link>
+          <div className="min-h-full w-80 bg-black text-white p-8 pt-10 flex flex-col">
+            <div className="flex justify-between items-start mb-12 relative">
+              <Link to="/" className="flex items-center gap-4"></Link>
               <label
                 htmlFor="mobile-drawer"
-                className="btn btn-ghost btn-circle"
+                className="btn btn-ghost btn-circle absolute -right-5 top-10"
               >
                 <svg
                   className="w-10 h-10"
@@ -254,6 +260,14 @@ const Navbar = () => {
                   >
                     Dashboard
                   </Link>
+                  {role !== "decorator" && (
+                    <Link
+                      to="/be-a-decorator"
+                      className="block text-xl font-bold text-[#ff6a4a]"
+                    >
+                      Be a Decorator
+                    </Link>
+                  )}
                   <button
                     onClick={handleLogout}
                     className="text-red-500 text-xl font-bold"
@@ -263,7 +277,7 @@ const Navbar = () => {
                 </div>
               ) : (
                 <Link to="/login">
-                  <button className="btn bg-[#ff6a4a] hover:bg-white hover:text-black text-white font-bold w-full text-xl h-14 rounded-none shadow-xl">
+                  <button className="btn bg-[#ff6a4a] hover:bg:white hover:text-black text-white font-bold w-full text-xl h-14 rounded-none shadow-xl cursor-pointer">
                     Login
                   </button>
                 </Link>

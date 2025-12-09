@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-
+import React, { createContext, useEffect, useState } from "react";
 import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
@@ -10,13 +9,15 @@ import {
   updateProfile,
 } from "firebase/auth";
 import axios from "axios";
-import { AuthContext } from "../AuthContext/AuthContext";
 import { auth } from "../../Firebase/firebase.init";
+
+export const AuthContext = createContext(null);
 
 const googleProvider = new GoogleAuthProvider();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(true);
 
   const registerUser = (email, password) => {
@@ -36,36 +37,56 @@ const AuthProvider = ({ children }) => {
 
   const logOut = () => {
     setLoading(true);
+    setToken(null);
+    localStorage.removeItem("access-token");
     return signOut(auth);
   };
 
-  const updateUserProfile = (profile) => {
-    return updateProfile(auth.currentUser, profile);
+  const updateUserProfile = (profile) =>
+    updateProfile(auth.currentUser, profile);
+  const getToken = async (email) => {
+    try {
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/jwt`, {
+        email,
+      });
+      const t = res.data.token;
+      setToken(t);
+      localStorage.setItem("access-token", t);
+      return t;
+    } catch (err) {
+      console.error("JWT request failed:", err.response?.data || err.message);
+      throw err;
+    }
   };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-      if (currentUser) {
-        const userData = {
-          name: currentUser.displayName || "User",
-          email: currentUser.email,
-          photoURL:
-            currentUser.photoURL || "https://i.ibb.co.com/5Y0X5gY/user.png",
-          uid: currentUser.uid,
-          provider: currentUser.providerData[0]?.providerId || "email",
-        };
+      try {
+        if (currentUser?.email) {
+          const userData = {
+            email: currentUser.email,
+            name: currentUser.displayName || "User",
+            photoURL:
+              currentUser.photoURL || "https://i.ibb.co.com/5Y0X5gY/user.png",
+          };
 
-        try {
+          // save / update user WITHOUT touching role
           await axios.post(`${import.meta.env.VITE_API_URL}/users`, userData);
-        } catch (err) {
-          console.log("User save error (might already exist):", err);
-        }
 
-        setUser(currentUser);
-      } else {
-        setUser(null);
+          const t = await getToken(currentUser.email);
+
+          setUser({ ...currentUser, accessToken: t });
+        } else {
+          setUser(null);
+          setToken(null);
+          localStorage.removeItem("access-token");
+        }
+      } catch (e) {
+        // console.error("Auth sync error:", e);
+        setUser(currentUser || null);
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     });
 
     return () => unsubscribe();
@@ -74,6 +95,7 @@ const AuthProvider = ({ children }) => {
   const authInfo = {
     user,
     loading,
+    token,
     registerUser,
     signInUser,
     signInGoogle,
@@ -82,7 +104,7 @@ const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext value={authInfo}>{children}</AuthContext>
+    <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
   );
 };
 

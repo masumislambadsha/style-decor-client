@@ -9,7 +9,7 @@ const useDecorators = () => {
   } = useQuery({
     queryKey: ["decorators"],
     queryFn: async () => {
-      const res = await axios.get("http://localhost:3000/decorators");
+      const res = await axios.get("https://style-decor-server-two.vercel.app/decorators");
       return res.data;
     },
   });

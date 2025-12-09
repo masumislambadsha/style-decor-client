@@ -1,41 +1,47 @@
+// src/Hooks/useAxiosSecure.jsx
 import axios from "axios";
-import React, { useEffect } from "react";
-import useAuth from "./useAuth";
+import { useEffect } from "react";
 import { useNavigate } from "react-router";
+import useAuth from "./useAuth";
 
 const axiosSecure = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: import.meta.env.VITE_API_URL || "https://style-decor-server-two.vercel.app",
 });
 
 const useAxiosSecure = () => {
-  const { user, logOut } = useAuth();
+  const { logOut } = useAuth();
   const navigate = useNavigate();
+
   useEffect(() => {
-    // intercepet request
-    const reqInterceptor = axiosSecure.interceptors.request.use((config) => {
-      config.headers.Authorization = `Bearer ${user?.accessToken}`;
-      return config;
-    });
-    // interceptor response
-    const resInterceptor = axiosSecure.interceptors.response.use(
-      (response) => {
-        return response;
+    const reqInterceptor = axiosSecure.interceptors.request.use(
+      (config) => {
+        const token = localStorage.getItem("access-token");
+        if (token) {
+          config.headers.Authorization = `Bearer ${token}`;
+        }
+        return config;
       },
-      (error) => {
-        console.log(error);
-        const statusCode = error.status;
-        if (statusCode === 401 || statusCode === 403) {
-          logOut();
+      (error) => Promise.reject(error)
+    );
+
+    const resInterceptor = axiosSecure.interceptors.response.use(
+      (response) => response,
+      async (error) => {
+        const status = error.response?.status;
+        if (status === 401 || status === 403) {
+          await logOut();
           navigate("/login");
         }
         return Promise.reject(error);
       }
     );
+
     return () => {
       axiosSecure.interceptors.request.eject(reqInterceptor);
       axiosSecure.interceptors.response.eject(resInterceptor);
     };
-  }, [user, logOut, navigate]);
+  }, [logOut, navigate]);
+
   return axiosSecure;
 };
 

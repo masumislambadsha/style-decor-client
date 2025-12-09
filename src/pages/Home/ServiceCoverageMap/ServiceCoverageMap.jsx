@@ -9,8 +9,7 @@ import LoadingSpinner from "../../../Components/Spinner/LoadingSpinner";
 // Fix Leaflet default icon
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
-  iconRetinaUrl:
-    "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
+  iconRetinaUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
   iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
   shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
 });
@@ -67,56 +66,54 @@ const ServiceCoverageArea = () => {
     );
 
   return (
-    <section className="py-20 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-black text-black mb-4">
+    <section className="py-16 sm:py-20 bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="text-center mb-10 sm:mb-12">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-black mb-4">
             Our Service Area
           </h2>
-          <p className="text-gray-700 text-lg max-w-4xl mx-auto leading-relaxed">
-            Please tell us about your residential home space or commercial space
-            requirements. One of our creative, modern interior designers or
-            interior decorators will walk you through our service options.
+          <p className="text-gray-700 text-base sm:text-lg max-w-xl sm:max-w-4xl mx-auto leading-relaxed">
+            Please tell us about your residential home space or commercial space requirements. One of our creative, modern interior designers or interior decorators will walk you through our service options.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 justify-center items-center">
-          <div className="bg-white rounded-3xl shadow-xl p-8">
-            <form onSubmit={handleSearch} className="mb-8">
-              <div className="flex gap-3">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 justify-center items-center">
+          <div className="bg-white rounded-xl sm:rounded-3xl shadow-xl p-6 sm:p-8">
+            <form onSubmit={handleSearch} className="mb-6 sm:mb-8">
+              <div className="flex flex-col sm:flex-row gap-3">
                 <input
                   type="text"
                   placeholder="Search district or area..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="input input-bordered flex-1"
+                  className="outline-0 input input-bordered flex-1 text-sm sm:text-base"
                 />
                 <button
                   type="submit"
-                  className="btn bg-[#ff6a4a] hover:bg-black text-white font-bold"
+                  className="btn bg-[#ff6a4a] hover:bg-black text-white font-bold text-sm sm:text-base"
                 >
                   Search
                 </button>
               </div>
             </form>
 
-            <div className="space-y-5 max-h-96 overflow-y-auto">
+            <div className="space-y-4 max-h-72 sm:max-h-96 overflow-y-auto">
               {serviceCenters.map((center, idx) => (
                 <div
                   key={idx}
-                  className="border-b border-gray-200 pb-5 last:border-0 cursor-pointer hover:bg-gray-50 rounded-lg p-4 -mx-4 transition"
+                  className="border-b border-gray-200 pb-4 last:border-0 cursor-pointer hover:bg-gray-50 rounded-lg p-3 -mx-3 sm:-mx-4 transition"
                   onClick={() => handleAreaClick(center)}
                 >
-                  <h3 className="font-bold text-lg text-gray-900 flex items-center justify-between">
+                  <h3 className="font-bold text-base sm:text-lg text-gray-900 flex items-center justify-between">
                     <span className="flex items-center gap-2">
                       <span className="text-red-600">•</span>
                       {center.district}
                     </span>
-                    <span className="text-sm text-gray-500">
+                    <span className="text-xs sm:text-sm text-gray-500">
                       {center.covered_area.length} areas
                     </span>
                   </h3>
-                  <div className="mt-3 flex flex-wrap gap-2">
+                  <div className="mt-2 flex flex-wrap gap-2">
                     {center.covered_area.map((area, i) => (
                       <span
                         key={i}
@@ -125,7 +122,7 @@ const ServiceCoverageArea = () => {
                           setSearchTerm(area);
                           handleAreaClick(center);
                         }}
-                        className="text-xs px-3 py-1.5 bg-gray-100 rounded-full hover:bg-[#ff6a4a] hover:text-white transition cursor-pointer"
+                        className="text-xs px-2 py-1.5 bg-gray-100 rounded-full hover:bg-[#ff6a4a] hover:text-white transition cursor-pointer"
                       >
                         {area}
                       </span>
@@ -135,8 +132,9 @@ const ServiceCoverageArea = () => {
               ))}
             </div>
           </div>
+
           <div className="relative">
-            <div className="h-96 md:h-[490px] rounded-3xl shadow-2xl overflow-hidden">
+            <div className="h-64 sm:h-72 md:h-[490px] rounded-xl sm:rounded-3xl shadow-2xl overflow-hidden">
               <MapContainer
                 center={[23.685, 90.3563]}
                 zoom={7}
@@ -154,12 +152,12 @@ const ServiceCoverageArea = () => {
                   >
                     <Popup>
                       <div className="text-center">
-                        <h3 className="font-bold text-lg">{center.district}</h3>
-                        <p className="text-sm">{center.city}</p>
-                        <p className="text-xs mt-2 text-gray-600">
+                        <h3 className="font-bold text-base sm:text-lg">{center.district}</h3>
+                        <p className="text-xs sm:text-sm">{center.city}</p>
+                        <p className="text-xs sm:text-xs mt-1 text-gray-600">
                           {center.covered_area.join(", ")}
                         </p>
-                        <p className="text-[#ff6a4a] font-bold mt-2">
+                        <p className="text-[#ff6a4a] font-bold mt-1">
                           Service Available
                         </p>
                       </div>
@@ -169,7 +167,7 @@ const ServiceCoverageArea = () => {
               </MapContainer>
             </div>
 
-            <button className="absolute top-6 right-6 btn bg-[#ff6a4a] hover:bg-black text-white font-bold px-8 py-3 rounded-none shadow-lg flex items-center gap-2 z-10">
+            <button className="absolute top-4 sm:top-6 right-4 sm:right-6 btn bg-[#ff6a4a] hover:bg-black text-white font-bold px-6 sm:px-8 py-2 sm:py-3 rounded-none shadow-lg flex items-center gap-2 z-10 text-xs sm:text-sm">
               SEE ALL AREA
             </button>
           </div>

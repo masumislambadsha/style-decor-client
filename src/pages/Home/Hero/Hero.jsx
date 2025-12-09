@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-
+motion
 const slides = [
   {
     image:
@@ -52,7 +52,7 @@ const Hero = () => {
     setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
 
   return (
-    <section className="relative h-[70vh] md:h-screen overflow-hidden -mt-40">
+    <section className="relative h-[60vh] sm:h-[70vh] md:h-screen overflow-hidden -mt-20 sm:-mt-40">
       <AnimatePresence mode="wait">
         <motion.div
           key={current}
@@ -70,8 +70,8 @@ const Hero = () => {
         </motion.div>
       </AnimatePresence>
 
-      <div className="relative z-10 h-full flex items-center justify-center px-6">
-        <div className="text-center text-white max-w-5xl mx-auto">
+      <div className="relative z-10 h-full flex items-center justify-center px-4 sm:px-6">
+        <div className="text-center text-white max-w-xl sm:max-w-3xl md:max-w-5xl mx-auto">
           <AnimatePresence mode="wait">
             <motion.div
               key={current}
@@ -80,50 +80,51 @@ const Hero = () => {
               exit={{ opacity: 0, y: -40 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
             >
-              <p className="text-lg md:text-2xl font-light tracking-[0.25em] uppercase mb-6 text-gray-200">
+              <p className="text-sm sm:text-lg md:text-2xl font-light tracking-[0.25em] uppercase mb-4 sm:mb-6 text-gray-200">
                 {slides[current].quote}
               </p>
 
-              <h1 className="text-4xl md:text-7xl font-black mb-6 leading-tight">
+              <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 leading-tight">
                 {slides[current].title}
               </h1>
 
-              <p className="text-base md:text-xl text-gray-200 max-w-3xl mx-auto leading-relaxed mb-10">
+              <p className="text-sm sm:text-base md:text-xl text-gray-200 max-w-xl sm:max-w-2xl md:max-w-3xl mx-auto leading-relaxed mb-6 sm:mb-10">
                 {slides[current].description}
               </p>
 
               <button
                 onClick={() => (window.location.href = "/services")}
-                className="group inline-flex items-center gap-3 bg-[#ff6a4a] hover:bg-white text-white hover:text-black font-bold text-lg px-10 py-4 rounded-full shadow-2xl transition-all duration-300"
+                className="group inline-flex items-center gap-2 sm:gap-3 bg-[#ff6a4a] hover:bg-white text-white hover:text-black font-bold text-sm sm:text-lg px-6 sm:px-10 py-3 sm:py-4 rounded-full shadow-2xl transition-all duration-300"
               >
                 Book This Design
-                <ChevronRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
+                <ChevronRight className="w-5 sm:w-6 h-5 sm:h-6 group-hover:translate-x-2 transition-transform" />
               </button>
             </motion.div>
           </AnimatePresence>
         </div>
       </div>
+
       <button
         onClick={goPrev}
-        className="absolute left-6 top-1/2 -translate-y-1/2 z-20 bg-black/40 hover:bg-[#ff6a4a] text-white w-12 h-12 rounded-full flex items-center justify-center transition"
+        className="absolute left-4 sm:left-6 top-1/2 -translate-y-1/2 z-20 bg-black/40 hover:bg-[#ff6a4a] text-white w-10 sm:w-12 h-10 sm:h-12 rounded-full flex items-center justify-center transition"
       >
-        <ChevronLeft className="w-8 h-8" />
+        <ChevronLeft className="w-6 sm:w-8 h-6 sm:h-8" />
       </button>
 
       <button
         onClick={goNext}
-        className="absolute right-6 top-1/2 -translate-y-1/2 z-20 bg-black/40 hover:bg-[#ff6a4a] text-white w-12 h-12 rounded-full flex items-center justify-center transition"
+        className="absolute right-4 sm:right-6 top-1/2 -translate-y-1/2 z-20 bg-black/40 hover:bg-[#ff6a4a] text-white w-10 sm:w-12 h-10 sm:h-12 rounded-full flex items-center justify-center transition"
       >
-        <ChevronRight className="w-8 h-8" />
+        <ChevronRight className="w-6 sm:w-8 h-6 sm:h-8" />
       </button>
 
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex gap-3 z-20">
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2 sm:gap-3 z-20">
         {slides.map((_, i) => (
           <button
             key={i}
             onClick={() => setCurrent(i)}
-            className={`w-3 h-3 rounded-full transition-all ${
-              i === current ? "bg-[#ff6a4a] w-10" : "bg-white/50"
+            className={`w-2 sm:w-3 h-2 sm:h-3 rounded-full transition-all ${
+              i === current ? "bg-[#ff6a4a] w-6 sm:w-10" : "bg-white/50"
             }`}
           />
         ))}

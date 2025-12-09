@@ -5,11 +5,12 @@ import { motion } from "framer-motion";
 import { Search, Filter } from "lucide-react";
 import LoadingSpinner from "../../Components/Spinner/LoadingSpinner";
 import ServiceCard from "../../Components/ServiceCard/ServiceCard";
-
+motion
 const Services = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedType, setSelectedType] = useState("");
   const [priceRange, setPriceRange] = useState([0, 0]);
+  const [maxPrice, setMaxPrice] = useState(0);
 
   const { data: services = [], isLoading } = useQuery({
     queryKey: ["services"],
@@ -21,8 +22,9 @@ const Services = () => {
 
   useEffect(() => {
     if (services.length) {
-      const maxPrice = Math.max(...services.map((s) => Number(s.cost) || 0));
-      setPriceRange([0, maxPrice]);
+      const max = Math.max(...services.map((s) => Number(s.cost) || 0));
+      setMaxPrice(max);
+      setPriceRange([0, max]);
     }
   }, [services]);
 
@@ -33,8 +35,7 @@ const Services = () => {
 
     const matchesSearch = name.includes(searchTerm.toLowerCase());
     const matchesType = !selectedType || category === selectedType;
-    const matchesPrice =
-      Number.isNaN(cost) || (cost >= priceRange[0] && cost <= priceRange[1]);
+    const matchesPrice = Number.isNaN(cost) || (cost >= priceRange[0] && cost <= priceRange[1]);
 
     return matchesSearch && matchesType && matchesPrice;
   });
@@ -44,46 +45,40 @@ const Services = () => {
   if (isLoading) return <LoadingSpinner />;
 
   return (
-    <div className="min-h-screen bg-gray-50 py-16">
-      <div className="max-w-7xl mx-auto px-6">
+    <div className="min-h-screen bg-gray-50 py-8 sm:py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-12"
+          className="text-center mb-8 sm:mb-12"
         >
-          <h1 className="text-5xl font-black text-gray-900 mb-4">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
             Our Decoration Packages
           </h1>
-          <p className="text-xl text-gray-600">
+          <p className="text-base sm:text-lg text-gray-600">
             Find the perfect design for your space
           </p>
         </motion.div>
 
-        <div className="bg-white rounded-3xl shadow-xl p-8 mb-12">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="bg-white rounded-xl sm:rounded-2xl lg:rounded-3xl shadow-xl p-6 sm:p-8 mb-8 sm:mb-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             <div className="relative">
-              <Search
-                className="absolute left-4 top-4 text-gray-400"
-                size={24}
-              />
+              <Search className="absolute left-4 top-4 text-gray-400" size={20} sm:size={24} />
               <input
                 type="text"
                 placeholder="Search by service name..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="input input-bordered w-full pl-14 h-14 text-lg"
+                className="input input-bordered w-full pl-12 h-10 sm:h-12 lg:h-14 text-sm sm:text-base lg:text-lg"
               />
             </div>
 
             <div className="relative">
-              <Filter
-                className="absolute left-4 top-4 text-gray-400"
-                size={24}
-              />
+              <Filter className="absolute left-4 top-4 text-gray-400" size={20} sm:size={24} />
               <select
                 value={selectedType}
                 onChange={(e) => setSelectedType(e.target.value)}
-                className="select select-bordered w-full pl-14 h-14 text-lg"
+                className="select select-bordered w-full pl-12 h-10 sm:h-12 lg:h-14 text-sm sm:text-base lg:text-lg"
               >
                 <option value="">All Categories</option>
                 {categories.map((cat) => (
@@ -95,31 +90,30 @@ const Services = () => {
             </div>
 
             <div>
-              <label className="block text-gray-700 font-medium mb-3">
-                Price Range: ৳{priceRange[0]} - ৳{priceRange[1]}
+              <label className="block text-gray-700 font-medium mb-3 text-sm sm:text-base">
+                Price Range: {priceRange[0]} BDT - {priceRange[1]} BDT
               </label>
               <input
                 type="range"
                 min="0"
-                max={priceRange[1] || 0}
+                max={maxPrice}
                 step="100"
                 value={priceRange[1]}
-                onChange={(e) =>
-                  setPriceRange([priceRange[0], Number(e.target.value)])
-                }
-                className="range range-accent"
+                onChange={(e) => setPriceRange([priceRange[0], Number(e.target.value)])}
+                className="range range-accent w-full"
               />
             </div>
           </div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-10">
           {filteredServices.map((service, idx) => (
             <motion.div
               key={service._id}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: idx * 0.05 }}
-              className="rounded-3xl overflow-hidden transition-all duration-300 group"
+              className="rounded-xl sm:rounded-2xl lg:rounded-3xl overflow-hidden transition-all duration-300 group"
             >
               <ServiceCard service={service} />
             </motion.div>
@@ -127,8 +121,8 @@ const Services = () => {
         </div>
 
         {filteredServices.length === 0 && (
-          <div className="text-center py-20">
-            <p className="text-2xl text-gray-500">
+          <div className="text-center py-12 sm:py-16">
+            <p className="text-lg sm:text-xl text-gray-500">
               No services found matching your criteria
             </p>
           </div>

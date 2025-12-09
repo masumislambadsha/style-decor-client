@@ -9,7 +9,7 @@ const useServices = () => {
   } = useQuery({
     queryKey: ["services"],
     queryFn: async () => {
-      const res = await axios.get("http://localhost:3000/services");
+      const res = await axios.get("https://style-decor-server-two.vercel.app/services");
       return res.data;
     },
   });
