@@ -117,7 +117,7 @@ const BeADecorator = () => {
             </div>
           </div>
 
-          <div className="h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
+          <div className="h-px bg-linear-to-r from-transparent via-slate-200 to-transparent" />
 
           <form onSubmit={handleRequest} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
