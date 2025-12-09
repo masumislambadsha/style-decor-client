@@ -35,6 +35,8 @@ import Forbidden from "../Components/ForbiddenPage/Forbidden";
 import ServiceCoverage from "../pages/ServiceCoverage/ServiceCoverage";
 import BeADecorator from "../pages/BeADecorator/BeADecorator";
 import DecoratorApplications from "../layouts/DashboardLayout/AdminDashboard/DecoratorApplications/DecoratorApplications";
+import About from "../pages/About/About";
+import Contact from "../pages/Contact/Contact";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +46,8 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <Home /> },
       { path: "/services", element: <Services /> },
+      { path: "/about", element: <About /> },
+      { path: "/contact", element: <Contact /> },
       {
         path: "/service-coverage",
         element: <ServiceCoverage />,

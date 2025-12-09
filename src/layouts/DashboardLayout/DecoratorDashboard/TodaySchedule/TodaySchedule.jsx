@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { motion, AnimatePresence } from "framer-motion";
 import { CalendarDays, MapPin, Clock } from "lucide-react";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
-motion
+motion;
 const cardVariants = {
   hidden: { opacity: 0, y: 20, scale: 0.98 },
   visible: (i) => ({
@@ -42,7 +42,7 @@ const TodaysSchedule = () => {
     return (
       <div className="min-h-screen bg-gray-50 px-4">
         <motion.div
-          className="max-w-5xl mx-auto"
+          className="container mx-auto"
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, ease: "easeOut" }}
@@ -52,7 +52,8 @@ const TodaysSchedule = () => {
               Today's Schedule
             </h1>
             <p className="text-gray-500 mt-1">
-              No events scheduled for today ({new Date().toLocaleDateString("en-GB")}).
+              No events scheduled for today (
+              {new Date().toLocaleDateString("en-GB")}).
             </p>
           </div>
 
@@ -67,7 +68,8 @@ const TodaysSchedule = () => {
               You have no projects today
             </p>
             <p className="text-gray-500 mt-1">
-              When an event is booked for today, it will appear in your schedule.
+              When an event is booked for today, it will appear in your
+              schedule.
             </p>
           </motion.div>
         </motion.div>
@@ -78,7 +80,7 @@ const TodaysSchedule = () => {
   return (
     <div className="min-h-screen bg-gray-50 mt-15 px-4">
       <motion.div
-        className="max-w-5xl mx-auto"
+        className="container mx-auto"
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3, ease: "easeOut" }}
@@ -96,7 +98,8 @@ const TodaysSchedule = () => {
             Events scheduled for {new Date().toLocaleDateString("en-GB")}.
           </p>
           <p className="text-gray-500 text-xs sm:text-sm mt-1">
-            Total: {todaysBookings.length} project{todaysBookings.length !== 1 && "s"}
+            Total: {todaysBookings.length} project
+            {todaysBookings.length !== 1 && "s"}
           </p>
         </motion.div>
 
@@ -123,7 +126,8 @@ const TodaysSchedule = () => {
                     </h2>
                     {b.userName && (
                       <p className="text-sm text-gray-600">
-                        Client: <span className="font-semibold">{b.userName}</span>
+                        Client:{" "}
+                        <span className="font-semibold">{b.userName}</span>
                       </p>
                     )}
                   </div>

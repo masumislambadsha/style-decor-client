@@ -70,7 +70,7 @@ const AuthProvider = ({ children }) => {
               currentUser.photoURL || "https://i.ibb.co.com/5Y0X5gY/user.png",
           };
 
-          // save / update user WITHOUT touching role
+
           await axios.post(`${import.meta.env.VITE_API_URL}/users`, userData);
 
           const t = await getToken(currentUser.email);
@@ -82,7 +82,7 @@ const AuthProvider = ({ children }) => {
           localStorage.removeItem("access-token");
         }
       } catch (e) {
-        // console.error("Auth sync error:", e);
+        console.error("Auth sync error:", e);
         setUser(currentUser || null);
       } finally {
         setLoading(false);
@@ -104,7 +104,7 @@ const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
+    <AuthContext value={authInfo}>{children}</AuthContext>
   );
 };
 

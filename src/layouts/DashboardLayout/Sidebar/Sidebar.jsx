@@ -17,7 +17,7 @@ import useAuth from "../../../Hooks/useAuth";
 import { GoSidebarCollapse } from "react-icons/go";
 import Logo from "../../../Components/Logo/Logo";
 import CollapsedLogo from "../../../Components/Logo/CollapsedLogo";
-import { FaUser, FaUserPlus } from "react-icons/fa";
+import { FaServicestack, FaUser, FaUserPlus } from "react-icons/fa";
 
 const Sidebar = ({ role = "user" }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -53,7 +53,7 @@ const Sidebar = ({ role = "user" }) => {
       {
         label: "Manage Services",
         path: "/dashboard/admin/manage-services",
-        icon: Briefcase,
+        icon: FaServicestack ,
       },
       {
         label: "Manage Decorators",

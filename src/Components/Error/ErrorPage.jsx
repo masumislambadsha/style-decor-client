@@ -4,7 +4,7 @@ import { Link } from "react-router";
 const ErrorPage = () => {
   return (
     <div className="min-h-screen bg-linear-to-br from-black via-slate-900 to-slate-950 text-white flex items-center justify-center px-4 py-10">
-      <div className="max-w-3xl w-full flex flex-col sm:flex-row items-center gap-8 sm:gap-10">
+      <div className="container w-full flex flex-col sm:flex-row items-center gap-8 sm:gap-10">
         <div className="relative w-full sm:w-1/2 mb-6 sm:mb-0">
           <div className="h-48 sm:h-64 w-48 sm:w-64 mx-auto rounded-4xl sm:rounded-[2.5rem] border border-[#ff6a4a]/30 bg-linear-to-tr from-slate-950 via-slate-900 to-slate-800 shadow-[0_20px_60px_rgba(0,0,0,0.7)] flex items-center justify-center overflow-hidden">
             <div className="" />

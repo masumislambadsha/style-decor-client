@@ -6,7 +6,7 @@ import useAuth from "../../Hooks/useAuth";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { Calendar, MapPin, User, Mail } from "lucide-react";
 import { motion } from "framer-motion";
-motion
+motion;
 const ServiceDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -77,7 +77,7 @@ const ServiceDetails = () => {
 
   return (
     <div className="min-h-screen bg-linear-to-b from-gray-50 to-gray-100 py-10 sm:py-20">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+      <div className="container mx-auto px-4 sm:px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-14 items-start">
           <motion.img
             initial={{ opacity: 0, y: 20 }}

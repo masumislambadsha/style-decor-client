@@ -13,7 +13,9 @@ const DecoratorApplications = () => {
   } = useQuery({
     queryKey: ["decorator-applications"],
     queryFn: async () => {
-      const res = await axiosSecure.get("/decorator-applications?status=pending");
+      const res = await axiosSecure.get(
+        "/decorator-applications?status=pending"
+      );
       return res.data;
     },
   });
@@ -43,7 +45,10 @@ const DecoratorApplications = () => {
       });
       await Swal.fire({
         icon: "success",
-        title: action === "approve" ? "Application approved" : "Application rejected",
+        title:
+          action === "approve"
+            ? "Application approved"
+            : "Application rejected",
         timer: 1500,
         showConfirmButton: false,
       });
@@ -64,8 +69,7 @@ const DecoratorApplications = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 py-6 sm:py-8 px-4">
-      <div className="max-w-5xl mx-auto">
-
+      <div className="container mx-auto">
         <div className="text-center mb-6 sm:mb-8">
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-gray-900">
             Decorator Applications
@@ -79,7 +83,6 @@ const DecoratorApplications = () => {
           </p>
         </div>
 
-
         {applications.length === 0 ? (
           <div className="bg-white rounded-xl sm:rounded-2xl shadow-md p-8 sm:p-12 text-center border border-gray-100">
             <div className="text-5xl sm:text-6xl mb-4">📥</div>
@@ -87,7 +90,8 @@ const DecoratorApplications = () => {
               No pending applications
             </p>
             <p className="text-gray-500 mt-1">
-              When someone applies to be a decorator, their request will appear here.
+              When someone applies to be a decorator, their request will appear
+              here.
             </p>
           </div>
         ) : (
@@ -97,7 +101,6 @@ const DecoratorApplications = () => {
                 key={app._id}
                 className="bg-white rounded-xl sm:rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 p-4 sm:p-5"
               >
-               
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-3">
                   <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1 sm:mb-0">
                     Application #{idx + 1}
@@ -108,7 +111,6 @@ const DecoratorApplications = () => {
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-4 items-start">
-                
                   <div className="shrink-0">
                     <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-xl sm:rounded-2xl overflow-hidden bg-[#ff6a4a]/5 border border-[#ff6a4a]/20 flex items-center justify-center text-lg sm:text-xl text-[#ff6a4a]/70">
                       {app.photoURL ? (
@@ -123,7 +125,6 @@ const DecoratorApplications = () => {
                     </div>
                   </div>
 
-                 
                   <div className="flex-1 w-full">
                     <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
                       <div>
@@ -134,16 +135,23 @@ const DecoratorApplications = () => {
                         <div className="flex flex-wrap gap-2 sm:gap-3 text-xs sm:text-sm mt-2">
                           <span className="text-gray-600">
                             <span className="text-gray-500">Phone: </span>
-                            <span className="font-semibold">{app.phone || "N/A"}</span>
+                            <span className="font-semibold">
+                              {app.phone || "N/A"}
+                            </span>
                           </span>
                           <span className="text-gray-600">
                             <span className="text-gray-500">City: </span>
-                            <span className="font-semibold">{app.city || "N/A"}</span>
+                            <span className="font-semibold">
+                              {app.city || "N/A"}
+                            </span>
                           </span>
                           <span className="text-gray-600">
-                            <span className="text-gray-500">Experience:&nbsp;</span>
+                            <span className="text-gray-500">
+                              Experience:&nbsp;
+                            </span>
                             <span className="font-semibold">
-                              {app.experienceYears} year{app.experienceYears === 1 ? "" : "s"}
+                              {app.experienceYears} year
+                              {app.experienceYears === 1 ? "" : "s"}
                             </span>
                           </span>
                         </div>
@@ -164,7 +172,6 @@ const DecoratorApplications = () => {
                       </div>
                     </div>
 
-                   
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
                       <div>
                         <p className="text-xs font-medium text-gray-500 mb-1">

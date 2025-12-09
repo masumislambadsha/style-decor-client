@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router";
 import { motion } from "framer-motion";
 import useRole from "../../../../Hooks/useRole";
-motion
+motion;
 const containerVariants = {
   hidden: { opacity: 0, y: 15 },
   visible: {
@@ -98,17 +98,19 @@ const UserDashboard = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 py-6 sm:py-8 px-4">
-      <div className="max-w-6xl mx-auto">
+      <div className="container mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.25, ease: "easeOut" }}
         >
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-2">
-            Welcome back, {isAdmin ? "Admin" : isDecorator ? "Decorator" : "User"}
+            Welcome back,{" "}
+            {isAdmin ? "Admin" : isDecorator ? "Decorator" : "User"}
           </h1>
           <p className="text-gray-600 mb-6 sm:mb-8 max-w-xl sm:max-w-2xl text-sm sm:text-base">
-            Manage your profile, view your bookings, and track payments in one place.
+            Manage your profile, view your bookings, and track payments in one
+            place.
           </p>
         </motion.div>
 

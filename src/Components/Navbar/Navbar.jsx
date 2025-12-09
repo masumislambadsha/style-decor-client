@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useNavigate, useLocation } from "react-router";
+import { NavLink, Link, useNavigate } from "react-router";
 import useAuth from "../../Hooks/useAuth";
 import useRole from "../../Hooks/useRole";
 import toast from "react-hot-toast";
@@ -7,9 +7,8 @@ import Logo from "../Logo/Logo";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
-  const [role] = useRole(); // "admin" | "decorator" | "user" | undefined
+  const [role] = useRole();
   const navigate = useNavigate();
-  const location = useLocation();
 
   const handleLogout = async () => {
     try {
@@ -24,22 +23,29 @@ const Navbar = () => {
   const menuItems = (
     <>
       <li>
-        <Link
+        <NavLink
           to="/"
-          className={`flex items-center gap-4 text-white hover:text-[#ff6a4a] text-lg font-medium ${
-            location.pathname === "/" ? "text-[#ff6a4a]" : ""
-          }`}
+          className={({ isActive }) =>
+            `flex items-center gap-4 text-white hover:text-[#ff6a4a] text-lg font-medium ${
+              isActive ? "text-[#ff6a4a]" : ""
+            }`
+          }
         >
-          <span
-            className={`text-3xl font-bold ${
-              location.pathname === "/" ? "text-[#ff6a4a]" : "text-transparent"
-            }`}
-          >
-            ›
-          </span>
-          Home
-        </Link>
+          {({ isActive }) => (
+            <>
+              <span
+                className={`text-3xl font-bold transition-all duration-200 ${
+                  isActive ? "text-[#ff6a4a]" : "text-transparent bg-clip-text bg-linear-to-r from-transparent to-transparent"
+                }`}
+              >
+                →
+              </span>
+              Home
+            </>
+          )}
+        </NavLink>
       </li>
+
       {["Services", "About", "Contact Us", "Coverage"].map((item) => {
         const path =
           item === "Services"
@@ -49,23 +55,39 @@ const Navbar = () => {
             : item === "Coverage"
             ? "/service-coverage"
             : "/contact";
-        const isActive = location.pathname === path;
 
         return (
           <li key={item}>
-            <Link
+            <NavLink
               to={path}
-              className="flex items-center justify-between text-white hover:text-[#ff6a4a] text-lg font-medium py-3"
+              className={({ isActive }) =>
+                `flex items-center gap-4 justify-between text-white hover:text-[#ff6a4a] text-lg font-medium py-3 transition-all duration-200 ${
+                  isActive ? "text-[#ff6a4a]" : ""
+                }`
+              }
             >
-              <span className={isActive ? "text-[#ff6a4a]" : ""}>{item}</span>
-              <span
-                className={`text-3xl ${
-                  isActive ? "text-[#ff6a4a]" : "text-gray-500"
-                }`}
-              >
-                +
-              </span>
-            </Link>
+              {({ isActive }) => (
+                <>
+                  <span className="flex items-center gap-4">
+                    <span
+                      className={`text-3xl font-bold transition-all duration-200 ${
+                        isActive ? "text-[#ff6a4a]" : "text-transparent bg-clip-text bg-linear-to-r from-transparent to-transparent"
+                      }`}
+                    >
+                      →
+                    </span>
+                    <span>{item}</span>
+                  </span>
+                  <span
+                    className={`text-3xl transition-all duration-200 ${
+                      isActive ? "text-[#ff6a4a]" : "text-gray-500"
+                    }`}
+                  >
+                    +
+                  </span>
+                </>
+              )}
+            </NavLink>
           </li>
         );
       })}
@@ -74,7 +96,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="navbar  justify-between backdrop-blur-sm fixed top-0 z-400000 shadow-sm px-6 lg:px-20 h-20 border-b">
+      <div className="navbar justify-between backdrop-blur-sm fixed top-0 z-400000 shadow-sm px-6 lg:px-20 h-20 border-b">
         <div className="navbar-start">
           <Link to="/" className="flex items-center gap-3">
             <div className="relative">
@@ -86,56 +108,64 @@ const Navbar = () => {
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal gap-12 text-black font-bold text-lg">
             <li>
-              <Link
+              <NavLink
                 to="/"
-                className={`hover:text-[#ff6a4a] transition ${
-                  location.pathname === "/" ? "text-[#ff6a4a]" : ""
-                }`}
+                className={({ isActive }) =>
+                  `flex items-center gap-4 hover:text-[#ff6a4a] transition-all duration-200 ${
+                    isActive ? "text-[#ff6a4a] font-bold" : ""
+                  }`
+                }
               >
                 Home
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link
+              <NavLink
                 to="/services"
-                className={`hover:text-[#ff6a4a] transition ${
-                  location.pathname === "/services" ? "text-[#ff6a4a]" : ""
-                }`}
+                className={({ isActive }) =>
+                  `flex items-center gap-4 hover:text-[#ff6a4a] transition-all duration-200 ${
+                    isActive ? "text-[#ff6a4a] font-bold" : ""
+                  }`
+                }
               >
                 Services
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link
+              <NavLink
                 to="/about"
-                className={`hover:text-[#ff6a4a] transition ${
-                  location.pathname === "/about" ? "text-[#ff6a4a]" : ""
-                }`}
+                className={({ isActive }) =>
+                  `flex items-center gap-4 hover:text-[#ff6a4a] transition-all duration-200 ${
+                    isActive ? "text-[#ff6a4a] font-bold" : ""
+                  }`
+                }
               >
                 About
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link
+              <NavLink
                 to="/contact"
-                className={`hover:text-[#ff6a4a] transition ${
-                  location.pathname === "/contact" ? "text-[#ff6a4a]" : ""
-                }`}
+                className={({ isActive }) =>
+                  `flex items-center gap-4 hover:text-[#ff6a4a] transition-all duration-200 ${
+                    isActive ? "text-[#ff6a4a] font-bold" : ""
+                  }`
+                }
               >
                 Contact
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link
+              <NavLink
                 to="/service-coverage"
-                className={`hover:text-[#ff6a4a] transition ${
-                  location.pathname === "/service-coverage"
-                    ? "text-[#ff6a4a]"
-                    : ""
-                }`}
+                className={({ isActive }) =>
+                  `flex items-center gap-4 hover:text-[#ff6a4a] transition-all duration-200 ${
+                    isActive ? "text-[#ff6a4a] font-bold" : ""
+                  }`
+                }
               >
                 Coverage
-              </Link>
+              </NavLink>
             </li>
           </ul>
         </div>
@@ -147,7 +177,7 @@ const Navbar = () => {
                 <div className="w-12 rounded-full ring-4 ring-[#ff6a4a] ring-offset-2">
                   <img
                     src={
-                      user.photoURL || "https://i.ibb.co.com/5Y0X5gY/user.png"
+                      user.photoURL || user.photo || "https://i.ibb.co.com/5Y0X5gY/user.png"
                     }
                     alt="Profile"
                   />
@@ -196,23 +226,35 @@ const Navbar = () => {
         </div>
 
         <div className="lg:hidden">
-          <label htmlFor="mobile-drawer" className="btn btn-ghost">
-            <svg
-              className="w-8 h-8"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
-          </label>
-        </div>
+  <label htmlFor="mobile-drawer" className="btn btn-ghost">
+    <button
+      type="button"
+      onClick={(e) => {
+        e.preventDefault(); // stop scroll-to-top
+        const checkbox = document.getElementById("mobile-drawer");
+        if (checkbox) checkbox.checked = !checkbox.checked;
+      }}
+      className="w-8 h-8 flex items-center justify-center"
+    >
+      <svg
+        className="w-8 h-8"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M4 6h16M4 12h16M4 18h16"
+        />
+      </svg>
+    </button>
+  </label>
+</div>
+
       </div>
+
       <div className="drawer lg:hidden">
         <input
           id="mobile-drawer"
@@ -228,7 +270,6 @@ const Navbar = () => {
 
           <div className="min-h-full w-80 bg-black text-white p-8 pt-10 flex flex-col">
             <div className="flex justify-between items-start mb-12 relative">
-              <Link to="/" className="flex items-center gap-4"></Link>
               <label
                 htmlFor="mobile-drawer"
                 className="btn btn-ghost btn-circle absolute -right-5 top-10"

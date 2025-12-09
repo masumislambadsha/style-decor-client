@@ -1,11 +1,10 @@
-// src/Components/Spinner/LoadingSpinner.jsx
 import React from "react";
 
 const LoadingSpinner = () => {
  return (
     <div className="min-h-[50vh] flex items-center justify-center bg-linear-to-b from-gray-50 to-white px-4">
       <div className="flex flex-col items-center gap-4">
-        
+
         <div className="relative w-24 h-24 rounded-3xl bg-white/70 backdrop-blur-md shadow-[0_18px_45px_rgba(15,23,42,0.15)] border border-white/60 overflow-hidden">
 
           <div className="absolute inset-0 bg-linear-to-tr from-[#ff6a4a] via-[#fb923c] to-[#0f172a] opacity-20" />

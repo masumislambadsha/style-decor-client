@@ -64,7 +64,7 @@ const BeADecorator = () => {
           <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#ff6a4a]/10 text-[#ff6a4a] text-xs font-semibold uppercase tracking-[0.2em]">
             Become a partner
           </span>
-          <h1 className="mt-4 text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900">
+          <h1 className="mt-4 text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900">
             Apply as a StyleDecor decorator
           </h1>
           <p className="mt-3 text-slate-600 max-w-xl sm:max-w-2xl mx-auto text-sm sm:text-base">

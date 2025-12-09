@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { Search, Filter } from "lucide-react";
 import LoadingSpinner from "../../Components/Spinner/LoadingSpinner";
 import ServiceCard from "../../Components/ServiceCard/ServiceCard";
-motion
+motion;
 const Services = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedType, setSelectedType] = useState("");
@@ -35,7 +35,8 @@ const Services = () => {
 
     const matchesSearch = name.includes(searchTerm.toLowerCase());
     const matchesType = !selectedType || category === selectedType;
-    const matchesPrice = Number.isNaN(cost) || (cost >= priceRange[0] && cost <= priceRange[1]);
+    const matchesPrice =
+      Number.isNaN(cost) || (cost >= priceRange[0] && cost <= priceRange[1]);
 
     return matchesSearch && matchesType && matchesPrice;
   });
@@ -46,7 +47,7 @@ const Services = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 py-8 sm:py-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -63,7 +64,11 @@ const Services = () => {
         <div className="bg-white rounded-xl sm:rounded-2xl lg:rounded-3xl shadow-xl p-6 sm:p-8 mb-8 sm:mb-12">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             <div className="relative">
-              <Search className="absolute left-4 top-4 text-gray-400" size={20} sm:size={24} />
+              <Search
+                className="absolute left-4 top-4 text-gray-400"
+                size={20}
+                sm:size={24}
+              />
               <input
                 type="text"
                 placeholder="Search by service name..."
@@ -74,7 +79,11 @@ const Services = () => {
             </div>
 
             <div className="relative">
-              <Filter className="absolute left-4 top-4 text-gray-400" size={20} sm:size={24} />
+              <Filter
+                className="absolute left-4 top-4 text-gray-400"
+                size={20}
+                sm:size={24}
+              />
               <select
                 value={selectedType}
                 onChange={(e) => setSelectedType(e.target.value)}
@@ -99,7 +108,9 @@ const Services = () => {
                 max={maxPrice}
                 step="100"
                 value={priceRange[1]}
-                onChange={(e) => setPriceRange([priceRange[0], Number(e.target.value)])}
+                onChange={(e) =>
+                  setPriceRange([priceRange[0], Number(e.target.value)])
+                }
                 className="range range-accent w-full"
               />
             </div>

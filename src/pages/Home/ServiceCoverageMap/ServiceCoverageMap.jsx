@@ -6,10 +6,10 @@ import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import LoadingSpinner from "../../../Components/Spinner/LoadingSpinner";
 
-// Fix Leaflet default icon
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
-  iconRetinaUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
+  iconRetinaUrl:
+    "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
   iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
   shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
 });
@@ -67,18 +67,61 @@ const ServiceCoverageArea = () => {
 
   return (
     <section className="py-16 sm:py-20 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+      <div className="container mx-auto px-4 sm:px-6">
         <div className="text-center mb-10 sm:mb-12">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-black mb-4">
             Our Service Area
           </h2>
           <p className="text-gray-700 text-base sm:text-lg max-w-xl sm:max-w-4xl mx-auto leading-relaxed">
-            Please tell us about your residential home space or commercial space requirements. One of our creative, modern interior designers or interior decorators will walk you through our service options.
+            Please tell us about your residential home space or commercial space
+            requirements. One of our creative, modern interior designers or
+            interior decorators will walk you through our service options.
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 justify-center items-center">
-          <div className="bg-white rounded-xl sm:rounded-3xl shadow-xl p-6 sm:p-8">
+          <div className="relative order-1 lg:order-2">
+            <div className="h-64 sm:h-72 md:h-[490px] rounded-xl sm:rounded-3xl shadow-2xl overflow-hidden">
+              <MapContainer
+                center={[23.685, 90.3563]}
+                zoom={7}
+                ref={mapRef}
+                className="h-full w-full"
+              >
+                <TileLayer
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  attribution="&copy; OpenStreetMap contributors"
+                />
+                {serviceCenters.map((center, idx) => (
+                  <Marker
+                    key={idx}
+                    position={[center.latitude, center.longitude]}
+                  >
+                    <Popup>
+                      <div className="text-center">
+                        <h3 className="font-bold text-base sm:text-lg">
+                          {center.district}
+                        </h3>
+                        <p className="text-xs sm:text-sm">{center.city}</p>
+                        <p className="text-xs mt-1 text-gray-600">
+                          {center.covered_area.join(", ")}
+                        </p>
+                        <p className="text-[#ff6a4a] font-bold mt-1">
+                          Service Available
+                        </p>
+                      </div>
+                    </Popup>
+                  </Marker>
+                ))}
+              </MapContainer>
+            </div>
+
+            <button className="absolute top-4 sm:top-6 right-4 sm:right-6 btn bg-[#ff6a4a] hover:bg-black text-white font-bold px-6 sm:px-8 py-2 sm:py-3 rounded-none shadow-lg flex items-center gap-2 z-10 text-xs sm:text-sm">
+              SEE ALL AREA
+            </button>
+          </div>
+
+          <div className="bg-white rounded-xl sm:rounded-3xl shadow-xl p-6 sm:p-8 order-2 lg:order-1">
             <form onSubmit={handleSearch} className="mb-6 sm:mb-8">
               <div className="flex flex-col sm:flex-row gap-3">
                 <input
@@ -131,45 +174,6 @@ const ServiceCoverageArea = () => {
                 </div>
               ))}
             </div>
-          </div>
-
-          <div className="relative">
-            <div className="h-64 sm:h-72 md:h-[490px] rounded-xl sm:rounded-3xl shadow-2xl overflow-hidden">
-              <MapContainer
-                center={[23.685, 90.3563]}
-                zoom={7}
-                ref={mapRef}
-                className="h-full w-full"
-              >
-                <TileLayer
-                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                  attribution="&copy; OpenStreetMap contributors"
-                />
-                {serviceCenters.map((center, idx) => (
-                  <Marker
-                    key={idx}
-                    position={[center.latitude, center.longitude]}
-                  >
-                    <Popup>
-                      <div className="text-center">
-                        <h3 className="font-bold text-base sm:text-lg">{center.district}</h3>
-                        <p className="text-xs sm:text-sm">{center.city}</p>
-                        <p className="text-xs sm:text-xs mt-1 text-gray-600">
-                          {center.covered_area.join(", ")}
-                        </p>
-                        <p className="text-[#ff6a4a] font-bold mt-1">
-                          Service Available
-                        </p>
-                      </div>
-                    </Popup>
-                  </Marker>
-                ))}
-              </MapContainer>
-            </div>
-
-            <button className="absolute top-4 sm:top-6 right-4 sm:right-6 btn bg-[#ff6a4a] hover:bg-black text-white font-bold px-6 sm:px-8 py-2 sm:py-3 rounded-none shadow-lg flex items-center gap-2 z-10 text-xs sm:text-sm">
-              SEE ALL AREA
-            </button>
           </div>
         </div>
       </div>

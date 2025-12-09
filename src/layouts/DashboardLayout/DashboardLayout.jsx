@@ -25,7 +25,7 @@ const DashboardLayout = () => {
     <div className="flex h-screen bg-gray-50">
       <Sidebar role={normalizedRole} />
       <main className="flex-1 overflow-auto">
-        <div className="p-4 md:p-10">
+        <div className="p-4 mt-10 md:p-10">
           <Outlet />
         </div>
       </main>

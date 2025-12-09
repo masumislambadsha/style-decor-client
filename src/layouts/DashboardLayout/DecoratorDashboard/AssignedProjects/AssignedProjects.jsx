@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { CalendarDays, MapPin, ArrowRight } from "lucide-react";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
-motion
+motion;
 const statusColors = {
   pending_payment: "bg-amber-100 text-amber-700 border-amber-200",
   assigned: "bg-sky-100 text-sky-700 border-sky-200",
@@ -130,7 +130,7 @@ const AssignedProjects = () => {
     return (
       <div className="min-h-screen bg-gray-50 py-6 sm:py-8 px-4">
         <motion.div
-          className="max-w-5xl mx-auto"
+          className="container mx-auto"
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, ease: "easeOut" }}
@@ -140,7 +140,8 @@ const AssignedProjects = () => {
               My Assigned Projects
             </h1>
             <p className="text-gray-500 mt-1">
-              All bookings where you are the assigned decorator will appear here.
+              All bookings where you are the assigned decorator will appear
+              here.
             </p>
           </div>
 
@@ -166,7 +167,7 @@ const AssignedProjects = () => {
   return (
     <div className="min-h-screen bg-gray-50 mt-15 sm:py-8 px-4">
       <motion.div
-        className="max-w-5xl mx-auto"
+        className="container mx-auto"
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3, ease: "easeOut" }}

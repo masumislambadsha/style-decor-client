@@ -28,7 +28,8 @@ const Earnings = () => {
       return acc + bookingAmount * SHARE;
     }, 0);
 
-    const avg = completedBookings.length > 0 ? sum / completedBookings.length : 0;
+    const avg =
+      completedBookings.length > 0 ? sum / completedBookings.length : 0;
 
     return {
       completed: completedBookings,
@@ -48,7 +49,7 @@ const Earnings = () => {
   return (
     <div className="min-h-screen bg-gray-50 mt-15 sm:py-8 px-4">
       <motion.div
-        className="max-w-5xl mx-auto"
+        className="container mx-auto"
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3, ease: "easeOut" }}
@@ -112,7 +113,8 @@ const Earnings = () => {
               No completed, paid projects yet
             </p>
             <p className="text-gray-500 mt-1 text-xs sm:text-sm">
-              Once you finish projects and they are marked as completed with payment, they will show up here.
+              Once you finish projects and they are marked as completed with
+              payment, they will show up here.
             </p>
           </div>
         ) : (
