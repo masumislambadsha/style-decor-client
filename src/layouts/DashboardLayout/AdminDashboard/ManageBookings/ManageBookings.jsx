@@ -6,8 +6,7 @@ import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
 import LoadingSpinner from "../../../../Components/Spinner/LoadingSpinner";
-motion
-
+motion;
 const StatusBadge = ({ status }) => {
   const base =
     "px-2 sm:px-3 py-1 rounded-full text-xs font-semibold border inline-flex items-center justify-center";
@@ -48,6 +47,8 @@ const ManageBookings = () => {
   const [selectedBooking, setSelectedBooking] = useState(null);
   const [selectedDecorator, setSelectedDecorator] = useState(null);
   const [actionLoading, setActionLoading] = useState(false);
+
+  const [sortBy, setSortBy] = useState("date_desc");
 
   const {
     data: bookings = [],
@@ -130,14 +131,38 @@ const ManageBookings = () => {
     }
   };
 
-  const visibleBookings = bookings.filter((b) =>
+  const visibleBookingsRaw = bookings.filter((b) =>
     ["assigned_pending", "assigned", "cancelled"].includes(b.status)
   );
 
-  if (bookingsLoading) {
-    return (
-      <LoadingSpinner/>
+  let visibleBookings = [...visibleBookingsRaw];
+
+  if (sortBy === "pending") {
+    visibleBookings = visibleBookingsRaw.filter(
+      (b) => b.status === "assigned_pending"
     );
+  } else if (sortBy === "assigned") {
+    visibleBookings = visibleBookingsRaw.filter((b) => b.status === "assigned");
+  } else if (sortBy === "cancelled") {
+    visibleBookings = visibleBookingsRaw.filter(
+      (b) => b.status === "cancelled"
+    );
+  } else if (sortBy === "date_desc") {
+    visibleBookings.sort(
+      (a, b) =>
+        new Date(b.bookingDate || b.createdAt || 0) -
+        new Date(a.bookingDate || a.createdAt || 0)
+    );
+  } else if (sortBy === "date_asc") {
+    visibleBookings.sort(
+      (a, b) =>
+        new Date(a.bookingDate || a.createdAt || 0) -
+        new Date(b.bookingDate || b.createdAt || 0)
+    );
+  }
+
+  if (bookingsLoading) {
+    return <LoadingSpinner />;
   }
 
   return (
@@ -149,21 +174,38 @@ const ManageBookings = () => {
         transition={{ duration: 0.3, ease: "easeOut" }}
       >
         <motion.div
-          className="text-center mb-6 sm:mb-8"
+          className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 sm:mb-8"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.25 }}
         >
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800">
-            Manage Bookings
-          </h1>
-          <p className="text-xs sm:text-sm md:text-base text-[#ff6a4a] mt-2">
-            Only bookings with completed payment or cancelled status are shown.
-          </p>
-          <p className="text-gray-500 text-xs sm:text-sm mt-1">
-            Total: {visibleBookings.length} booking
-            {visibleBookings.length !== 1 && "s"}
-          </p>
+          <div className="text-center sm:text-left">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800">
+              Manage Bookings
+            </h1>
+            <p className="text-xs sm:text-sm md:text-base text-[#ff6a4a] mt-2">
+              Only bookings with completed payment or cancelled status are
+              shown.
+            </p>
+            <p className="text-gray-500 text-xs sm:text-sm mt-1">
+              Total: {visibleBookings.length} booking
+              {visibleBookings.length !== 1 && "s"}
+            </p>
+          </div>
+
+          <div className="flex items-center gap-2 sm:gap-3 justify-center sm:justify-end">
+            <select
+              className="select select-bordered select-xs sm:select-sm text-xs sm:text-sm"
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+            >
+              <option value="date_desc">Newest event first</option>
+              <option value="date_asc">Oldest event first</option>
+              <option value="pending">Pending </option>
+              <option value="assigned">Assigned </option>
+              <option value="cancelled">Cancelled </option>
+            </select>
+          </div>
         </motion.div>
 
         {visibleBookings.length === 0 && (
@@ -217,7 +259,9 @@ const ManageBookings = () => {
                           <p className="text-gray-600 text-xs sm:text-sm mt-0.5">
                             Event date:{" "}
                             {b.bookingDate
-                              ? new Date(b.bookingDate).toLocaleDateString("en-GB")
+                              ? new Date(b.bookingDate).toLocaleDateString(
+                                  "en-GB"
+                                )
                               : "N/A"}
                           </p>
                           <p className="text-gray-500 text-xs mt-1">
@@ -260,7 +304,11 @@ const ManageBookings = () => {
                           <div>
                             <span className="text-gray-500">Status: </span>
                             <span className="font-mono font-semibold text-white px-2 py-1 rounded-xl sm:rounded-2xl bg-gray-800">
-                              {b.status === "assigned" ? "Decorator Assigned" : "Pending"}
+                              {b.status === "assigned"
+                                ? "Decorator Assigned"
+                                : b.status === "cancelled"
+                                ? "Cancelled"
+                                : "Pending"}
                             </span>
                           </div>
                         </div>
@@ -280,7 +328,9 @@ const ManageBookings = () => {
                           {!isAssigned && (
                             <motion.button
                               whileTap={{ scale: 0.97 }}
-                              onClick={() => handleCancelBooking(b._id, isCancelled)}
+                              onClick={() =>
+                                handleCancelBooking(b._id, isCancelled)
+                              }
                               disabled={actionLoading || isCancelled}
                               className={
                                 isCancelled
@@ -342,14 +392,16 @@ const ManageBookings = () => {
               <p className="text-gray-500">
                 Event date:{" "}
                 {selectedBooking.bookingDate
-                  ? new Date(selectedBooking.bookingDate).toLocaleDateString("en-GB")
+                  ? new Date(selectedBooking.bookingDate).toLocaleDateString(
+                      "en-GB"
+                    )
                   : "N/A"}
               </p>
             </div>
 
             <div className="space-y-2 max-h-64 overflow-y-auto border rounded-xl">
               {decoratorsLoading ? (
-                <LoadingSpinner/>
+                <LoadingSpinner />
               ) : decorators.length === 0 ? (
                 <div className="p-4 text-center text-gray-500">
                   No active decorators found.
