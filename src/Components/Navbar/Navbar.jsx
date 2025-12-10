@@ -230,7 +230,7 @@ const Navbar = () => {
     <button
       type="button"
       onClick={(e) => {
-        e.preventDefault(); // stop scroll-to-top
+        e.preventDefault(); 
         const checkbox = document.getElementById("mobile-drawer");
         if (checkbox) checkbox.checked = !checkbox.checked;
       }}

@@ -199,8 +199,8 @@ const ManageBookings = () => {
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
             >
-              <option value="date_desc">Newest event first</option>
-              <option value="date_asc">Oldest event first</option>
+              <option value="date_desc">Newest</option>
+              <option value="date_asc">Oldest</option>
               <option value="pending">Pending </option>
               <option value="assigned">Assigned </option>
               <option value="cancelled">Cancelled </option>
