@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { motion, AnimatePresence } from "framer-motion";
 import { CalendarDays, MapPin, Clock } from "lucide-react";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
+import LoadingSpinner from "../../../../Components/Spinner/LoadingSpinner";
 motion
 const cardVariants = {
   hidden: { opacity: 0, y: 20, scale: 0.98 },
@@ -31,10 +32,8 @@ const TodaysSchedule = () => {
   );
 
   if (isLoading) {
-    return (
-      <div className="flex justify-center items-center min-h-screen">
-        <span className="loading loading-spinner loading-lg text-[#ff6a4a]" />
-      </div>
+     return (
+      <LoadingSpinner/>
     );
   }
 

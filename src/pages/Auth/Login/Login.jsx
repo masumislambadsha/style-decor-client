@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { Mail, Lock, Eye, EyeOff, Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
 import useAuth from "../../../Hooks/useAuth";
+import LoadingSpinner from "../../../Components/Spinner/LoadingSpinner";
 motion
 const Login = () => {
   const { signInUser, signInGoogle, loading } = useAuth();
@@ -43,10 +44,8 @@ const Login = () => {
   };
 
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-gray-50 to-orange-50">
-        <Loader2 className="w-16 h-16 animate-spin text-[#ff6a4a]" />
-      </div>
+     return (
+      <LoadingSpinner/>
     );
   }
 

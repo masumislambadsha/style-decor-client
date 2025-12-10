@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
+import LoadingSpinner from "../../../../Components/Spinner/LoadingSpinner";
 motion
 
 const StatusBadge = ({ status }) => {
@@ -135,9 +136,7 @@ const ManageBookings = () => {
 
   if (bookingsLoading) {
     return (
-      <div className="flex justify-center items-center min-h-screen">
-        <span className="loading loading-spinner loading-lg text-[#ff6a4a]" />
-      </div>
+      <LoadingSpinner/>
     );
   }
 
@@ -350,9 +349,7 @@ const ManageBookings = () => {
 
             <div className="space-y-2 max-h-64 overflow-y-auto border rounded-xl">
               {decoratorsLoading ? (
-                <div className="p-4 text-center">
-                  <span className="loading loading-spinner loading-sm" />
-                </div>
+                <LoadingSpinner/>
               ) : decorators.length === 0 ? (
                 <div className="p-4 text-center text-gray-500">
                   No active decorators found.
@@ -386,14 +383,14 @@ const ManageBookings = () => {
             <div className="flex justify-end gap-2 sm:gap-3 pt-2">
               <button
                 onClick={() => setSelectedBooking(null)}
-                className="btn btn-ghost btn-xs sm:btn-sm"
+                className="btn btn-ghost bg-purple-500 hover:bg-purple-800 py-6 text-white "
               >
                 Close
               </button>
               <button
                 onClick={handleConfirmAssign}
                 disabled={!selectedDecorator || actionLoading}
-                className="btn bg-[#ff6a4a] text-white disabled:btn-disabled btn-xs sm:btn-sm"
+                className="btn btn-ghost bg-[#ff6a4a] text-white py-6 disabled:btn-disabled "
               >
                 Confirm Assign
               </button>

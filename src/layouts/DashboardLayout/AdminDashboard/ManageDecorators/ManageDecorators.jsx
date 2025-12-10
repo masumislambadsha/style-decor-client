@@ -4,6 +4,7 @@ import { Trash2 } from "lucide-react";
 import Swal from "sweetalert2";
 import { motion, AnimatePresence } from "framer-motion";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
+import LoadingSpinner from "../../../../Components/Spinner/LoadingSpinner";
 
 const StatusBadge = ({ status }) => {
   const key = status?.toLowerCase() || "inactive";
@@ -92,9 +93,7 @@ const ManageDecorators = () => {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center min-h-screen">
-        <span className="loading loading-spinner loading-lg text-[#ff6a4a]" />
-      </div>
+      <LoadingSpinner/>
     );
   }
 

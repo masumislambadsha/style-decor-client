@@ -2,6 +2,7 @@ import React from "react";
 import { Navigate, useLocation } from "react-router";
 import useAuth from "../Hooks/useAuth";
 import useRole from "../Hooks/useRole";
+import LoadingSpinner from "../Components/Spinner/LoadingSpinner";
 
 const AdminRoute = ({ children }) => {
   const { user, loading } = useAuth();
@@ -9,10 +10,8 @@ const AdminRoute = ({ children }) => {
   const location = useLocation();
 
   if (loading || roleLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <span className="loading loading-spinner loading-lg text-[#ff6a4a]" />
-      </div>
+     return (
+      <LoadingSpinner/>
     );
   }
 

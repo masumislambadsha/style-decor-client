@@ -2,6 +2,7 @@ import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
+import LoadingSpinner from "../../../../Components/Spinner/LoadingSpinner";
 motion
 const Analytics = () => {
   const axiosSecure = useAxiosSecure();
@@ -14,10 +15,8 @@ const Analytics = () => {
   });
 
   if (isLoading) {
-    return (
-      <div className="min-h-[40vh] flex items-center justify-center">
-        <span className="loading loading-spinner loading-lg text-[#ff6a4a]" />
-      </div>
+   return (
+      <LoadingSpinner/>
     );
   }
 

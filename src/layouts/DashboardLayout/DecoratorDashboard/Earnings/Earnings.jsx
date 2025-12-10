@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { CreditCard, CalendarDays, Briefcase } from "lucide-react";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
+import LoadingSpinner from "../../../../Components/Spinner/LoadingSpinner";
 
 const SHARE = 0.3;
 
@@ -38,10 +39,8 @@ const Earnings = () => {
   }, [bookings]);
 
   if (isLoading) {
-    return (
-      <div className="flex justify-center items-center min-h-screen">
-        <span className="loading loading-spinner loading-lg text-[#ff6a4a]" />
-      </div>
+     return (
+      <LoadingSpinner/>
     );
   }
 

@@ -37,6 +37,7 @@ import BeADecorator from "../pages/BeADecorator/BeADecorator";
 import DecoratorApplications from "../layouts/DashboardLayout/AdminDashboard/DecoratorApplications/DecoratorApplications";
 import About from "../pages/About/About";
 import Contact from "../pages/Contact/Contact";
+import ManageUser from "../layouts/DashboardLayout/AdminDashboard/ManageUser/ManageUser";
 
 const router = createBrowserRouter([
   {
@@ -121,6 +122,14 @@ const router = createBrowserRouter([
         element: (
           <AdminRoute>
             <Analytics />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "admin/manage-user",
+        element: (
+          <AdminRoute>
+            <ManageUser />
           </AdminRoute>
         ),
       },

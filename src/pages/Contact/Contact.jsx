@@ -1,4 +1,32 @@
 import React from "react";
+import { motion } from "framer-motion";
+
+const pageVariants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.45, ease: "easeOut" },
+  },
+};
+
+const leftVariants = {
+  hidden: { opacity: 0, x: -18 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.38, ease: "easeOut", delay: 0.08 },
+  },
+};
+
+const rightVariants = {
+  hidden: { opacity: 0, x: 18 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.4, ease: "easeOut", delay: 0.14 },
+  },
+};
 
 const Contact = () => {
   const handleSubmit = (e) => {
@@ -6,41 +34,95 @@ const Contact = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 pt-24 pb-16 px-4">
+    <motion.div
+      className="min-h-screen bg-slate-50 pt-24 pb-16 px-4"
+      variants={pageVariants}
+      initial="hidden"
+      animate="visible"
+    >
       <div className="max-w-5xl mx-auto grid md:grid-cols-5 gap-10">
-        <div className="md:col-span-2 space-y-4">
-          <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#ff6a4a]/10 text-[#ff6a4a] text-xs font-semibold uppercase tracking-[0.2em]">
+        <motion.div
+          className="md:col-span-2 space-y-4"
+          variants={leftVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <motion.span
+            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#ff6a4a]/10 text-[#ff6a4a] text-xs font-semibold uppercase tracking-[0.2em]"
+            initial={{ opacity: 0, y: -8, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.3, ease: "easeOut", delay: 0.1 }}
+          >
             Contact
-          </span>
-          <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900">
+          </motion.span>
+
+          <motion.h1
+            className="text-3xl md:text-4xl font-extrabold text-slate-900"
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.35, ease: "easeOut", delay: 0.16 }}
+          >
             Let’s plan your next space or event
-          </h1>
-          <p className="text-slate-600 text-sm md:text-base">
+          </motion.h1>
+
+          <motion.p
+            className="text-slate-600 text-sm md:text-base"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, ease: "easeOut", delay: 0.22 }}
+          >
             Share a few details and our team or a verified decorator will get
             back to you with concepts, timelines, and an estimated budget.
-          </p>
+          </motion.p>
 
-          <div className="space-y-3 text-sm text-slate-700">
+          <motion.div
+            className="space-y-3 text-sm text-slate-700"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, ease: "easeOut", delay: 0.28 }}
+          >
             <p>
               <span className="font-semibold">Phone:</span> +8801XXXXXXXXX
             </p>
             <p>
-              <span className="font-semibold">Email:</span>{" "}
-              hello@styledecor.com
+              <span className="font-semibold">Email:</span> hello@styledecor.com
             </p>
             <p>
               <span className="font-semibold">Office:</span> Dhaka, Bangladesh
             </p>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
-        <div className="md:col-span-3">
-          <form
+        <motion.div
+          className="md:col-span-3"
+          variants={rightVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <motion.form
             onSubmit={handleSubmit}
-            className="bg-white rounded-3xl shadow-xl border border-slate-100 p-6 md:p-8 space-y-5"
+            className="bg-white rounded-3xl shadow-xl border border-slate-100 p-6 md:p-8 space-y-5 relative overflow-hidden"
+            initial={{ opacity: 0, y: 18, scale: 0.97 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.35, ease: "easeOut", delay: 0.2 }}
+            whileHover={{
+              y: -4,
+              boxShadow: "0 24px 60px rgba(15,23,42,0.14)",
+            }}
           >
+            <motion.div
+              className="pointer-events-none absolute -top-16 -right-10 w-40 h-40 rounded-full bg-[#ff6a4a]/20 blur-3xl"
+              initial={{ opacity: 0, scale: 0.6, y: -10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: "easeOut", delay: 0.28 }}
+            />
+
             <div className="grid md:grid-cols-2 gap-4">
-              <div>
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.25, ease: "easeOut", delay: 0.26 }}
+              >
                 <label className="block text-xs font-semibold text-slate-500 mb-1 uppercase tracking-wide">
                   Full name
                 </label>
@@ -51,8 +133,13 @@ const Contact = () => {
                   className="input input-bordered w-full bg-slate-50 text-slate-800 border-slate-200"
                   placeholder="Your name"
                 />
-              </div>
-              <div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.25, ease: "easeOut", delay: 0.3 }}
+              >
                 <label className="block text-xs font-semibold text-slate-500 mb-1 uppercase tracking-wide">
                   Email
                 </label>
@@ -63,11 +150,15 @@ const Contact = () => {
                   className="input input-bordered w-full bg-slate-50 text-slate-800 border-slate-200"
                   placeholder="you@example.com"
                 />
-              </div>
+              </motion.div>
             </div>
 
             <div className="grid md:grid-cols-2 gap-4">
-              <div>
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.25, ease: "easeOut", delay: 0.34 }}
+              >
                 <label className="block text-xs font-semibold text-slate-500 mb-1 uppercase tracking-wide">
                   Phone
                 </label>
@@ -77,8 +168,13 @@ const Contact = () => {
                   className="input input-bordered w-full bg-slate-50 text-slate-800 border-slate-200"
                   placeholder="+8801XXXXXXXXX"
                 />
-              </div>
-              <div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.25, ease: "easeOut", delay: 0.38 }}
+              >
                 <label className="block text-xs font-semibold text-slate-500 mb-1 uppercase tracking-wide">
                   Project type
                 </label>
@@ -92,10 +188,14 @@ const Contact = () => {
                   <option value="commercial">Commercial space</option>
                   <option value="other">Other</option>
                 </select>
-              </div>
+              </motion.div>
             </div>
 
-            <div>
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.25, ease: "easeOut", delay: 0.42 }}
+            >
               <label className="block text-xs font-semibold text-slate-500 mb-1 uppercase tracking-wide">
                 Message
               </label>
@@ -105,18 +205,21 @@ const Contact = () => {
                 className="textarea textarea-bordered w-full bg-slate-50 text-slate-800 border-slate-200"
                 placeholder="Tell us about your event, date, location and budget range."
               />
-            </div>
+            </motion.div>
 
-            <button
+            <motion.button
               type="submit"
               className="btn bg-[#ff6a4a] hover:bg-black text-white font-semibold px-10 border-none rounded-full shadow-md"
+              whileHover={{ scale: 1.03, y: -1 }}
+              whileTap={{ scale: 0.97, y: 0 }}
+              transition={{ type: "spring", stiffness: 260, damping: 18 }}
             >
               Send message
-            </button>
-          </form>
-        </div>
+            </motion.button>
+          </motion.form>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

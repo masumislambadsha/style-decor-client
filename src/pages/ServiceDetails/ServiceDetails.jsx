@@ -6,6 +6,7 @@ import useAuth from "../../Hooks/useAuth";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { Calendar, MapPin, User, Mail } from "lucide-react";
 import { motion } from "framer-motion";
+import LoadingSpinner from "../../Components/Spinner/LoadingSpinner";
 motion
 const ServiceDetails = () => {
   const { id } = useParams();
@@ -67,10 +68,8 @@ const ServiceDetails = () => {
   };
 
   if (isLoading)
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="loading loading-spinner loading-lg text-[#ff6a4a]"></div>
-      </div>
+     return (
+      <LoadingSpinner/>
     );
 
   if (!service) return <p className="text-center py-20">Service not found</p>;

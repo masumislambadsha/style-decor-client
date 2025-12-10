@@ -29,7 +29,7 @@ const Sidebar = ({ role = "user" }) => {
 
   const menuGroups = {
     user: [
-      { label: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
+      { label: "Dasboard", path: "/dashboard", icon: LayoutDashboard },
       { label: "Profile", path: "/dashboard/profile", icon: User },
       { label: "My Bookings", path: "/dashboard/bookings", icon: BookOpen },
       {

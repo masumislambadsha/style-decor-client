@@ -2,6 +2,7 @@ import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import LoadingSpinner from "../../../../Components/Spinner/LoadingSpinner";
 
 const DecoratorApplications = () => {
   const axiosSecure = useAxiosSecure();
@@ -55,10 +56,8 @@ const DecoratorApplications = () => {
   };
 
   if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <span className="loading loading-spinner loading-lg text-[#ff6a4a]" />
-      </div>
+     return (
+      <LoadingSpinner/>
     );
   }
 
@@ -151,13 +150,13 @@ const DecoratorApplications = () => {
                       <div className="flex flex-col items-center justify-center gap-2 w-full sm:w-36 md:w-44">
                         <button
                           onClick={() => handleReview(app, "reject")}
-                          className="btn btn-sm bg-red-500 hover:bg-red-600 text-white w-full"
+                          className="btn  bg-red-500 hover:bg-red-600 text-white w-full"
                         >
                           Reject
                         </button>
                         <button
                           onClick={() => handleReview(app, "approve")}
-                          className="btn btn-sm bg-emerald-500 hover:bg-emerald-600 text-white w-full"
+                          className="btn  bg-emerald-500 hover:bg-emerald-600 text-white w-full"
                         >
                           Approve
                         </button>

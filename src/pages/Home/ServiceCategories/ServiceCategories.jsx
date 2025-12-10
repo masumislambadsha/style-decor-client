@@ -32,7 +32,7 @@ const ServiceCategories = () => {
   return (
     <section className="py-12 sm:py-16 bg-[#f7f5f3]">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-0">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-8 sm:mb-10 text-black">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-8 sm:mb-10 text-black capitalize">
           Interior design & decoration services we provide
         </h2>
 

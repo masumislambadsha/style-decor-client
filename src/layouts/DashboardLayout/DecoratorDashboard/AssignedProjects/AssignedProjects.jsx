@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { CalendarDays, MapPin, ArrowRight } from "lucide-react";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
+import LoadingSpinner from "../../../../Components/Spinner/LoadingSpinner";
 motion
 const statusColors = {
   pending_payment: "bg-amber-100 text-amber-700 border-amber-200",
@@ -119,10 +120,8 @@ const AssignedProjects = () => {
   };
 
   if (isLoading) {
-    return (
-      <div className="flex justify-center items-center min-h-screen">
-        <span className="loading loading-spinner loading-lg text-[#ff6a4a]" />
-      </div>
+     return (
+      <LoadingSpinner/>
     );
   }
 

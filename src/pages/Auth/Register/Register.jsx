@@ -84,7 +84,7 @@ const Register = () => {
           className="bg-white rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden"
         >
           <div className="bg-linear-to-r from-[#ff6a4a] to-orange-600 p-8 sm:p-10 text-center">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white">Join StyleDecor</h1>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white">Join Style Decor</h1>
             <p className="text-orange-100 mt-3 text-base sm:text-lg">
               Create your free account
             </p>

@@ -96,7 +96,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="navbar justify-between backdrop-blur-sm fixed top-0 z-400000 shadow-sm px-6 lg:px-20 h-20 border-b">
+      <div className="navbar  justify-between backdrop-blur-sm fixed top-0 z-400000 shadow-sm px-6 lg:px-20 h-20 border-b">
         <div className="navbar-start">
           <Link to="/" className="flex items-center gap-3">
             <div className="relative">
@@ -218,7 +218,7 @@ const Navbar = () => {
             </div>
           ) : (
             <Link to="/login">
-              <button className="btn bg-[#ff6a4a] hover:bg-black text-white font-bold px-10 rounded-none border-none shadow-lg text-lg">
+              <button className="btn bg-[#ff6a4a] hover:bg-black text-white font-bold px-10 rounded-lg border-none shadow-lg text-lg">
                 Login
               </button>
             </Link>
@@ -318,7 +318,7 @@ const Navbar = () => {
                 </div>
               ) : (
                 <Link to="/login">
-                  <button className="btn bg-[#ff6a4a] hover:bg:white hover:text-black text-white font-bold w-full text-xl h-14 rounded-none shadow-xl cursor-pointer">
+                  <button className="btn bg-[#ff6a4a] hover:bg:white hover:text-black text-white font-bold w-full rounded-lg text-xl h-14  shadow-xl cursor-pointer border-0">
                     Login
                   </button>
                 </Link>

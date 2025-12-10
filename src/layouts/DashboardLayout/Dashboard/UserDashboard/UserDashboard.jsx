@@ -70,6 +70,12 @@ const UserDashboard = () => {
       linkText: "Manage Decorators →",
       to: "/dashboard/admin/manage-decorators",
     },
+    {
+      title: "Manage Users",
+      description: "Update Users Role To Admin.",
+      linkText: "Manage Users →",
+      to: "/dashboard/admin/manage-user",
+    },
   ];
 
   const decoratorCards = [

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams, Link } from "react-router";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
+import LoadingSpinner from "../../../../Components/Spinner/LoadingSpinner";
 
 const PaymentSuccess = () => {
   const [searchParams] = useSearchParams();
@@ -31,10 +32,8 @@ const PaymentSuccess = () => {
 
   if (loading) {
     return (
-      <div className="min-h-[60vh] flex items-center justify-center">
-        <span className="loading loading-spinner loading-lg text-[#ff6a4a]" />
-      </div>
-    );
+         <LoadingSpinner/>
+       );
   }
 
   return (

@@ -10,6 +10,9 @@ const MyBookings = () => {
   const axiosSecure = useAxiosSecure();
   const [filter, setFilter] = useState("all");
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 5;
+
   const { data: bookings = [], refetch } = useQuery({
     queryKey: ["my-bookings", user?.email],
     queryFn: async () => {
@@ -60,7 +63,10 @@ const MyBookings = () => {
         cost: booking.cost,
       };
 
-      const res = await axiosSecure.post("/create-checkout-session", paymentInfo);
+      const res = await axiosSecure.post(
+        "/create-checkout-session",
+        paymentInfo
+      );
 
       if (res.data?.url) {
         window.location.href = res.data.url;
@@ -76,10 +82,25 @@ const MyBookings = () => {
   const filteredBookings =
     filter === "all" ? bookings : bookings.filter((b) => b.status === filter);
 
+  const handleFilterClick = (status) => {
+    setFilter(status);
+    setCurrentPage(1);
+  };
+
+  const totalItems = filteredBookings.length;
+  const totalPages = Math.max(1, Math.ceil(totalItems / pageSize));
+  const startIndex = (currentPage - 1) * pageSize;
+  const currentPageItems = filteredBookings.slice(
+    startIndex,
+    startIndex + pageSize
+  );
+
   return (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <h2 className="text-2xl mt-8 mb-10 sm:text-3xl font-bold text-gray-900">My Bookings</h2>
+        <h2 className="text-2xl mt-8 mb-10 sm:text-3xl font-bold text-gray-900">
+          My Bookings
+        </h2>
         <div className="flex flex-wrap gap-2 sm:gap-3">
           {[
             "all",
@@ -90,7 +111,7 @@ const MyBookings = () => {
           ].map((status) => (
             <button
               key={status}
-              onClick={() => setFilter(status)}
+              onClick={() => handleFilterClick(status)}
               className={`btn btn-xs sm:btn-sm ${
                 filter === status ? "btn-active" : "btn-ghost"
               }`}
@@ -107,12 +128,14 @@ const MyBookings = () => {
       </div>
 
       <div className="grid gap-4 sm:gap-6">
-        {filteredBookings.length === 0 ? (
+        {currentPageItems.length === 0 ? (
           <div className="text-center py-16">
-            <p className="text-gray-500 text-sm sm:text-lg">No bookings found</p>
+            <p className="text-gray-500 text-sm sm:text-lg">
+              No bookings found
+            </p>
           </div>
         ) : (
-          filteredBookings.map((booking) => (
+          currentPageItems.map((booking) => (
             <div
               key={booking._id}
               className="bg-white rounded-xl sm:rounded-3xl shadow-xl p-4 sm:p-6 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4"
@@ -166,6 +189,34 @@ const MyBookings = () => {
           ))
         )}
       </div>
+
+      {totalItems > pageSize && (
+        <div className="flex items-center justify-center gap-2 sm:gap-3 mt-4">
+          <button
+            className="btn btn-xs sm:btn-sm"
+            onClick={() =>
+              setCurrentPage((prev) => (prev > 1 ? prev - 1 : prev))
+            }
+            disabled={currentPage === 1}
+          >
+            Prev
+          </button>
+
+          <span className="text-xs sm:text-sm text-gray-600">
+            Page {currentPage} of {totalPages}
+          </span>
+
+          <button
+            className="btn btn-xs sm:btn-sm"
+            onClick={() =>
+              setCurrentPage((prev) => (prev < totalPages ? prev + 1 : prev))
+            }
+            disabled={currentPage === totalPages}
+          >
+            Next
+          </button>
+        </div>
+      )}
     </div>
   );
 };
