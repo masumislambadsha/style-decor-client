@@ -6,11 +6,7 @@
 
 ---
 
-NOTE: I updated the README to match your actual source layout (you called out the correct file paths). The folder tree and key files below reflect the screenshots you showed (layouts, DashboardLayout, Sidebar.jsx, Components, Hooks, Firebase, etc.). If anything else is different, paste the exact tree output and I’ll snap the README to it.
-
----
-
-## 💥 THIS README IS FOR PEOPLE WHO CARE ABOUT HOW IT LOOKS AND SELLS
+## 💥 THIS README IS FOR PEOPLE WHO WANT TO LEARN ABOUT HOW IT LOOKS AND SELLS
 
 - If you love bland, leave now.
 - If you obsess over typography, motion, and conversion, stay — you belong here.
@@ -27,8 +23,8 @@ Audience: merchants, designers, and frontend engineers who ship beautiful UIs.
 
 ## 🔗 LIVE DEMO
 
-- Production (replace): https://style-decor.app
-- Preview / Vercel: add your preview link here
+- Production : https://style-decor-5b2fb.web.app
+- Preview : [preview link](https://style-decor-5b2fb.web.app/)
 
 ---
 
@@ -303,9 +299,9 @@ Small, deliberate changes > giant unfocused PRs.
 ---
 
 ## 📬 CONTACT
-
 - GitHub: [masumislambadsha](https://github.com/masumislambadsha)
-- Email: your-email@example.com (replace)
+- Email: <mohammadbadsha468@example.com>
+- Linkedin :  [Masum Islam Badsha](https://www.linkedin.com/in/masum-islam-badsha/)
 
 ---
 
