@@ -18,6 +18,7 @@ NOTE: I updated the README to match your actual source layout (you called out th
 ---
 
 ## ✨ QUICK PITCH — WHAT THIS IS
+
 Style Decor — Client is the production‑ready React + Vite frontend that pairs with the Style Decor Server. It showcases products with cinematic galleries, handles cart & checkout UX, connects to payments and auth, and is optimized for speed and conversions.
 
 Audience: merchants, designers, and frontend engineers who ship beautiful UIs.
@@ -25,6 +26,7 @@ Audience: merchants, designers, and frontend engineers who ship beautiful UIs.
 ---
 
 ## 🔗 LIVE DEMO
+
 - Production (replace): https://style-decor.app
 - Preview / Vercel: add your preview link here
 
@@ -46,23 +48,24 @@ Audience: merchants, designers, and frontend engineers who ship beautiful UIs.
 
 ## 🧰 TECHNOLOGY STACK — THE ARMORY
 
-| Area | Weaponry |
-| --- | --- |
-| Framework | React 19 |
-| Bundler | Vite |
-| Styling | TailwindCSS + DaisyUI |
-| Data | Axios, React Query (@tanstack/react-query) |
-| Animations | Framer Motion, Lottie |
-| Maps | Leaflet, React-Leaflet |
-| Payments | Stripe |
-| UI icons | react-icons, lucide-react |
-| Dev tooling | ESLint, vite-plugin-react |
+| Area        | Weaponry                                   |
+| ----------- | ------------------------------------------ |
+| Framework   | React 19                                   |
+| Bundler     | Vite                                       |
+| Styling     | TailwindCSS + DaisyUI                      |
+| Data        | Axios, React Query (@tanstack/react-query) |
+| Animations  | Framer Motion, Lottie                      |
+| Maps        | Leaflet, React-Leaflet                     |
+| Payments    | Stripe                                     |
+| UI icons    | react-icons, lucide-react                  |
+| Dev tooling | ESLint, vite-plugin-react                  |
 
 ---
 
 ## 📦 EXACT NPM PACKAGES (from package.json)
 
 Dependencies:
+
 - @tailwindcss/vite
 - @tanstack/react-query
 - aos
@@ -90,6 +93,7 @@ Dependencies:
 - tailwindcss
 
 DevDependencies:
+
 - @eslint/js
 - @types/react
 - @types/react-dom
@@ -117,6 +121,7 @@ npm run dev
 ```
 
 Build:
+
 ```bash
 npm run build
 npm run preview
@@ -125,7 +130,9 @@ npm run preview
 ---
 
 ## ⚙️ ENVIRONMENT (Vite IMPORTANT NOTES)
-Vite exposes env vars starting with VITE_. Example `.env`:
+
+Vite exposes env vars starting with VITE\_. Example `.env`:
+
 ```
 VITE_API_URL=https://api.style-decor.example.com
 VITE_FIREBASE_API_KEY=...
@@ -133,11 +140,13 @@ VITE_FIREBASE_AUTH_DOMAIN=...
 VITE_FIREBASE_PROJECT_ID=...
 VITE_STRIPE_PK=pk_live_...
 ```
+
 Do not commit secrets. Use Vercel/Netlify/GH Actions secrets for production.
 
 ---
 
 ## 🗺 ROUTES / PAGES (EXPECTED)
+
 - / — Home / hero & featured products
 - /products — Listing with search & filters
 - /products/:id — Product details & variants
@@ -154,6 +163,7 @@ Replace with actual router export when you want this table exact.
 ## 📁 FULL EXPANDED FOLDER SNAPSHOT — MATCHING YOUR PROJECT
 
 (Updated to reflect the file tree in your screenshots — capitalization and folder names preserved.)
+
 ```
 style-decor-client
 ├── .firebase/
@@ -240,7 +250,9 @@ style-decor-client
 ├── tailwind.config.js
 └── vite.config.js
 ```
+
 > Notes:
+>
 > - I capitalized "Components", "Context", "Firebase", "Hooks", and "layouts" to match your screenshots.
 > - Key files you highlighted: `src/layouts/DashboardLayout/Sidebar/Sidebar.jsx`, `src/Firebase/firebase.init.js`, `src/Components/Footer/Footer.jsx`, `src/App.jsx`, `src/main.jsx`.
 
@@ -255,19 +267,21 @@ tree -a -I 'node_modules|dist' -L 4
 ---
 
 ## 🖼 SHOWROOM IMAGES
+
 Add high‑quality screenshots to `/docs` and reference them here:
 
 <p align="center">
-  <img src="/heroSS.png" alt="Hero" width="820"/>
+  <img src="./src/assets/heroSS.png" alt="Hero" width="820"/>
 </p>
 
 <p align="center">
-  <img src="/serviSS.png" alt="Product detail" width="820"/>
+  <img src="./src/assets/serviSS.png" alt="Product detail" width="820"/>
 </p>
 
 ---
 
 ## 🧭 DESIGN PHILOSOPHY — BEAUTY SELLS
+
 - Every pixel earns its place.
 - Micro‑animations explain affordances — not distract.
 - Performance is design: faster = better conversion.
@@ -276,6 +290,7 @@ Add high‑quality screenshots to `/docs` and reference them here:
 ---
 
 ## 🛠 CONTRIBUTING — SHIP OR SHAME
+
 Contribute if you can improve the product:
 
 - Fork → Branch (`feature/<name>` / `fix/<name>`) → Commit → PR
@@ -288,6 +303,7 @@ Small, deliberate changes > giant unfocused PRs.
 ---
 
 ## 📬 CONTACT
+
 - GitHub: [masumislambadsha](https://github.com/masumislambadsha)
 - Email: your-email@example.com (replace)
 
@@ -298,9 +314,11 @@ Small, deliberate changes > giant unfocused PRs.
 ---
 
 ## 📜 LICENSE
+
 MIT © masumislambadsha — See [LICENSE](./LICENSE)
 
 ---
 
 ## 🏁 FINAL WORD
+
 This README now reflects your real project layout (Sidebar, DashboardLayout, Components, Hooks, Firebase init file, etc.). Want me to:
