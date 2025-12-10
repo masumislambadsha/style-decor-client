@@ -20,7 +20,7 @@ const Logo = () => {
 
         <path
           d="M30 16C30 14.343 31.343 13 33 13C34.657 13 36 14.343 36 16C36 17.657 34.657 19 33 19H30V23"
-          stroke="#FFFFFF"
+          stroke="gray"
           strokeWidth="1.8"
           strokeLinecap="round"
         />
