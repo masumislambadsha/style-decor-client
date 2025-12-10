@@ -258,11 +258,11 @@ tree -a -I 'node_modules|dist' -L 4
 Add high‑quality screenshots to `/docs` and reference them here:
 
 <p align="center">
-  <img src="./docs/home-hero.png" alt="Hero" width="820"/>
+  <img src="/heroSS.png" alt="Hero" width="820"/>
 </p>
 
 <p align="center">
-  <img src="./docs/product-detail.png" alt="Product detail" width="820"/>
+  <img src="/serviSS.png" alt="Product detail" width="820"/>
 </p>
 
 ---
