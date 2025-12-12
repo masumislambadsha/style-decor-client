@@ -155,7 +155,7 @@ const BeADecorator = () => {
                   type="tel"
                   required
                   placeholder="+8801XXXXXXXXX"
-                  className="input input-bordered w-full text-xs sm:text-sm"
+                  className="input outline-0 input-bordered w-full text-xs sm:text-sm"
                 />
               </div>
               <div>
@@ -167,7 +167,7 @@ const BeADecorator = () => {
                   type="text"
                   required
                   placeholder="Dhaka, Chattogram, etc."
-                  className="input input-bordered w-full text-xs sm:text-sm"
+                  className="input outline-0 input-bordered w-full text-xs sm:text-sm"
                 />
               </div>
             </div>
@@ -182,7 +182,7 @@ const BeADecorator = () => {
                   type="text"
                   required
                   placeholder="Wedding decor, corporate, birthday, etc."
-                  className="input input-bordered w-full text-xs sm:text-sm"
+                  className="input outline-0 input-bordered w-full text-xs sm:text-sm"
                 />
               </div>
               <div>
@@ -196,7 +196,7 @@ const BeADecorator = () => {
                   max="50"
                   required
                   placeholder="2"
-                  className="input input-bordered w-full text-xs sm:text-sm"
+                  className="input outline-0 input-bordered w-full text-xs sm:text-sm"
                 />
               </div>
             </div>
@@ -209,7 +209,7 @@ const BeADecorator = () => {
                 name="portfolioUrl"
                 type="url"
                 placeholder="Website, Facebook page, Instagram, etc."
-                className="input input-bordered w-full text-xs sm:text-sm"
+                className="input outline-0 input-bordered w-full text-xs sm:text-sm"
               />
             </div>
 
@@ -221,7 +221,7 @@ const BeADecorator = () => {
                 name="bio"
                 rows={4}
                 required
-                className="textarea textarea-bordered w-full text-xs sm:text-sm"
+                className="textarea outline-0 textarea-bordered w-full text-xs sm:text-sm"
                 placeholder="Describe your style, services, locations you cover and notable projects."
               />
             </div>
@@ -233,7 +233,7 @@ const BeADecorator = () => {
                 </label>
                 <select
                   name="availability"
-                  className="select select-bordered w-full text-xs sm:text-sm"
+                  className="select outline-0 select-bordered w-full text-xs sm:text-sm"
                   defaultValue="weekends"
                   required
                 >

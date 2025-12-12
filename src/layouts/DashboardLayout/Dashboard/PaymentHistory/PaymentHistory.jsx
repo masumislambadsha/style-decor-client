@@ -47,7 +47,7 @@ const PaymentHistory = () => {
               {payments.map((p) => (
                 <tr key={p._id} className="hover:bg-gray-50 text-xs sm:text-sm">
                   <td>{p.serviceName}</td>
-                  <td>৳{p.amount}</td>
+                  <td>{p.amount} BDT</td>
                   <td>{new Date(p.paidAt).toLocaleDateString()}</td>
                   <td className="break-all">{p.transactionId}</td>
                   <td className="break-all">{p.trackingId}</td>

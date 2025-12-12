@@ -47,7 +47,6 @@ const ManageBookings = () => {
   const [selectedBooking, setSelectedBooking] = useState(null);
   const [selectedDecorator, setSelectedDecorator] = useState(null);
   const [actionLoading, setActionLoading] = useState(false);
-
   const [sortBy, setSortBy] = useState("date_desc");
 
   const {
@@ -135,7 +134,13 @@ const ManageBookings = () => {
     ["assigned_pending", "assigned", "cancelled"].includes(b.status)
   );
 
-  let visibleBookings = [...visibleBookingsRaw];
+  const statusRank = {
+    assigned_pending: 0,
+    assigned: 1,
+    cancelled: 2,
+  };
+
+  let visibleBookings = [];
 
   if (sortBy === "pending") {
     visibleBookings = visibleBookingsRaw.filter(
@@ -147,18 +152,23 @@ const ManageBookings = () => {
     visibleBookings = visibleBookingsRaw.filter(
       (b) => b.status === "cancelled"
     );
-  } else if (sortBy === "date_desc") {
-    visibleBookings.sort(
-      (a, b) =>
-        new Date(b.bookingDate || b.createdAt || 0) -
-        new Date(a.bookingDate || a.createdAt || 0)
-    );
-  } else if (sortBy === "date_asc") {
-    visibleBookings.sort(
-      (a, b) =>
-        new Date(a.bookingDate || a.createdAt || 0) -
-        new Date(b.bookingDate || b.createdAt || 0)
-    );
+  } else {
+    visibleBookings = [...visibleBookingsRaw].sort((a, b) => {
+      const sa = statusRank[a.status] ?? 99;
+      const sb = statusRank[b.status] ?? 99;
+      if (sa !== sb) return sa - sb;
+
+      const aDate = new Date(a.bookingDate || a.createdAt || 0);
+      const bDate = new Date(b.bookingDate || b.createdAt || 0);
+
+      if (sortBy === "date_desc") {
+        return bDate - aDate;
+      }
+      if (sortBy === "date_asc") {
+        return aDate - bDate;
+      }
+      return 0;
+    });
   }
 
   if (bookingsLoading) {
@@ -195,15 +205,15 @@ const ManageBookings = () => {
 
           <div className="flex items-center gap-2 sm:gap-3 justify-center sm:justify-end">
             <select
-              className="select select-bordered select-xs sm:select-sm text-xs sm:text-sm"
+              className="select select-bordered select-xs sm:select-sm text-xs sm:text-sm outline-0  border font-medium border-[#ff6a4a]"
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
             >
               <option value="date_desc">Newest</option>
               <option value="date_asc">Oldest</option>
-              <option value="pending">Pending </option>
-              <option value="assigned">Assigned </option>
-              <option value="cancelled">Cancelled </option>
+              <option value="pending">Pending</option>
+              <option value="assigned">Assigned</option>
+              <option value="cancelled">Cancelled</option>
             </select>
           </div>
         </motion.div>
@@ -392,9 +402,9 @@ const ManageBookings = () => {
               <p className="text-gray-500">
                 Event date:{" "}
                 {selectedBooking.bookingDate
-                  ? new Date(selectedBooking.bookingDate).toLocaleDateString(
-                      "en-GB"
-                    )
+                  ? new Date(
+                      selectedBooking.bookingDate
+                    ).toLocaleDateString("en-GB")
                   : "N/A"}
               </p>
             </div>

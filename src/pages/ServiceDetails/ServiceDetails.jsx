@@ -102,7 +102,7 @@ const ServiceDetails = () => {
             <div className="bg-white rounded-2xl sm:rounded-3xl shadow-lg p-6 sm:p-8 border border-gray-100 space-y-6">
               <div className="flex items-center justify-between">
                 <span className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#ff6a4a]">
-                  ৳{service.cost?.toLocaleString() || 0}
+                  {service.cost?.toLocaleString() || 0} BDT
                 </span>
                 <span className="text-gray-500 text-sm sm:text-lg">
                   per {service.unit}
@@ -155,7 +155,7 @@ const ServiceDetails = () => {
                   Service: {service.service_name}
                 </p>
                 <p className="text-[#ff6a4a] font-bold">
-                  ৳{service.cost?.toLocaleString() || 0}
+                  {service.cost?.toLocaleString() || 0} BDT
                 </p>
               </div>
 
@@ -167,7 +167,7 @@ const ServiceDetails = () => {
                   type="text"
                   value={user?.displayName || user?.name || ""}
                   readOnly
-                  className="input input-bordered w-full bg-gray-50 text-xs sm:text-sm"
+                  className="input outline-0 input-bordered w-full bg-gray-50 text-xs sm:text-sm"
                 />
               </div>
 
@@ -179,7 +179,7 @@ const ServiceDetails = () => {
                   type="email"
                   value={user?.email || ""}
                   readOnly
-                  className="input input-bordered w-full bg-gray-50 text-xs sm:text-sm"
+                  className="input outline-0 input-bordered w-full bg-gray-50 text-xs sm:text-sm"
                 />
               </div>
 
@@ -192,7 +192,7 @@ const ServiceDetails = () => {
                   name="date"
                   required
                   min={new Date().toISOString().split("T")[0]}
-                  className="input input-bordered w-full text-xs sm:text-sm"
+                  className="input outline-0 input-bordered w-full text-xs sm:text-sm"
                 />
               </div>
 
@@ -205,7 +205,7 @@ const ServiceDetails = () => {
                   name="location"
                   required
                   placeholder="Your full address"
-                  className="input input-bordered w-full text-xs sm:text-sm"
+                  className="input outline-0 input-bordered w-full text-xs sm:text-sm"
                 />
               </div>
 

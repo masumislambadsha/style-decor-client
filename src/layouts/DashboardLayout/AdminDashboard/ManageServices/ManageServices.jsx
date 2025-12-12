@@ -196,7 +196,7 @@ const ManageServices = () => {
           <motion.button
             whileTap={{ scale: 0.97 }}
             onClick={openCreate}
-            className="btn bg-[#ff6a4a] hover:bg-black text-white flex items-center gap-2 btn-xs sm:btn-sm self-center"
+            className="btn bg-[#ff6a4a] hover:bg-black text-white flex items-center gap-2  self-center"
           >
             <Plus size={18} />
             Add Service
@@ -275,7 +275,7 @@ const ManageServices = () => {
                         <div>
                           <span className="text-gray-500">Cost: </span>
                           <span className="font-bold text-white px-2 py-1 rounded-xl sm:rounded-2xl bg-[#ff6a4a]">
-                            ৳{s.cost?.toLocaleString()}
+                            {s.cost?.toLocaleString()} BDT
                           </span>
                         </div>
                         <div>
@@ -366,7 +366,7 @@ const ManageServices = () => {
                     <label className="font-medium text-gray-700">Service Name</label>
                     <input
                       type="text"
-                      className="input input-bordered w-full text-xs sm:text-sm"
+                      className="input outline-0 input-bordered w-full text-xs sm:text-sm"
                       {...register("service_name", { required: true })}
                     />
                     {errors.service_name && (
@@ -377,7 +377,7 @@ const ManageServices = () => {
                   <div>
                     <label className="font-medium text-gray-700">Category</label>
                     <select
-                      className="select select-bordered w-full text-xs sm:text-sm"
+                      className="select outline-0 select-bordered w-full text-xs sm:text-sm"
                       {...register("service_category", { required: true })}
                     >
                       <option value="home">Home</option>
@@ -395,7 +395,7 @@ const ManageServices = () => {
                     <label className="font-medium text-gray-700">Cost</label>
                     <input
                       type="number"
-                      className="input input-bordered w-full text-xs sm:text-sm"
+                      className="input outline-0 input-bordered w-full text-xs sm:text-sm"
                       {...register("cost", { required: true, min: 1 })}
                     />
                     {errors.cost && (
@@ -407,7 +407,7 @@ const ManageServices = () => {
                     <label className="font-medium text-gray-700">Unit</label>
                     <input
                       type="text"
-                      className="input input-bordered w-full text-xs sm:text-sm"
+                      className="input outline-0 input-bordered w-full text-xs sm:text-sm"
                       {...register("unit", { required: true })}
                       placeholder="per event / per sq ft / per room"
                     />
@@ -430,7 +430,7 @@ const ManageServices = () => {
                     </label>
                     <input
                       type="text"
-                      className="input input-bordered w-full text-xs sm:text-sm"
+                      className="input outline-0 input-bordered w-full text-xs sm:text-sm"
                       placeholder="Or paste image URL"
                       {...register("image", { required: true })}
                     />
@@ -454,7 +454,7 @@ const ManageServices = () => {
                 <div>
                   <label className="font-medium text-gray-700">Description</label>
                   <textarea
-                    className="textarea textarea-bordered w-full min-h-[90px] text-xs sm:text-sm"
+                    className="textarea outline-0 textarea-bordered w-full min-h-[90px] text-xs sm:text-sm"
                     {...register("description", { required: true })}
                   />
                   {errors.description && (
@@ -481,13 +481,13 @@ const ManageServices = () => {
                       setModalOpen(false);
                       reset(emptyService);
                     }}
-                    className="btn btn-ghost btn-xs sm:btn-sm"
+                    className="btn btn-ghost "
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="btn bg-[#ff6a4a] hover:bg-black text-white btn-xs sm:btn-sm"
+                    className="btn bg-[#ff6a4a] hover:bg-black text-white "
                   >
                     {editing ? "Save Changes" : "Create Service"}
                   </button>

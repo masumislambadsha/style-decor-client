@@ -66,11 +66,11 @@ const TopDecorators = () => {
           Meet Our Top Decorators
         </h2>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 sm:gap-10">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 sm:gap-10 md:space-y-0 space-y-5">
           {topSix.map((decorator) => {
             const imgSrc = decorator.photoURL || decorator.photo;
             return (
-              <div key={decorator._id} className="text-center group">
+              <div key={decorator._id} className="text-center group h-[200px] md:h-auto ">
                 <div className="relative mx-auto w-24 sm:w-32 h-24 sm:h-32 mb-4">
                   <div className="relative overflow-hidden rounded-full mx-auto w-24 sm:w-32 h-24 sm:h-32 mb-3">
                     <img

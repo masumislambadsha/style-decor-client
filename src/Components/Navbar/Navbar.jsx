@@ -13,10 +13,10 @@ const Navbar = () => {
   const handleLogout = async () => {
     try {
       await logOut();
-      toast.success("Logged out successfully");
+      toast.success("Logged Out Successfully");
       navigate("/");
     } catch {
-      toast.error("Logout failed");
+      toast.error("Logout Failed");
     }
   };
 
@@ -230,7 +230,7 @@ const Navbar = () => {
     <button
       type="button"
       onClick={(e) => {
-        e.preventDefault(); 
+        e.preventDefault();
         const checkbox = document.getElementById("mobile-drawer");
         if (checkbox) checkbox.checked = !checkbox.checked;
       }}

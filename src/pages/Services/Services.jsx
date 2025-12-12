@@ -69,7 +69,7 @@ const Services = () => {
                 placeholder="Search by service name..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="input input-bordered w-full pl-12 h-10 sm:h-12 lg:h-14 text-sm sm:text-base lg:text-lg"
+                className="input outline-0 input-bordered w-full pl-12 h-10 sm:h-12 lg:h-14 text-sm sm:text-base lg:text-lg"
               />
             </div>
 
@@ -78,7 +78,7 @@ const Services = () => {
               <select
                 value={selectedType}
                 onChange={(e) => setSelectedType(e.target.value)}
-                className="select select-bordered w-full pl-12 h-10 sm:h-12 lg:h-14 text-sm sm:text-base lg:text-lg"
+                className="select outline-0 select-bordered w-full pl-12 h-10 sm:h-12 lg:h-14 text-sm sm:text-base lg:text-lg"
               >
                 <option value="">All Categories</option>
                 {categories.map((cat) => (
@@ -100,7 +100,7 @@ const Services = () => {
                 step="100"
                 value={priceRange[1]}
                 onChange={(e) => setPriceRange([priceRange[0], Number(e.target.value)])}
-                className="range range-accent w-full"
+                className="range text-[#ff6a4a] w-full"
               />
             </div>
           </div>

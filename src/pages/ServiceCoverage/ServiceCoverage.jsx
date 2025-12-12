@@ -44,7 +44,7 @@ const ServiceCoverage = () => {
             onSubmit={handleSearch}
             className="flex flex-col sm:flex-row gap-3 items-stretch"
           >
-            <label className="input input-bordered flex items-center gap-2 flex-1 bg-gray-50">
+            <label className="input input-bordered flex items-center gap-2 flex-1 bg-gray-50 outline-0">
               <svg
                 className="h-[1.1em] opacity-60 text-gray-500"
                 xmlns="http://www.w3.org/2000/svg"
@@ -64,7 +64,7 @@ const ServiceCoverage = () => {
               <input
                 name="location"
                 type="search"
-                className="grow h-10 md:h-15 text-xs sm:text-sm"
+                className="grow h-10 md:h-15 text-xs sm:text-sm "
                 placeholder="Search by district name (e.g. Dhaka, Chattogram)..."
               />
             </label>
