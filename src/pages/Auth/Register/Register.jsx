@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router";
 import toast from "react-hot-toast";
@@ -8,6 +8,9 @@ import useAuth from "../../../Hooks/useAuth";
 import { FcGoogle } from "react-icons/fc";
 motion
 const Register = () => {
+   useEffect(() => {
+    document.title = "Style Decor | Register";
+  }, []);
   const { registerUser, updateUserProfile, signInGoogle } = useAuth();
   const navigate = useNavigate();
   const [showPass, setShowPass] = useState(false);

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Trash2 } from "lucide-react";
 import Swal from "sweetalert2";
@@ -47,6 +47,10 @@ const cardVariants = {
 };
 
 const ManageDecorators = () => {
+
+  useEffect(()=>{
+    document.title = "Style Decor | Manage Decorator"
+  },[])
   const axiosSecure = useAxiosSecure();
 
   const {

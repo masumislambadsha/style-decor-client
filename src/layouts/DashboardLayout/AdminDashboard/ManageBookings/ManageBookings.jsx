@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -42,6 +42,10 @@ const cardVariants = {
 };
 
 const ManageBookings = () => {
+
+    useEffect(()=>{
+      document.title = "Style Decor | Manage Bookings"
+    },[])
   const axiosSecure = useAxiosSecure();
 
   const [selectedBooking, setSelectedBooking] = useState(null);

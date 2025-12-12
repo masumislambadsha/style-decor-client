@@ -1,13 +1,16 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { CreditCard, CalendarDays, Briefcase } from "lucide-react";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import LoadingSpinner from "../../../../Components/Spinner/LoadingSpinner";
-
+motion;
 const SHARE = 0.3;
 
 const Earnings = () => {
+    useEffect(() => {
+    document.title = "Style Decor | Earnings";
+  }, []);
   const axiosSecure = useAxiosSecure();
 
   const { data: bookings = [], isLoading } = useQuery({

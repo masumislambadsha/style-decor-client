@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import useAuth from "../../../../Hooks/useAuth";
 
 const MyProfile = () => {
+    useEffect(() => {
+    document.title = "Style Decor | My Profile";
+  }, []);
   const { user } = useAuth();
   const [isEditing, setIsEditing] = React.useState(false);
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
@@ -9,6 +9,9 @@ import { motion } from "framer-motion";
 import LoadingSpinner from "../../Components/Spinner/LoadingSpinner";
 motion
 const ServiceDetails = () => {
+   useEffect(() => {
+    document.title = "Style Decor | Service Details";
+  }, []);
   const { id } = useParams();
   const navigate = useNavigate();
   const { user } = useAuth();

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { motion, AnimatePresence } from "framer-motion";
 import { CalendarDays, MapPin, ArrowRight } from "lucide-react";
@@ -62,6 +62,9 @@ const getNextLabel = (nextStatus) => {
 };
 
 const AssignedProjects = () => {
+    useEffect(() => {
+    document.title = "Style Decor | Assigned Projects";
+  }, []);
   const axiosSecure = useAxiosSecure();
   const [updatingId, setUpdatingId] = useState(null);
 

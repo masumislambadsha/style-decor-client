@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import LoadingSpinner from "../../../../Components/Spinner/LoadingSpinner";
 
 const DecoratorApplications = () => {
+
+    useEffect(()=>{
+      document.title = "Style Decor | Accept Decorator"
+    },[])
   const axiosSecure = useAxiosSecure();
 
   const {

@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router";
 
 const Forbidden = () => {
+  useEffect(()=>{
+    document.title = "Style Decor | Forbidden Page"
+  },[])
   return (
     <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-slate-900 via-slate-950 to-black -mt-5 px-4">
       <div className="max-w-md w-full text-center">

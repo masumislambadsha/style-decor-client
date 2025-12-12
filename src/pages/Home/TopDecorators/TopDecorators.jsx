@@ -70,7 +70,7 @@ const TopDecorators = () => {
           {topSix.map((decorator) => {
             const imgSrc = decorator.photoURL || decorator.photo;
             return (
-              <div key={decorator._id} className="text-center group h-[200px] md:h-auto ">
+              <div key={decorator._id} className="text-center group h-[200px] md:h-auto">
                 <div className="relative mx-auto w-24 sm:w-32 h-24 sm:h-32 mb-4">
                   <div className="relative overflow-hidden rounded-full mx-auto w-24 sm:w-32 h-24 sm:h-32 mb-3">
                     <img

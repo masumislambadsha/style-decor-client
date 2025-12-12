@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 
 const pageVariants = {
@@ -27,8 +27,11 @@ const rightVariants = {
     transition: { duration: 0.4, ease: "easeOut", delay: 0.14 },
   },
 };
-
+motion;
 const Contact = () => {
+   useEffect(() => {
+    document.title = "Style Decor | Contact";
+  }, []);
   const handleSubmit = (e) => {
     e.preventDefault();
   };

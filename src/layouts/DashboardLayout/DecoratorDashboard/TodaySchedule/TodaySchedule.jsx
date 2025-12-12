@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { motion, AnimatePresence } from "framer-motion";
 import { CalendarDays, MapPin, Clock } from "lucide-react";
@@ -16,6 +16,9 @@ const cardVariants = {
 };
 
 const TodaysSchedule = () => {
+    useEffect(() => {
+    document.title = "Style Decor | Today's Schedule";
+  }, []);
   const axiosSecure = useAxiosSecure();
 
   const { data: bookings = [], isLoading } = useQuery({

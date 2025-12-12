@@ -7,6 +7,9 @@ import LoadingSpinner from "../../Components/Spinner/LoadingSpinner";
 import ServiceCard from "../../Components/ServiceCard/ServiceCard";
 motion
 const Services = () => {
+   useEffect(() => {
+    document.title = "Style Decor | All Service";
+  }, []);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedType, setSelectedType] = useState("");
   const [priceRange, setPriceRange] = useState([0, 0]);

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 import { motion } from "framer-motion";
@@ -16,6 +16,10 @@ const rowVariants = {
 };
 
 const ManageUser = () => {
+
+  useEffect(()=>{
+    document.title = "Style Decor | Manage User"
+  },[])
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
   const queryClient = useQueryClient();

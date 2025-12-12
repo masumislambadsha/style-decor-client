@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import useAuth from "../../Hooks/useAuth";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import toast from "react-hot-toast";
 
 const BeADecorator = () => {
+   useEffect(() => {
+    document.title = "Style Decor | Be A Decorate";
+  }, []);
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
 

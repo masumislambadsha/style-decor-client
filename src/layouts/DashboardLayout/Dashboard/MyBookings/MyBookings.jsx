@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import useAuth from "../../../../Hooks/useAuth";
@@ -6,6 +6,9 @@ import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 
 const MyBookings = () => {
+  useEffect(() => {
+    document.title = "Style Decor | My Bookings";
+  }, []);
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const [filter, setFilter] = useState("all");

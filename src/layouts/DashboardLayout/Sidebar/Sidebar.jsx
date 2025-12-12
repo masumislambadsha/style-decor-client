@@ -73,7 +73,7 @@ const Sidebar = ({ role = "user" }) => {
         path: "/dashboard/decorator/projects",
         icon: Briefcase,
       },
-      { label: "Schedule",
+      { label: "Today's Schedule",
         path: "/dashboard/decorator/schedule",
         icon: CalendarHeart
       },

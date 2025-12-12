@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -29,6 +29,10 @@ const cardVariants = {
 };
 
 const ManageServices = () => {
+
+  useEffect(()=>{
+    document.title = "Style Decor | Manage Service"
+  },[])
   const axiosSecure = useAxiosSecure();
   const [modalOpen, setModalOpen] = useState(false);
   const [editing, setEditing] = useState(null);

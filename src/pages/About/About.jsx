@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 motion;
 const pageVariants = {
@@ -52,6 +52,9 @@ const cardStagger = {
 };
 
 const About = () => {
+   useEffect(() => {
+    document.title = "Style Decor | About";
+  }, []);
   return (
     <motion.div
       className="min-h-screen bg-slate-50 pt-24 pb-16 px-4"

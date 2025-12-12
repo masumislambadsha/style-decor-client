@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import LoadingSpinner from "../../../../Components/Spinner/LoadingSpinner";
 motion
 const Analytics = () => {
+
+    useEffect(()=>{
+      document.title = "Style Decor | Analytics"
+    },[])
   const axiosSecure = useAxiosSecure();
   const { data, isLoading } = useQuery({
     queryKey: ["admin-analytics"],

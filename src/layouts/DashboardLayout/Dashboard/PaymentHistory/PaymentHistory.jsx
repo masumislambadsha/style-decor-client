@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../../Hooks/useAuth";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import LoadingSpinner from "../../../../Components/Spinner/LoadingSpinner";
 
 const PaymentHistory = () => {
+    useEffect(() => {
+    document.title = "Style Decor | Payment History";
+  }, []);
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
 

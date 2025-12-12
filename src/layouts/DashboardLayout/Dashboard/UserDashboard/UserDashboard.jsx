@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router";
 import { motion } from "framer-motion";
 import useRole from "../../../../Hooks/useRole";
@@ -18,6 +18,9 @@ const cardVariants = {
 };
 
 const UserDashboard = () => {
+    useEffect(() => {
+    document.title = "Style Decor | Dashboard";
+  }, []);
   const [role] = useRole();
 
   const normalizedRole = (role || "user").toLowerCase();
