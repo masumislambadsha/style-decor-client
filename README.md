@@ -1,4 +1,4 @@
-# ⚜️ STYLE DECOR — CLIENT — THE SHOWROOM (Updated)
+# ⚜️ STYLE DECOR — CLIENT — THE SHOWROOM
 
 ![SHOWROOM READY](https://img.shields.io/badge/SHOWROOM-OPEN-brightgreen?style=for-the-badge&logo=shopify)
 
