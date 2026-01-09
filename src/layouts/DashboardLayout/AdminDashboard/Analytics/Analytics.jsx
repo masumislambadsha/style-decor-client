@@ -18,7 +18,7 @@ const Analytics = () => {
     queryFn: async () => {
       const res = await axiosSecure.get("/admin/analytics");
       return res.data;
-    },
+    }, 
   });
 
   if (isLoading) {
