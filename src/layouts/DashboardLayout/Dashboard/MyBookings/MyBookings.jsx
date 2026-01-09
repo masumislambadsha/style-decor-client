@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+  import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import useAuth from "../../../../Hooks/useAuth";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+
+import BookingCardSkeleton from "../../../../Components/Skeletons/BookingCardSkeleton";
 
 const MyBookings = () => {
   useEffect(() => {
@@ -16,7 +18,7 @@ const MyBookings = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 5;
 
-  const { data: bookings = [], refetch } = useQuery({
+  const { data: bookings = [], refetch, isLoading } = useQuery({
     queryKey: ["my-bookings", user?.email],
     queryFn: async () => {
       const res = await axiosSecure.get(`/bookings?email=${user.email}`);
@@ -100,8 +102,8 @@ const MyBookings = () => {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <h2 className="text-2xl mt-8 mb-10 sm:text-3xl font-bold text-gray-900">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 max-w-6xl mx-auto space-y-8">
+        <h2 className="text-2xl mt-8 mb-10 sm:text-3xl font-bold text-base-content">
           My Bookings
         </h2>
         <div className="flex flex-wrap gap-2 sm:gap-3">
@@ -131,9 +133,11 @@ const MyBookings = () => {
       </div>
 
       <div className="grid gap-4 sm:gap-6">
-        {currentPageItems.length === 0 ? (
+        {isLoading ? (
+          [...Array(pageSize)].map((_, i) => <BookingCardSkeleton key={i} />)
+        ) : currentPageItems.length === 0 ? (
           <div className="text-center py-16">
-            <p className="text-gray-500 text-sm sm:text-lg">
+            <p className="text-base-content/60 text-sm sm:text-lg">
               No bookings found
             </p>
           </div>
@@ -141,16 +145,16 @@ const MyBookings = () => {
           currentPageItems.map((booking) => (
             <div
               key={booking._id}
-              className="bg-white rounded-xl sm:rounded-3xl shadow-xl p-4 sm:p-6 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4"
+              className="bg-base-100 rounded-xl sm:rounded-3xl shadow-xl p-4 sm:p-6 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4"
             >
               <div>
-                <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2">
+                <h3 className="text-lg sm:text-xl font-bold text-base-content mb-2">
                   {booking.serviceName}
                 </h3>
-                <p className="text-xs sm:text-sm text-gray-600 mb-1">
+                <p className="text-xs sm:text-sm text-base-content/70 mb-1">
                   Date: {new Date(booking.bookingDate).toLocaleDateString()}
                 </p>
-                <p className="text-xs sm:text-sm text-gray-600 mb-1">
+                <p className="text-xs sm:text-sm text-base-content/70 mb-1">
                   Location: {booking.location}
                 </p>
                 <span
@@ -205,7 +209,7 @@ const MyBookings = () => {
             Prev
           </button>
 
-          <span className="text-xs sm:text-sm text-gray-600">
+          <span className="text-xs sm:text-sm text-base-content/70">
             Page {currentPage} of {totalPages}
           </span>
 

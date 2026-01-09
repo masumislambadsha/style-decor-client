@@ -1,5 +1,7 @@
 @import "tailwindcss";
 @plugin "daisyui";
+
+@variant dark (&:where(.dark, .dark *));
 @keyframes spin-slow {
   to {
     transform: rotate(360deg);

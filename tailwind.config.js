@@ -6,14 +6,6 @@ export default {
         accent: '#ff6a4a',
         dark: '#111111',
       },
-    },
-  },
-  plugins: [require('daisyui')],
-};
-// tailwind.config.cjs
-module.exports = {
-  theme: {
-    extend: {
       keyframes: {
         "spin-slow": {
           "0%": { transform: "rotate(0deg)" },
@@ -25,5 +17,8 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require('daisyui')],
+  daisyui: {
+    themes: ["light", "dark"],
+  },
 };

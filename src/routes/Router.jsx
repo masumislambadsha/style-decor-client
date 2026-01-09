@@ -37,7 +37,14 @@ import BeADecorator from "../pages/BeADecorator/BeADecorator";
 import DecoratorApplications from "../layouts/DashboardLayout/AdminDashboard/DecoratorApplications/DecoratorApplications";
 import About from "../pages/About/About";
 import Contact from "../pages/Contact/Contact";
+import Blog from "../pages/Blog/Blog";
+import BlogDetails from "../pages/Blog/BlogDetails";
+import Help from "../pages/Help/Help";
+import Privacy from "../pages/Privacy/Privacy";
+import Terms from "../pages/Terms/Terms";
 import ManageUser from "../layouts/DashboardLayout/AdminDashboard/ManageUser/ManageUser";
+
+import DashboardHome from "../layouts/DashboardLayout/Dashboard/DashboardHome";
 
 const router = createBrowserRouter([
   {
@@ -49,6 +56,11 @@ const router = createBrowserRouter([
       { path: "/services", element: <Services /> },
       { path: "/about", element: <About /> },
       { path: "/contact", element: <Contact /> },
+      { path: "/blog", element: <Blog /> },
+      { path: "/blog/:id", element: <BlogDetails /> },
+      { path: "/help", element: <Help /> },
+      { path: "/privacy", element: <Privacy /> },
+      { path: "/terms", element: <Terms /> },
       {
         path: "/service-coverage",
         element: <ServiceCoverage />,
@@ -77,7 +89,7 @@ const router = createBrowserRouter([
       </PrivateRoute>
     ),
     children: [
-      { index: true, element: <UserDashboard /> },
+      { index: true, element: <DashboardHome /> },
       { path: "bookings", element: <MyBookings /> },
       { path: "profile", element: <MyProfile /> },
       { path: "payment-history", element: <PaymentHistory /> },

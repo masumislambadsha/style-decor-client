@@ -17,6 +17,7 @@ const ServiceDetails = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [bookingLoading, setBookingLoading] = useState(false);
 
   const { data: service, isLoading } = useQuery({
     queryKey: ["service", id],
@@ -48,6 +49,7 @@ const ServiceDetails = () => {
     };
 
     try {
+      setBookingLoading(true);
       const res = await axiosSecure.post("/bookings", bookingData);
 
       if (res.data.insertedId) {
@@ -67,6 +69,8 @@ const ServiceDetails = () => {
       } else {
         toast.error("Booking failed. Please try again.");
       }
+    } finally {
+      setBookingLoading(false);
     }
   };
 
@@ -78,9 +82,9 @@ const ServiceDetails = () => {
   if (!service) return <p className="text-center py-20">Service not found</p>;
 
   return (
-    <div className="min-h-screen bg-linear-to-b from-gray-50 to-gray-100 py-10 sm:py-20">
+    <div className="min-h-screen bg-base-200 py-10 sm:py-20">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-14 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-14 items-center">
           <motion.img
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -94,25 +98,25 @@ const ServiceDetails = () => {
             animate={{ opacity: 1, y: 0 }}
             className="space-y-6 sm:space-y-8"
           >
-            <h1 className="text-3xl sm:text-4xl md:text-[55px] font-bold text-gray-900 leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-[55px] font-bold text-base-content leading-tight">
               {service.service_name}
             </h1>
 
-            <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
+            <p className="text-base sm:text-lg text-base-content/70 leading-relaxed">
               {service.description}
             </p>
 
-            <div className="bg-white rounded-2xl sm:rounded-3xl shadow-lg p-6 sm:p-8 border border-gray-100 space-y-6">
+            <div className="bg-base-100 rounded-2xl sm:rounded-3xl shadow-lg p-6 sm:p-8 border border-base-300 space-y-6">
               <div className="flex items-center justify-between">
                 <span className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#ff6a4a]">
                   {service.cost?.toLocaleString() || 0} BDT
                 </span>
-                <span className="text-gray-500 text-sm sm:text-lg">
+                <span className="text-base-content/60 text-sm sm:text-lg">
                   per {service.unit}
                 </span>
               </div>
 
-              <div className="badge badge-sm sm:badge-lg badge-outline text-gray-700">
+              <div className="badge badge-sm sm:badge-lg badge-outline text-base-content/80">
                 {service.service_category}
               </div>
 
@@ -139,11 +143,11 @@ const ServiceDetails = () => {
           <motion.div
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            className="bg-white rounded-2xl sm:rounded-3xl shadow-2xl max-w-lg w-full p-6 sm:p-10 relative"
+            className="bg-base-100 text-base-content rounded-2xl sm:rounded-3xl shadow-2xl max-w-lg w-full p-6 sm:p-10 relative"
           >
             <button
               onClick={() => setIsModalOpen(false)}
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-700"
+              className="absolute top-4 right-4 text-base-content/40 hover:text-base-content"
             >
               ✕
             </button>
@@ -153,8 +157,8 @@ const ServiceDetails = () => {
             </h2>
 
             <form onSubmit={handleBooking} className="space-y-6">
-              <div className="bg-gray-50 p-4 rounded-xl">
-                <p className="font-semibold text-gray-800">
+              <div className="bg-base-200 p-4 rounded-xl">
+                <p className="font-semibold text-base-content">
                   Service: {service.service_name}
                 </p>
                 <p className="text-[#ff6a4a] font-bold">
@@ -163,31 +167,31 @@ const ServiceDetails = () => {
               </div>
 
               <div>
-                <label className="flex items-center gap-3 mb-2 font-medium text-gray-700">
+                <label className="flex items-center gap-3 mb-2 font-medium text-base-content/80">
                   <User size={18} sm:size={20} /> Name
                 </label>
                 <input
                   type="text"
                   value={user?.displayName || user?.name || ""}
                   readOnly
-                  className="input outline-0 input-bordered w-full bg-gray-50 text-xs sm:text-sm"
+                  className="input outline-0 input-bordered w-full bg-base-200 text-base-content/60 text-xs sm:text-sm"
                 />
               </div>
 
               <div>
-                <label className="flex items-center gap-3 mb-2 font-medium text-gray-700">
+                <label className="flex items-center gap-3 mb-2 font-medium text-base-content/80">
                   <Mail size={18} sm:size={20} /> Email
                 </label>
                 <input
                   type="email"
                   value={user?.email || ""}
                   readOnly
-                  className="input outline-0 input-bordered w-full bg-gray-50 text-xs sm:text-sm"
+                  className="input outline-0 input-bordered w-full bg-base-200 text-base-content/60 text-xs sm:text-sm"
                 />
               </div>
 
               <div>
-                <label className="flex items-center gap-3 mb-2 font-medium text-gray-700">
+                <label className="flex items-center gap-3 mb-2 font-medium text-base-content/80">
                   <Calendar size={18} sm:size={20} /> Preferred Date
                 </label>
                 <input
@@ -195,12 +199,12 @@ const ServiceDetails = () => {
                   name="date"
                   required
                   min={new Date().toISOString().split("T")[0]}
-                  className="input outline-0 input-bordered w-full text-xs sm:text-sm"
+                  className="input outline-0 input-bordered w-full bg-base-100 text-base-content text-xs sm:text-sm"
                 />
               </div>
 
               <div>
-                <label className="flex items-center gap-3 mb-2 font-medium text-gray-700">
+                <label className="flex items-center gap-3 mb-2 font-medium text-base-content/80">
                   <MapPin size={18} sm:size={20} /> Location
                 </label>
                 <input
@@ -208,16 +212,18 @@ const ServiceDetails = () => {
                   name="location"
                   required
                   placeholder="Your full address"
-                  className="input outline-0 input-bordered w-full text-xs sm:text-sm"
+                  className="input outline-0 input-bordered w-full bg-base-100 text-base-content text-xs sm:text-sm"
                 />
               </div>
 
               <div className="flex gap-4 pt-4">
                 <button
                   type="submit"
-                  className="btn bg-[#ff6a4a] hover:bg-black text-white flex-1 h-10 sm:h-12 text-sm sm:text-lg"
+                  disabled={bookingLoading}
+                  className="btn bg-[#ff6a4a] hover:bg-black text-white flex-1 h-10 sm:h-12 text-sm sm:text-lg flex items-center justify-center gap-2"
                 >
-                  Confirm Booking
+                  {bookingLoading && <span className="loading loading-spinner loading-xs"></span>}
+                  {bookingLoading ? "Confirming..." : "Confirm Booking"}
                 </button>
                 <button
                   type="button"

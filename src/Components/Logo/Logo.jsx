@@ -37,10 +37,12 @@ const Logo = () => {
         <text
           x="64"
           y="24"
-          fill="gray"
-          fontFamily="system-ui, -apple-system, BlinkMacSystemFont, 'Inter', sans-serif"
-          fontSize="18"
+          fill="currentColor"
+          className="text-gray-800 dark:text-white"
+          fontFamily="'Oswald', sans-serif"
+          fontSize="24"
           fontWeight="700"
+          letterSpacing="0.5"
         >
           Style
           <tspan fill="#FF6A4A">Decor</tspan>
@@ -48,9 +50,11 @@ const Logo = () => {
         <text
           x="64"
           y="38"
-          fill="gray"
-          fontFamily="system-ui, -apple-system, BlinkMacSystemFont, 'Inter', sans-serif"
-          fontSize="9"
+          fill="currentColor"
+          className="text-gray-500 dark:text-gray-400"
+          fontFamily="'Inter', sans-serif"
+          fontSize="8"
+          fontWeight="500"
           letterSpacing="1.2"
         >
           HOME • EVENT • INTERIOR

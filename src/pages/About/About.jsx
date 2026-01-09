@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { motion } from "framer-motion";
-motion;
+
 const pageVariants = {
   hidden: { opacity: 0, y: 30 },
   visible: {
@@ -57,7 +57,7 @@ const About = () => {
   }, []);
   return (
     <motion.div
-      className="min-h-screen bg-slate-50 pt-24 pb-16 px-4"
+      className="min-h-screen bg-base-200 pt-24 pb-16 px-4"
       initial="hidden"
       animate="visible"
       variants={pageVariants}
@@ -78,7 +78,7 @@ const About = () => {
             About us
           </motion.span>
           <motion.h1
-            className="mt-4 text-3xl md:text-4xl font-extrabold text-slate-900"
+            className="mt-4 text-3xl md:text-4xl font-extrabold text-base-content"
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, ease: "easeOut", delay: 0.12 }}
@@ -86,7 +86,7 @@ const About = () => {
             StyleDecor – Home, Event & Interior
           </motion.h1>
           <motion.p
-            className="mt-3 text-slate-600 max-w-2xl mx-auto text-sm md:text-base"
+            className="mt-3 text-base-content/70 max-w-2xl mx-auto text-sm md:text-base"
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.35, ease: "easeOut", delay: 0.18 }}
@@ -104,7 +104,7 @@ const About = () => {
             animate="visible"
           >
             <motion.div
-              className="bg-white rounded-3xl shadow-sm border border-slate-100 p-6"
+              className="bg-base-100 rounded-3xl shadow-sm border border-base-300 p-6"
               custom={0}
               variants={cardStagger}
               initial="hidden"
@@ -112,10 +112,10 @@ const About = () => {
               whileHover={{ y: -4, scale: 1.01, boxShadow: "0 22px 45px rgba(15,23,42,0.08)" }}
               transition={{ type: "spring", stiffness: 220, damping: 22 }}
             >
-              <h2 className="text-lg font-semibold text-slate-900 mb-2">
+              <h2 className="text-lg font-semibold text-base-content mb-2">
                 What we do
               </h2>
-              <p className="text-slate-600 text-sm md:text-base">
+              <p className="text-base-content/70 text-sm md:text-base">
                 From cozy living rooms and modern kitchens to full wedding
                 venues and corporate stages, our curated decorators handle
                 planning, materials, setup, and execution so clients can relax
@@ -140,7 +140,7 @@ const About = () => {
               ].map((item, idx) => (
                 <motion.div
                   key={item.label}
-                  className="bg-white rounded-2xl shadow-sm border border-slate-100 p-4"
+                  className="bg-base-100 rounded-2xl shadow-sm border border-base-300 p-4"
                   custom={idx + 1}
                   variants={cardStagger}
                   initial="hidden"
@@ -156,10 +156,10 @@ const About = () => {
                     damping: 20,
                   }}
                 >
-                  <p className="text-xs font-semibold text-slate-500 uppercase mb-1">
+                  <p className="text-xs font-semibold text-base-content/60 uppercase mb-1">
                     {item.label}
                   </p>
-                  <p className="text-sm text-slate-700">{item.text}</p>
+                  <p className="text-sm text-base-content/80">{item.text}</p>
                 </motion.div>
               ))}
             </div>
@@ -172,7 +172,7 @@ const About = () => {
             animate="visible"
           >
             <motion.div
-              className="bg-white rounded-3xl shadow-sm border border-slate-100 p-6"
+              className="bg-base-100 rounded-3xl shadow-sm border border-base-300 p-6"
               custom={4}
               variants={cardStagger}
               initial="hidden"
@@ -183,10 +183,10 @@ const About = () => {
                 boxShadow: "0 20px 40px rgba(15,23,42,0.08)",
               }}
             >
-              <h3 className="text-sm font-semibold text-slate-500 uppercase mb-3">
+              <h3 className="text-sm font-semibold text-base-content/60 uppercase mb-3">
                 Why clients choose us
               </h3>
-              <ul className="space-y-2 text-sm text-slate-700">
+              <ul className="space-y-2 text-sm text-base-content/80">
                 <li>• Curated, verified decorators across multiple cities.</li>
                 <li>• Transparent pricing and clear project tracking.</li>
                 <li>• End‑to‑end support from planning to setup.</li>

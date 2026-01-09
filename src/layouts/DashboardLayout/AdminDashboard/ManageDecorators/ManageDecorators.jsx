@@ -11,7 +11,7 @@ const StatusBadge = ({ status }) => {
 
   const badgeStyles = {
     active: "bg-green-500/10 text-green-600 border-green-500/30",
-    inactive: "bg-gray-500/10 text-gray-600 border-gray-500/30",
+    inactive: "bg-base-300/50 text-base-content/60 border-base-300",
     pending: "bg-[#ff6a4a]/10 text-[#ff6a4a] border-[#ff6a4a]/30",
   };
   motion
@@ -102,7 +102,7 @@ const ManageDecorators = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8 px-4">
+    <div className="min-h-screen bg-base-200 py-8 px-4">
       <motion.div
         className="max-w-5xl mx-auto"
         initial={{ opacity: 0, y: 15 }}
@@ -111,7 +111,7 @@ const ManageDecorators = () => {
       >
         <div className="text-center mb-8">
           <motion.h1
-            className="text-3xl md:text-4xl font-black text-gray-900"
+            className="text-3xl md:text-4xl font-black text-base-content"
             initial={{ y: 10, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.25 }}
@@ -119,7 +119,7 @@ const ManageDecorators = () => {
             Manage Decorators
           </motion.h1>
           <motion.p
-            className="text-sm md:text-base text-gray-500 mt-2"
+            className="text-sm md:text-base text-base-content/60 mt-2"
             initial={{ y: 10, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.25, delay: 0.05 }}
@@ -127,7 +127,7 @@ const ManageDecorators = () => {
             View, manage and remove decorators from the platform.
           </motion.p>
           <motion.p
-            className="text-base text-[#ff6a4a] mt-1"
+            className="text-base text-[#ff6a4a] mt-1 "
             initial={{ y: 10, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.25, delay: 0.1 }}
@@ -139,16 +139,16 @@ const ManageDecorators = () => {
 
         {decorators.length === 0 && (
           <motion.div
-            className="bg-white rounded-2xl shadow-md p-12 text-center"
+            className="bg-base-100 rounded-2xl shadow-md p-12 text-center"
             initial={{ opacity: 0, scale: 0.97 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.25 }}
           >
             <div className="text-6xl mb-4 text-gray-300">🎨</div>
-            <p className="text-xl font-semibold text-gray-700">
+            <p className="text-xl font-semibold text-base-content/80">
               No decorators found
             </p>
-            <p className="text-gray-500 mt-1">
+            <p className="text-base-content/60 mt-1">
               Add decorators to see them listed here.
             </p>
           </motion.div>
@@ -162,7 +162,7 @@ const ManageDecorators = () => {
               return (
                 <motion.div
                   key={d._id}
-                  className="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 p-4 md:p-5"
+                  className="bg-base-100 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-base-300 p-4 md:p-5"
                   variants={cardVariants}
                   initial="hidden"
                   animate="visible"
@@ -171,7 +171,7 @@ const ManageDecorators = () => {
                   whileHover={{ y: -3, scale: 1.01 }}
                 >
                   <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-sm font-semibold text-gray-500">
+                    <h3 className="text-sm font-semibold text-base-content/50">
                       Decorator #{index + 1}
                     </h3>
                     <StatusBadge status={d.status} />
@@ -200,14 +200,14 @@ const ManageDecorators = () => {
                     <div className="flex-1 w-full">
                       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 md:gap-4">
                         <div>
-                          <p className="text-xs font-medium text-gray-400 uppercase tracking-wide">
+                          <p className="text-xs font-medium text-base-content/40 uppercase tracking-wide">
                             ID. {index + 1}
                           </p>
-                          <h4 className="text-xl md:text-2xl font-bold text-gray-800">
+                          <h4 className="text-xl md:text-2xl font-bold text-base-content">
                             {d.name}
                           </h4>
                           {d.email && (
-                            <p className="text-gray-600 text-sm mt-0.5">
+                            <p className="text-base-content/70 text-sm mt-0.5">
                               {d.email}
                             </p>
                           )}
@@ -225,16 +225,16 @@ const ManageDecorators = () => {
 
                       <div className="grid sm:grid-cols-2 gap-4 mt-4">
                         <div>
-                          <p className="text-xs font-medium text-gray-500 mb-1">
+                          <p className="text-xs font-medium text-base-content/60 mb-1">
                             Specialty
                           </p>
-                          <p className="font-semibold text-base">
+                          <p className="font-semibold text-base text-base-content">
                             {d.specialty || "General Decorator"}
                           </p>
                         </div>
 
                         <div>
-                          <p className="text-xs font-medium text-gray-500 mb-1">
+                          <p className="text-xs font-medium text-base-content/60 mb-1">
                             Rating
                           </p>
                           <p className="font-semibold text-base">
@@ -246,14 +246,14 @@ const ManageDecorators = () => {
                       <div className="flex flex-wrap gap-4 text-sm mt-4">
                         {d.phone && (
                           <div>
-                            <span className="text-gray-500">Phone: </span>
+                            <span className="text-base-content/60">Phone: </span>
                             <span className="font-semibold">{d.phone}</span>
                           </div>
                         )}
                         {d.location && (
                           <div>
-                            <span className="text-gray-500">Location: </span>
-                            <span className="font-semibold">
+                            <span className="text-base-content/60">Location: </span>
+                            <span className="font-semibold text-base-content">
                               {d.location}
                             </span>
                           </div>
@@ -272,3 +272,4 @@ const ManageDecorators = () => {
 };
 
 export default ManageDecorators;
+

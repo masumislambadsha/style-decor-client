@@ -78,13 +78,13 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-gray-50 to-orange-50 flex items-center justify-center py-10 px-4">
+    <div className="min-h-screen bg-linear-to-br from-gray-50 to-orange-50 dark:from-gray-950 dark:to-gray-900 flex items-center justify-center py-10 px-4 transition-colors duration-300">
       <div className="max-w-lg w-full">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="bg-white rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden"
+          className="bg-white dark:bg-gray-900 rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden border border-gray-100 dark:border-gray-800"
         >
           <div className="bg-linear-to-r from-[#ff6a4a] to-orange-600 p-8 sm:p-10 text-center">
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white">Join Style Decor</h1>
@@ -96,7 +96,7 @@ const Register = () => {
           <div className="p-8 sm:p-10">
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 sm:space-y-7">
               <div>
-                <label className="flex items-center gap-3 text-gray-700 font-semibold mb-2">
+                <label className="flex items-center gap-3 text-gray-700 dark:text-gray-300 font-semibold mb-2">
                   <User size={20} sm:size={22} className="text-[#ff6a4a]" />
                   Full Name
                 </label>
@@ -106,7 +106,7 @@ const Register = () => {
                     required: "Name is required",
                     minLength: { value: 3, message: "Minimum 3 characters" },
                   })}
-                  className="input outline-0 input-bordered w-full h-12 sm:h-14 pl-10 sm:pl-12 text-base sm:text-lg"
+                  className="input outline-0 input-bordered w-full h-12 sm:h-14 pl-10 sm:pl-12 text-base sm:text-lg dark:bg-gray-800 dark:border-gray-700 dark:text-white"
                   placeholder="John Doe"
                 />
                 {errors.name && (
@@ -117,7 +117,7 @@ const Register = () => {
               </div>
 
               <div>
-                <label className="flex items-center gap-3 text-gray-700 font-semibold mb-2">
+                <label className="flex items-center gap-3 text-gray-700 dark:text-gray-300 font-semibold mb-2">
                   <Mail size={20} sm:size={22} className="text-[#ff6a4a]" />
                   Email Address
                 </label>
@@ -127,7 +127,7 @@ const Register = () => {
                     required: "Email is required",
                     pattern: { value: /^\S+@\S+$/i, message: "Invalid email" },
                   })}
-                  className="input outline-0 input-bordered w-full h-12 sm:h-14 pl-10 sm:pl-12 text-base sm:text-lg"
+                  className="input outline-0 input-bordered w-full h-12 sm:h-14 pl-10 sm:pl-12 text-base sm:text-lg dark:bg-gray-800 dark:border-gray-700 dark:text-white"
                   placeholder="you@example.com"
                 />
                 {errors.email && (
@@ -138,7 +138,7 @@ const Register = () => {
               </div>
 
               <div className="relative">
-                <label className="flex items-center gap-3 text-gray-700 font-semibold mb-2">
+                <label className="flex items-center gap-3 text-gray-700 dark:text-gray-300 font-semibold mb-2">
                   <Lock size={20} sm:size={22} className="text-[#ff6a4a]" />
                   Password
                 </label>
@@ -151,13 +151,13 @@ const Register = () => {
                       (/[A-Z]/.test(v) && /\d/.test(v)) ||
                       "Must have 1 uppercase & 1 number",
                   })}
-                  className="input outline-0 input-bordered w-full h-12 sm:h-14 pl-10 sm:pl-12 pr-12 sm:pr-14 text-base sm:text-lg"
+                  className="input outline-0 input-bordered w-full h-12 sm:h-14 pl-10 sm:pl-12 pr-12 sm:pr-14 text-base sm:text-lg dark:bg-gray-800 dark:border-gray-700 dark:text-white"
                   placeholder="••••••••"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPass(!showPass)}
-                  className="absolute inset-y-0 right-3 sm:right-4 top-15 -translate-y-1/2 flex items-center text-gray-600 hover:text-[#ff6a4a] z-10 cursor-pointer"
+                  className="absolute inset-y-0 right-3 sm:right-4 top-15 -translate-y-1/2 flex items-center text-gray-500 dark:text-gray-400 hover:text-[#ff6a4a] z-10 cursor-pointer"
                 >
                   {showPass ? <EyeOff size={24} /> : <Eye size={24} />}
                 </button>
@@ -169,10 +169,10 @@ const Register = () => {
               </div>
 
               <div>
-                <label className="flex items-center gap-3 text-gray-700 font-semibold mb-3">
+                <label className="flex items-center gap-3 text-gray-700 dark:text-gray-300 font-semibold mb-3">
                   <Camera size={20} sm:size={22} className="text-[#ff6a4a]" />
                   Profile Photo{" "}
-                  <span className="font-normal text-gray-500">(optional)</span>
+                  <span className="font-normal text-gray-500 dark:text-gray-400">(optional)</span>
                 </label>
                 <div className="flex items-center gap-4 sm:gap-5">
                   <div className="avatar">
@@ -185,7 +185,7 @@ const Register = () => {
                     accept="image/*"
                     {...register("photo")}
                     onChange={handleImageChange}
-                    className="file-input outline-0 file-input-bordered w-full h-12 sm:h-14"
+                    className="file-input outline-0 file-input-bordered w-full h-12 sm:h-14 dark:bg-gray-800 dark:border-gray-700 dark:text-white"
                   />
                 </div>
               </div>
@@ -209,10 +209,10 @@ const Register = () => {
             <div className="mt-8 sm:mt-10">
               <div className="relative">
                 <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-gray-300"></div>
+                  <div className="w-full border-t border-gray-300 dark:border-gray-700"></div>
                 </div>
                 <div className="relative flex justify-center text-sm">
-                  <span className="px-4 sm:px-6 bg-white text-gray-500">
+                  <span className="px-4 sm:px-6 bg-white dark:bg-gray-900 text-gray-500 dark:text-gray-400">
                     Or continue with
                   </span>
                 </div>
@@ -220,13 +220,13 @@ const Register = () => {
 
               <button
                 onClick={handleGoogle}
-                className="mt-6 sm:mt-8 btn btn-outline w-full h-12 sm:h-14 text-base sm:text-lg hover:bg-[#ff6a4a] hover:text-white font-semibold rounded-lg sm:rounded-xl flex items-center justify-center gap-2"
+                className="mt-6 sm:mt-8 btn btn-outline w-full h-12 sm:h-14 text-base sm:text-lg hover:bg-[#ff6a4a] dark:text-white dark:border-gray-700 dark:hover:border-[#ff6a4a] hover:text-white font-semibold rounded-lg sm:rounded-xl flex items-center justify-center gap-2"
               >
                 <FcGoogle className="mx-1 sm:mx-2" size={20} sm:size={24} /> Continue with Google
               </button>
             </div>
 
-            <p className="text-center mt-8 sm:mt-10 text-gray-600 text-sm sm:text-lg">
+            <p className="text-center mt-8 sm:mt-10 text-gray-600 dark:text-gray-400 text-sm sm:text-lg">
               Already have an account?{" "}
               <Link
                 to="/login"

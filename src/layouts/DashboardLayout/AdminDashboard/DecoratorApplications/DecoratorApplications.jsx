@@ -66,14 +66,14 @@ const DecoratorApplications = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-6 sm:py-8 px-4">
+    <div className="min-h-screen bg-base-200 py-6 sm:py-8 px-4">
       <div className="max-w-5xl mx-auto">
 
         <div className="text-center mb-6 sm:mb-8">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-gray-900">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-base-content">
             Decorator Applications
           </h1>
-          <p className="text-xs sm:text-sm md:text-base text-gray-500 mt-2">
+          <p className="text-xs sm:text-sm md:text-base text-base-content/60 mt-2">
             Review new decorator requests and decide who joins the team.
           </p>
           <p className="text-sm sm:text-base text-[#ff6a4a] mt-1">
@@ -84,12 +84,12 @@ const DecoratorApplications = () => {
 
 
         {applications.length === 0 ? (
-          <div className="bg-white rounded-xl sm:rounded-2xl shadow-md p-8 sm:p-12 text-center border border-gray-100">
+          <div className="bg-base-100 rounded-xl sm:rounded-2xl shadow-md p-8 sm:p-12 text-center border border-base-300">
             <div className="text-5xl sm:text-6xl mb-4">📥</div>
-            <p className="text-lg sm:text-xl font-semibold text-gray-700">
+            <p className="text-lg sm:text-xl font-semibold text-base-content/80">
               No pending applications
             </p>
-            <p className="text-gray-500 mt-1">
+            <p className="text-base-content/60 mt-1">
               When someone applies to be a decorator, their request will appear here.
             </p>
           </div>
@@ -98,11 +98,11 @@ const DecoratorApplications = () => {
             {applications.map((app, idx) => (
               <div
                 key={app._id}
-                className="bg-white rounded-xl sm:rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 p-4 sm:p-5"
+                className="bg-base-100 rounded-xl sm:rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-base-300 p-4 sm:p-5"
               >
 
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-3">
-                  <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1 sm:mb-0">
+                  <p className="text-xs font-semibold text-base-content/40 uppercase tracking-wide mb-1 sm:mb-0">
                     Application #{idx + 1}
                   </p>
                   <span className="px-3 py-1 rounded-full text-xs font-semibold border bg-[#ff6a4a]/10 text-[#ff6a4a] border-[#ff6a4a]/30">
@@ -130,21 +130,21 @@ const DecoratorApplications = () => {
                   <div className="flex-1 w-full">
                     <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
                       <div>
-                        <h2 className="text-base sm:text-lg md:text-xl font-bold text-gray-900">
+                        <h2 className="text-base sm:text-lg md:text-xl font-bold text-base-content">
                           {app.name}
                         </h2>
-                        <p className="text-sm text-gray-600">{app.email}</p>
+                        <p className="text-sm text-base-content/70">{app.email}</p>
                         <div className="flex flex-wrap gap-2 sm:gap-3 text-xs sm:text-sm mt-2">
-                          <span className="text-gray-600">
-                            <span className="text-gray-500">Phone: </span>
+                          <span className="text-base-content/70">
+                            <span className="text-base-content/40">Phone: </span>
                             <span className="font-semibold">{app.phone || "N/A"}</span>
                           </span>
-                          <span className="text-gray-600">
-                            <span className="text-gray-500">City: </span>
+                          <span className="text-base-content/70">
+                            <span className="text-base-content/40">City: </span>
                             <span className="font-semibold">{app.city || "N/A"}</span>
                           </span>
-                          <span className="text-gray-600">
-                            <span className="text-gray-500">Experience:&nbsp;</span>
+                          <span className="text-base-content/70">
+                            <span className="text-base-content/40">Experience:&nbsp;</span>
                             <span className="font-semibold">
                               {app.experienceYears} year{app.experienceYears === 1 ? "" : "s"}
                             </span>
@@ -170,28 +170,28 @@ const DecoratorApplications = () => {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
                       <div>
-                        <p className="text-xs font-medium text-gray-500 mb-1">
+                        <p className="text-xs font-medium text-base-content/40 mb-1">
                           Specialty
                         </p>
-                        <p className="font-semibold text-sm sm:text-base text-gray-800">
+                        <p className="font-semibold text-sm sm:text-base text-base-content">
                           {app.specialty || "Not specified"}
                         </p>
                       </div>
                       <div>
-                        <p className="text-xs font-medium text-gray-500 mb-1">
+                        <p className="text-xs font-medium text-base-content/40 mb-1">
                           Availability
                         </p>
-                        <p className="font-semibold text-sm sm:text-base text-gray-800 capitalize">
+                        <p className="font-semibold text-sm sm:text-base text-base-content capitalize">
                           {app.availability?.replace("_", " ") || "Not set"}
                         </p>
                       </div>
                     </div>
 
                     <div className="mt-4">
-                      <p className="text-xs font-medium text-gray-500 mb-1">
+                      <p className="text-xs font-medium text-base-content/40 mb-1">
                         Short bio
                       </p>
-                      <p className="text-xs sm:text-sm text-gray-700 leading-relaxed">
+                      <p className="text-xs sm:text-sm text-base-content/70 leading-relaxed">
                         {app.bio || "No bio provided."}
                       </p>
                       {app.portfolioUrl && (
@@ -217,3 +217,5 @@ const DecoratorApplications = () => {
 };
 
 export default DecoratorApplications;
+
+

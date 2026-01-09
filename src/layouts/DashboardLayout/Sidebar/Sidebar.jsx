@@ -4,12 +4,10 @@ import {
   User,
   BookOpen,
   CreditCard,
-  BarChart3,
   Briefcase,
   LogOut,
   Menu,
   X,
-  CalendarHeartIcon,
   CalendarHeart,
   LayoutDashboard,
 } from "lucide-react";
@@ -27,24 +25,19 @@ const Sidebar = ({ role = "user" }) => {
 
   const isActive = (path) => location.pathname === path;
 
+  const commonLinks = [
+    { label: "Profile", path: "/dashboard/profile", icon: User },
+    { label: "My Bookings", path: "/dashboard/bookings", icon: BookOpen },
+    { label: "Payment History", path: "/dashboard/payment-history", icon: CreditCard },
+  ];
+
   const menuGroups = {
     user: [
-      { label: "Dasboard", path: "/dashboard", icon: LayoutDashboard },
-      { label: "Profile", path: "/dashboard/profile", icon: User },
-      { label: "My Bookings", path: "/dashboard/bookings", icon: BookOpen },
-      {
-        label: "Payment History",
-        path: "/dashboard/payment-history",
-        icon: CreditCard,
-      },
+      { label: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
+      ...commonLinks,
     ],
     admin: [
-       { label: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
-      {
-        label: "Analytics",
-        path: "/dashboard/admin/analytics",
-        icon: BarChart3,
-      },
+      { label: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
       {
         label: "Manage Bookings",
         path: "/dashboard/admin/manage-bookings",
@@ -53,7 +46,7 @@ const Sidebar = ({ role = "user" }) => {
       {
         label: "Manage Services",
         path: "/dashboard/admin/manage-services",
-        icon: FaServicestack ,
+        icon: FaServicestack,
       },
       {
         label: "Manage Decorators",
@@ -65,22 +58,26 @@ const Sidebar = ({ role = "user" }) => {
         path: "/dashboard/admin/decorator-applications",
         icon: FaUserPlus,
       },
+      ...commonLinks,
     ],
     decorator: [
-       { label: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
+      { label: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
       {
         label: "Assigned Projects",
         path: "/dashboard/decorator/projects",
         icon: Briefcase,
       },
-      { label: "Today's Schedule",
+      {
+        label: "Today's Schedule",
         path: "/dashboard/decorator/schedule",
-        icon: CalendarHeart
+        icon: CalendarHeart,
       },
-      { label: "Earnings",
+      {
+        label: "Earnings",
         path: "/dashboard/decorator/earnings",
-        icon: CreditCard
+        icon: CreditCard,
       },
+      ...commonLinks,
     ],
   };
 

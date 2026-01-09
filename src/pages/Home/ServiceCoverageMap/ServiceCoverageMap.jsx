@@ -5,6 +5,7 @@ import axios from "axios";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import LoadingSpinner from "../../../Components/Spinner/LoadingSpinner";
+import { Dot } from "lucide-react";
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -65,13 +66,13 @@ const ServiceCoverageArea = () => {
     );
 
   return (
-    <section className="py-16 sm:py-20 bg-gray-50">
+    <section className="py-16 sm:py-20 bg-base-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-10 sm:mb-12">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-black mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-base-content mb-4">
             Our Service Area
           </h2>
-          <p className="text-gray-700 text-base sm:text-lg max-w-xl sm:max-w-4xl mx-auto leading-relaxed">
+          <p className="text-base-content/70 text-base sm:text-lg max-w-xl sm:max-w-4xl mx-auto leading-relaxed">
             Please tell us about your residential home space or commercial space
             requirements. One of our creative, modern interior designers or
             interior decorators will walk you through our service options.
@@ -120,7 +121,7 @@ const ServiceCoverageArea = () => {
             </button>
           </div>
 
-          <div className="bg-white rounded-xl sm:rounded-3xl shadow-xl p-6 sm:p-8 order-2 lg:order-1">
+          <div className="bg-base-100 rounded-xl sm:rounded-3xl shadow-xl p-6 sm:p-8 order-2 lg:order-1">
             <form onSubmit={handleSearch} className="mb-6 sm:mb-8">
               <div className="flex flex-col sm:flex-row gap-3">
                 <input
@@ -143,15 +144,15 @@ const ServiceCoverageArea = () => {
               {serviceCenters.map((center, idx) => (
                 <div
                   key={idx}
-                  className="border-b border-gray-200 pb-4 last:border-0 cursor-pointer hover:bg-gray-50 rounded-lg p-3 -mx-3 sm:-mx-4 transition"
+                  className="border-b border-base-300 pb-4 last:border-0 cursor-pointer hover:bg-base-200 rounded-lg p-3 -mx-3 sm:-mx-4 transition"
                   onClick={() => handleAreaClick(center)}
                 >
-                  <h3 className="font-bold text-base sm:text-lg text-gray-900 flex items-center justify-between">
+                  <h3 className="font-bold text-base sm:text-lg text-base-content flex items-center justify-between">
                     <span className="flex items-center gap-2">
-                      <span className="text-red-600">•</span>
+                      <span className="text-red-600"><Dot/></span>
                       {center.district}
                     </span>
-                    <span className="text-xs sm:text-sm text-gray-500">
+                    <span className="text-xs sm:text-sm text-base-content/60">
                       {center.covered_area.length} areas
                     </span>
                   </h3>
@@ -164,7 +165,7 @@ const ServiceCoverageArea = () => {
                           setSearchTerm(area);
                           handleAreaClick(center);
                         }}
-                        className="text-xs px-2 py-1.5 bg-gray-100 rounded-full hover:bg-[#ff6a4a] hover:text-white transition cursor-pointer"
+                        className="text-xs px-2 py-1.5 bg-base-200 rounded-full hover:bg-[#ff6a4a] hover:text-white transition cursor-pointer"
                       >
                         {area}
                       </span>

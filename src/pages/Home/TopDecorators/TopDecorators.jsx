@@ -1,11 +1,26 @@
 import React from "react";
 import useDecorators from "../../../Hooks/useDecorators";
-import LoadingSpinner from "../../../Components/Spinner/LoadingSpinner";
+import DecoratorCardSkeleton from "../../../Components/Skeletons/DecoratorCardSkeleton";
 
 const TopDecorators = () => {
   const { decorators, loading } = useDecorators();
 
-  if (loading) return <LoadingSpinner />;
+  if (loading) {
+    return (
+      <section className="py-16 sm:py-20 bg-base-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-center mb-10 sm:mb-16 text-base-content">
+            Meet Our Top Decorators
+          </h2>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 sm:gap-10">
+            {[...Array(6)].map((_, i) => (
+              <DecoratorCardSkeleton key={i} />
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   const topSix = decorators.slice(0, 6);
 
@@ -52,7 +67,7 @@ const TopDecorators = () => {
             )}
           </svg>
         ))}
-        <span className="ml-1 sm:ml-2 font-bold text-gray-900 text-sm sm:text-lg">
+        <span className="ml-1 sm:ml-2 font-bold text-base-content text-sm sm:text-lg">
           {rating.toFixed(1)}
         </span>
       </div>
@@ -60,9 +75,9 @@ const TopDecorators = () => {
   };
 
   return (
-    <section className="py-16 sm:py-20 bg-white">
+    <section className="py-16 sm:py-20 bg-base-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-center mb-10 sm:mb-16">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-center mb-10 sm:mb-16 text-base-content">
           Meet Our Top Decorators
         </h2>
 
@@ -82,10 +97,10 @@ const TopDecorators = () => {
                   </div>
                 </div>
 
-                <h3 className="font-bold text-base sm:text-lg text-gray-900 leading-tight">
+                <h3 className="font-bold text-base sm:text-lg text-base-content leading-tight">
                   {decorator.name}
                 </h3>
-                <p className="text-xs sm:text-sm text-gray-600 mt-1 mb-3">
+                <p className="text-xs sm:text-sm text-base-content/60 mt-1 mb-3">
                   {decorator.specialty}
                 </p>
 

@@ -9,7 +9,7 @@ const ServiceCard = ({ service, accentClass }) => {
         to={`/services/${service._id}`}
         className="block transition duration-250 h-90 hover:-translate-y-3"
       >
-        <article className="bg-white rounded-3xl shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden flex flex-col h-full">
+        <article className="bg-base-100 rounded-3xl shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden flex flex-col h-full">
           <div className="h-48 w-full overflow-hidden">
             <img
               src={
@@ -26,7 +26,7 @@ const ServiceCard = ({ service, accentClass }) => {
               {service.service_name}
             </h3>
 
-            <p className="text-sm text-gray-700 leading-relaxed mb-4">
+            <p className="text-sm text-base-content/70 leading-relaxed mb-4">
               {service.description}
             </p>
 
@@ -34,7 +34,7 @@ const ServiceCard = ({ service, accentClass }) => {
               <span className="text-lg font-bold text-[#ff6a4a]">
                 {service.cost.toLocaleString()} BDT
               </span>
-              <span className="text-gray-500">/ {service.unit}</span>
+              <span className="text-base-content/60">/ {service.unit}</span>
             </div>
           </div>
         </article>

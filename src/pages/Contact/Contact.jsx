@@ -27,7 +27,7 @@ const rightVariants = {
     transition: { duration: 0.4, ease: "easeOut", delay: 0.14 },
   },
 };
-motion;
+
 const Contact = () => {
    useEffect(() => {
     document.title = "Style Decor | Contact";
@@ -38,7 +38,7 @@ const Contact = () => {
 
   return (
     <motion.div
-      className="min-h-screen bg-slate-50 pt-24 pb-16 px-4"
+      className="min-h-screen bg-base-200 pt-24 pb-16 px-4"
       variants={pageVariants}
       initial="hidden"
       animate="visible"
@@ -60,7 +60,7 @@ const Contact = () => {
           </motion.span>
 
           <motion.h1
-            className="text-3xl md:text-4xl font-extrabold text-slate-900"
+            className="text-3xl md:text-4xl font-extrabold text-base-content"
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.35, ease: "easeOut", delay: 0.16 }}
@@ -69,7 +69,7 @@ const Contact = () => {
           </motion.h1>
 
           <motion.p
-            className="text-slate-600 text-sm md:text-base"
+            className="text-base-content/70 text-sm md:text-base"
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3, ease: "easeOut", delay: 0.22 }}
@@ -79,7 +79,7 @@ const Contact = () => {
           </motion.p>
 
           <motion.div
-            className="space-y-3 text-sm text-slate-700"
+            className="space-y-3 text-sm text-base-content/80"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3, ease: "easeOut", delay: 0.28 }}
@@ -104,7 +104,7 @@ const Contact = () => {
         >
           <motion.form
             onSubmit={handleSubmit}
-            className="bg-white rounded-3xl shadow-xl border border-slate-100 p-6 md:p-8 space-y-5 relative overflow-hidden"
+            className="bg-base-100 rounded-3xl shadow-xl border border-base-300 p-6 md:p-8 space-y-5 relative overflow-hidden"
             initial={{ opacity: 0, y: 18, scale: 0.97 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.35, ease: "easeOut", delay: 0.2 }}
@@ -126,14 +126,14 @@ const Contact = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.25, ease: "easeOut", delay: 0.26 }}
               >
-                <label className="block text-xs font-semibold text-slate-500 mb-1 uppercase tracking-wide">
+                <label className="block text-xs font-semibold text-base-content/60 mb-1 uppercase tracking-wide">
                   Full name
                 </label>
                 <input
                   type="text"
                   name="name"
                   required
-                  className="input input-bordered w-full bg-slate-50 text-slate-800 border-slate-200"
+                  className="input input-bordered w-full bg-base-200 text-base-content border-base-300"
                   placeholder="Your name"
                 />
               </motion.div>
@@ -143,14 +143,14 @@ const Contact = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.25, ease: "easeOut", delay: 0.3 }}
               >
-                <label className="block text-xs font-semibold text-slate-500 mb-1 uppercase tracking-wide">
+                <label className="block text-xs font-semibold text-base-content/60 mb-1 uppercase tracking-wide">
                   Email
                 </label>
                 <input
                   type="email"
                   name="email"
                   required
-                  className="input input-bordered w-full bg-slate-50 text-slate-800 border-slate-200"
+                  className="input input-bordered w-full bg-base-200 text-base-content border-base-300"
                   placeholder="you@example.com"
                 />
               </motion.div>
@@ -162,13 +162,13 @@ const Contact = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.25, ease: "easeOut", delay: 0.34 }}
               >
-                <label className="block text-xs font-semibold text-slate-500 mb-1 uppercase tracking-wide">
+                <label className="block text-xs font-semibold text-base-content/60 mb-1 uppercase tracking-wide">
                   Phone
                 </label>
                 <input
                   type="tel"
                   name="phone"
-                  className="input input-bordered w-full bg-slate-50 text-slate-800 border-slate-200"
+                  className="input input-bordered w-full bg-base-200 text-base-content border-base-300"
                   placeholder="+8801XXXXXXXXX"
                 />
               </motion.div>
@@ -178,12 +178,12 @@ const Contact = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.25, ease: "easeOut", delay: 0.38 }}
               >
-                <label className="block text-xs font-semibold text-slate-500 mb-1 uppercase tracking-wide">
+                <label className="block text-xs font-semibold text-base-content/60 mb-1 uppercase tracking-wide">
                   Project type
                 </label>
                 <select
                   name="type"
-                  className="select select-bordered w-full bg-slate-50 text-slate-800 border-slate-200"
+                  className="select select-bordered w-full bg-base-200 text-base-content border-base-300"
                   defaultValue="event"
                 >
                   <option value="event">Event decor</option>
@@ -199,13 +199,13 @@ const Contact = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.25, ease: "easeOut", delay: 0.42 }}
             >
-              <label className="block text-xs font-semibold text-slate-500 mb-1 uppercase tracking-wide">
+              <label className="block text-xs font-semibold text-base-content/60 mb-1 uppercase tracking-wide">
                 Message
               </label>
               <textarea
                 name="message"
                 rows={4}
-                className="textarea textarea-bordered w-full bg-slate-50 text-slate-800 border-slate-200"
+                className="textarea textarea-bordered w-full bg-base-200 text-base-content border-base-300"
                 placeholder="Tell us about your event, date, location and budget range."
               />
             </motion.div>

@@ -4,11 +4,14 @@ import useAuth from "../../Hooks/useAuth";
 import useRole from "../../Hooks/useRole";
 import toast from "react-hot-toast";
 import Logo from "../Logo/Logo";
+import { Sun, Moon } from "lucide-react";
+import { useTheme } from "../../Context/ThemeProvider";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
   const [role] = useRole();
   const navigate = useNavigate();
+  const { theme, toggleTheme } = useTheme();
 
   const handleLogout = async () => {
     try {
@@ -96,7 +99,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="navbar  justify-between backdrop-blur-sm fixed top-0 z-400000 shadow-sm px-6 lg:px-20 h-20 border-b">
+      <div className="navbar justify-between fixed top-0 z-40 px-6 lg:px-20 h-20 transition-colors duration-300 backdrop-blur-sm ">
         <div className="navbar-start">
           <Link to="/" className="flex items-center gap-3">
             <div className="relative">
@@ -170,7 +173,20 @@ const Navbar = () => {
           </ul>
         </div>
 
-        <div className="navbar-end hidden lg:flex">
+        <div className="navbar-end hidden lg:flex items-center gap-4">
+          {/* Theme Toggle */}
+          <button
+            onClick={toggleTheme}
+            className="btn btn-ghost btn-circle"
+            aria-label="Toggle theme"
+          >
+            {theme === "light" ? (
+              <Moon className="w-6 h-6" />
+            ) : (
+              <Sun className="w-6 h-6" />
+            )}
+          </button>
+
           {user ? (
             <div className="dropdown dropdown-end">
               <label tabIndex={0} className="avatar cursor-pointer">
@@ -185,9 +201,9 @@ const Navbar = () => {
               </label>
               <ul
                 tabIndex={0}
-                className="dropdown-content menu p-4 shadow-lg bg-white rounded-box w-56 mt-3 z-50"
+                className="dropdown-content menu p-4 shadow-lg bg-white dark:bg-gray-800 rounded-box w-56 mt-3 z-50 text-gray-800 dark:text-white"
               >
-                <li className="font-bold text-black">
+                <li className="font-bold">
                   {user.displayName || "User"}
                 </li>
                 <div className="divider my-1"></div>
@@ -293,6 +309,24 @@ const Navbar = () => {
             <ul className="space-y-8 flex-1">{menuItems}</ul>
 
             <div className="mt-auto pt-10 border-t border-gray-800">
+              {/* Mobile Theme Toggle */}
+              <button
+                onClick={toggleTheme}
+                className="w-full btn btn-outline text-white hover:bg-[#ff6a4a] hover:border-[#ff6a4a] mb-6 flex items-center justify-center gap-2"
+              >
+                {theme === "light" ? (
+                  <>
+                    <Moon className="w-5 h-5" />
+                    Dark Mode
+                  </>
+                ) : (
+                  <>
+                    <Sun className="w-5 h-5" />
+                    Light Mode
+                  </>
+                )}
+              </button>
+
               {user ? (
                 <div className="space-y-6">
                   <Link

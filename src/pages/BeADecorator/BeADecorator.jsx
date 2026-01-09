@@ -9,6 +9,7 @@ const BeADecorator = () => {
   }, []);
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
+  const [submitting, setSubmitting] = React.useState(false);
 
   const handleRequest = async (e) => {
     e.preventDefault();
@@ -36,23 +37,26 @@ const BeADecorator = () => {
     }
 
     try {
+      setSubmitting(true);
       await axiosSecure.post("/decorator-applications", payload);
       toast.success("Decorator application submitted");
       form.reset();
     } catch (err) {
       console.error(err);
       toast.error("Failed to submit application");
+    } finally {
+      setSubmitting(false);
     }
   };
 
   if (!user) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50">
-        <div className="bg-white shadow-lg rounded-xl sm:rounded-3xl px-6 sm:px-8 py-8 sm:py-10 max-w-md text-center">
-          <h2 className="text-xl sm:text-2xl font-bold mb-3 text-gray-900">
+      <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-950">
+        <div className="bg-white dark:bg-slate-900 shadow-lg rounded-xl sm:rounded-3xl px-6 sm:px-8 py-8 sm:py-10 max-w-md text-center border border-slate-100 dark:border-slate-800">
+          <h2 className="text-xl sm:text-2xl font-bold mb-3 text-gray-900 dark:text-white">
             Login required
           </h2>
-          <p className="text-gray-600">
+          <p className="text-gray-600 dark:text-slate-400">
             Please login or create an account to apply as a decorator.
           </p>
         </div>
@@ -61,24 +65,24 @@ const BeADecorator = () => {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 py-10 sm:py-16 px-4">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 py-10 sm:py-16 px-4 transition-colors duration-300">
       <div className="max-w-4xl mx-auto">
         <div className="mb-6 sm:mb-8 text-center">
-          <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#ff6a4a]/10 text-[#ff6a4a] text-xs font-semibold uppercase tracking-[0.2em]">
+          <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#ff6a4a]/10 text-[#ff6a4a] text-xs font-semibold uppercase tracking-[0.2em] dark:bg-[#ff6a4a]/20">
             Become a partner
           </span>
-          <h1 className="mt-4 text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900">
+          <h1 className="mt-4 text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">
             Apply as a StyleDecor decorator
           </h1>
-          <p className="mt-3 text-slate-600 max-w-xl sm:max-w-2xl mx-auto text-sm sm:text-base">
+          <p className="mt-3 text-slate-600 dark:text-slate-400 max-w-xl sm:max-w-2xl mx-auto text-sm sm:text-base">
             Fill out this short application so the admin can review your experience and add you to the official decorator team.
           </p>
         </div>
 
-        <div className="bg-white rounded-xl sm:rounded-3xl shadow-xl border border-slate-100 p-6 sm:p-8 space-y-6 sm:space-y-8">
+        <div className="bg-white dark:bg-slate-900 rounded-xl sm:rounded-3xl shadow-xl border border-slate-100 dark:border-slate-800 p-6 sm:p-8 space-y-6 sm:space-y-8">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-slate-100 overflow-hidden flex items-center justify-center ring-2 ring-[#ff6a4a]/60">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden flex items-center justify-center ring-2 ring-[#ff6a4a]/60">
                 <img
                   src={user.photoURL || "https://i.ibb.co.com/5Y0X5gY/user.png"}
                   alt="Profile"
@@ -86,32 +90,32 @@ const BeADecorator = () => {
                 />
               </div>
               <div>
-                <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide">
+                <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide">
                   Applying as
                 </p>
-                <p className="text-lg font-semibold text-slate-900">
+                <p className="text-lg font-semibold text-slate-900 dark:text-white">
                   {user.displayName || user.name || "User"}
                 </p>
-                <p className="text-xs text-slate-500">{user.email}</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400">{user.email}</p>
               </div>
             </div>
 
             <div className="flex-1">
-              <ol className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs text-slate-500">
+              <ol className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs text-slate-500 dark:text-slate-400">
                 <li className="flex items-center gap-2">
                   <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#ff6a4a] text-white text-[11px] font-bold">
                     1
                   </span>
-                  <span>Share basic details</span>
+                  <span className="text-slate-900 dark:text-slate-200">Share basic details</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-slate-200 text-slate-700 text-[11px] font-bold">
+                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[11px] font-bold">
                     2
                   </span>
                   <span>Submit portfolio & bio</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-slate-200 text-slate-700 text-[11px] font-bold">
+                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[11px] font-bold">
                     3
                   </span>
                   <span>Admin reviews & approves</span>
@@ -120,37 +124,37 @@ const BeADecorator = () => {
             </div>
           </div>
 
-          <div className="h-px bg-linear-to-r from-transparent via-slate-200 to-transparent" />
+          <div className="h-px bg-linear-to-r from-transparent via-slate-200 dark:via-slate-800 to-transparent" />
 
           <form onSubmit={handleRequest} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-semibold text-slate-500 mb-1 uppercase tracking-wide">
+                <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1 uppercase tracking-wide">
                   Full name
                 </label>
                 <input
                   type="text"
                   disabled
                   defaultValue={user.displayName || user.name || ""}
-                  className="input input-bordered w-full bg-slate-50 text-slate-700 border-slate-200 text-xs sm:text-sm"
+                  className="input input-bordered w-full bg-slate-50 dark:bg-slate-950 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-800 text-xs sm:text-sm"
                 />
               </div>
               <div>
-                <label className="block text-xs font-semibold text-slate-500 mb-1 uppercase tracking-wide">
+                <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1 uppercase tracking-wide">
                   Email
                 </label>
                 <input
                   type="email"
                   disabled
                   defaultValue={user.email}
-                  className="input input-bordered w-full bg-slate-50 text-slate-700 border-slate-200 text-xs sm:text-sm"
+                  className="input input-bordered w-full bg-slate-50 dark:bg-slate-950 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-800 text-xs sm:text-sm"
                 />
               </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-semibold text-slate-500 mb-1 uppercase tracking-wide">
+                <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1 uppercase tracking-wide">
                   Phone number
                 </label>
                 <input
@@ -158,11 +162,11 @@ const BeADecorator = () => {
                   type="tel"
                   required
                   placeholder="+8801XXXXXXXXX"
-                  className="input outline-0 input-bordered w-full text-xs sm:text-sm"
+                  className="input outline-0 input-bordered w-full text-xs sm:text-sm bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white"
                 />
               </div>
               <div>
-                <label className="block text-xs font-semibold text-slate-500 mb-1 uppercase tracking-wide">
+                <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1 uppercase tracking-wide">
                   City / District
                 </label>
                 <input
@@ -170,14 +174,14 @@ const BeADecorator = () => {
                   type="text"
                   required
                   placeholder="Dhaka, Chattogram, etc."
-                  className="input outline-0 input-bordered w-full text-xs sm:text-sm"
+                  className="input outline-0 input-bordered w-full text-xs sm:text-sm bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white"
                 />
               </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-semibold text-slate-500 mb-1 uppercase tracking-wide">
+                <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1 uppercase tracking-wide">
                   Specialty
                 </label>
                 <input
@@ -185,11 +189,11 @@ const BeADecorator = () => {
                   type="text"
                   required
                   placeholder="Wedding decor, corporate, birthday, etc."
-                  className="input outline-0 input-bordered w-full text-xs sm:text-sm"
+                  className="input outline-0 input-bordered w-full text-xs sm:text-sm bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white"
                 />
               </div>
               <div>
-                <label className="block text-xs font-semibold text-slate-500 mb-1 uppercase tracking-wide">
+                <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1 uppercase tracking-wide">
                   Years of experience
                 </label>
                 <input
@@ -199,44 +203,44 @@ const BeADecorator = () => {
                   max="50"
                   required
                   placeholder="2"
-                  className="input outline-0 input-bordered w-full text-xs sm:text-sm"
+                  className="input outline-0 input-bordered w-full text-xs sm:text-sm bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-500 mb-1 uppercase tracking-wide">
+              <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1 uppercase tracking-wide">
                 Portfolio link (optional)
               </label>
               <input
                 name="portfolioUrl"
                 type="url"
                 placeholder="Website, Facebook page, Instagram, etc."
-                className="input outline-0 input-bordered w-full text-xs sm:text-sm"
+                className="input outline-0 input-bordered w-full text-xs sm:text-sm bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-500 mb-1 uppercase tracking-wide">
+              <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1 uppercase tracking-wide">
                 Short bio
               </label>
               <textarea
                 name="bio"
                 rows={4}
                 required
-                className="textarea outline-0 textarea-bordered w-full text-xs sm:text-sm"
+                className="textarea outline-0 textarea-bordered w-full text-xs sm:text-sm bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white"
                 placeholder="Describe your style, services, locations you cover and notable projects."
               />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-semibold text-slate-500 mb-1 uppercase tracking-wide">
+                <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1 uppercase tracking-wide">
                   Availability
                 </label>
                 <select
                   name="availability"
-                  className="select outline-0 select-bordered w-full text-xs sm:text-sm"
+                  className="select outline-0 select-bordered w-full text-xs sm:text-sm bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white"
                   defaultValue="weekends"
                   required
                 >
@@ -245,16 +249,16 @@ const BeADecorator = () => {
                   <option value="full_time">Weekdays & weekends</option>
                 </select>
               </div>
-              <div className="hidden md:block text-xs text-slate-500 pt-7">
+              <div className="hidden md:block text-xs text-slate-500 dark:text-slate-400 pt-7">
                 Tip: Mention your peak seasons and dates you usually cannot work in the bio above.
               </div>
             </div>
 
-            <label className="flex items-start gap-2 text-xs text-slate-600 bg-slate-50 border border-dashed border-slate-200 rounded-xl p-3">
+            <label className="flex items-start gap-2 text-xs text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-950 border border-dashed border-slate-200 dark:border-slate-800 rounded-xl p-3">
               <input
                 type="checkbox"
                 name="terms"
-                className="checkbox checkbox-xs mt-0.5"
+                className="checkbox checkbox-xs mt-0.5 border-slate-400 dark:border-slate-600"
                 required
               />
               <span>
@@ -263,14 +267,16 @@ const BeADecorator = () => {
             </label>
 
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 After submission, an admin will review your details. You will see decorator options in your dashboard once approved.
               </p>
               <button
                 type="submit"
-                className="btn bg-[#ff6a4a] hover:bg-[#d94823] text-white px-8 sm:px-10 border-none shadow-md self-start sm:self-auto text-xs sm:text-sm"
+                disabled={submitting}
+                className="btn bg-[#ff6a4a] hover:bg-[#d94823] text-white px-8 sm:px-10 border-none shadow-md self-start sm:self-auto text-xs sm:text-sm flex items-center justify-center gap-2"
               >
-                Submit application
+                {submitting && <span className="loading loading-spinner loading-xs"></span>}
+                {submitting ? "Submitting..." : "Submit application"}
               </button>
             </div>
           </form>

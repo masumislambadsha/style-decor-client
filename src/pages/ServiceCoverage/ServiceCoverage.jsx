@@ -24,13 +24,13 @@ const ServiceCoverage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-10 sm:py-12">
+    <div className="min-h-screen bg-base-200 py-10 sm:py-12">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-6 sm:space-y-8">
         <div className="text-center space-y-3">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-gray-900">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-base-content">
             Service Coverage
           </h1>
-          <p className="text-gray-600 text-xs sm:text-sm md:text-base">
+          <p className="text-base-content/70 text-xs sm:text-sm md:text-base">
             StyleDecor is available in all{" "}
             <span className="font-semibold text-[#ff6a4a]">
               {serviceCenters.length}
@@ -39,14 +39,14 @@ const ServiceCoverage = () => {
           </p>
         </div>
 
-        <div className="bg-white rounded-xl sm:rounded-3xl shadow-md p-4 sm:p-6">
+        <div className="bg-base-100 rounded-xl sm:rounded-3xl shadow-md p-4 sm:p-6">
           <form
             onSubmit={handleSearch}
             className="flex flex-col sm:flex-row gap-3 items-stretch"
           >
-            <label className="input input-bordered flex items-center gap-2 flex-1 bg-gray-50 outline-0">
+            <label className="input input-bordered flex items-center gap-2 flex-1 bg-base-200 outline-0">
               <svg
-                className="h-[1.1em] opacity-60 text-gray-500"
+                className="h-[1.1em] opacity-60 text-base-content/50"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
               >
@@ -75,12 +75,12 @@ const ServiceCoverage = () => {
               Search
             </button>
           </form>
-          <p className="mt-2 text-xs text-gray-500">
+          <p className="mt-2 text-xs text-base-content/60">
             Tip: Start typing a district name to quickly zoom to that area on the map.
           </p>
         </div>
 
-        <div className="bg-white rounded-xl sm:rounded-3xl shadow-md overflow-hidden">
+        <div className="bg-base-100 rounded-xl sm:rounded-3xl shadow-md overflow-hidden">
           <div className="w-full h-64 sm:h-72 md:h-80 lg:h-[560px]">
             <MapContainer
               center={position}

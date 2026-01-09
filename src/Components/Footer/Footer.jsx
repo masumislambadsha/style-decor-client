@@ -29,87 +29,91 @@ const Footer = () => {
         </div>
 
 
+        {/* Company Links */}
         <div className="md:col-span-2">
-          <h4 className="text-lg font-bold mb-5 text-white">Residential</h4>
-          <ul className="space-y-3 text-gray-400 text-sm">
+          <h4 className="text-lg font-bold mb-6 text-white tracking-tight uppercase text-xs">Company</h4>
+          <ul className="space-y-4 text-gray-400 text-sm">
             {[
-              "Living Room",
-              "Drawing Room",
-              "Bedroom",
-              "Duplex House",
-              "Kitchen",
-              "Apartment",
-              "Rooftop Garden",
-            ].map((item) => (
-              <li key={item}>
+              { label: "About Us", path: "/about" },
+              { label: "Our Blog", path: "/blog" },
+              { label: "Service Categories", path: "/services" },
+              { label: "Our Coverage", path: "/service-coverage" },
+            ].map((link) => (
+              <li key={link.label}>
                 <Link
-                  to="/services"
-                  className="hover:text-[#ff6a4a] transition relative after:absolute after:left-0 after:bottom-0 after:w-0 after:h-px after:bg-[#ff6a4a] after:transition-all after:duration-300 hover:after:w-full"
+                  to={link.path}
+                  className="hover:text-[#ff6a4a] transition-all duration-300"
                 >
-                  {item}
+                  {link.label}
                 </Link>
               </li>
             ))}
           </ul>
         </div>
 
-
+        {/* Support Links */}
         <div className="md:col-span-2">
-          <h4 className="text-lg font-bold mb-5 text-white">Commercial</h4>
-          <ul className="space-y-3 text-gray-400 text-sm">
-            {[
-              "Hospital",
-              "Islamic Center",
-              "Penthouse",
-              "Corporate Office",
-              "Showroom",
-              "Shopping Mall",
-            ].map((item) => (
-              <li key={item}>
+          <h4 className="text-lg font-bold mb-6 text-white tracking-tight uppercase text-xs">Support</h4>
+          <ul className="space-y-4 text-gray-400 text-sm">
+             {[
+              { label: "Help Center", path: "/help" },
+              { label: "Contact Us", path: "/contact" },
+              { label: "Privacy Policy", path: "/privacy" },
+              { label: "Terms of Service", path: "/terms" },
+            ].map((link) => (
+              <li key={link.label}>
                 <Link
-                  to="/services"
-                  className="hover:text-[#ff6a4a] transition relative after:absolute after:left-0 after:bottom-0 after:w-0 after:h-px after:bg-[#ff6a4a] after:transition-all after:duration-300 hover:after:w-full"
+                  to={link.path}
+                  className="hover:text-[#ff6a4a] transition-all duration-300"
                 >
-                  {item}
+                  {link.label}
                 </Link>
               </li>
             ))}
           </ul>
         </div>
 
-
+        {/* Social & Connect */}
         <div className="md:col-span-4 flex flex-col items-start md:items-end">
-          <h4 className="text-lg font-bold mb-6">Follow Us On</h4>
+          <h4 className="text-lg font-bold mb-6 text-white tracking-tight uppercase text-xs">Connect With Us</h4>
           <div className="flex gap-4">
             <a
-              href="#"
-              aria-label="Facebook"
-              className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center  hover:bg-white hover:text-black transition text-xl"
+              href="https://facebook.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-12 h-12 bg-gray-900 border border-gray-800 rounded-2xl flex items-center justify-center hover:bg-[#ff6a4a] hover:border-[#ff6a4a] hover:text-white transition-all duration-300 transform hover:-translate-y-1"
             >
               <FaFacebookF />
             </a>
             <a
-              href="#"
-              aria-label="Instagram"
-              className="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center hover:bg-white hover:text-black transition text-white/80 text-xl"
+              href="https://instagram.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-12 h-12 bg-gray-900 border border-gray-800 rounded-2xl flex items-center justify-center hover:bg-[#ff6a4a] hover:border-[#ff6a4a] hover:text-white transition-all duration-300 transform hover:-translate-y-1"
             >
               <FaInstagram />
             </a>
-
             <a
-              href="#"
-              aria-label="LinkedIn"
-              className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center hover:bg-white hover:text-black transition text-white text-xl"
+              href="https://linkedin.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-12 h-12 bg-gray-900 border border-gray-800 rounded-2xl flex items-center justify-center hover:bg-[#ff6a4a] hover:border-[#ff6a4a] hover:text-white transition-all duration-300 transform hover:-translate-y-1"
             >
               <FaLinkedinIn />
             </a>
             <a
-              href="#"
-              aria-label="YouTube"
-              className="w-12 h-12 bg-[red] rounded-full flex items-center justify-center hover:bg-white hover:text-black transition text-white text-xl"
+              href="https://youtube.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-12 h-12 bg-gray-900 border border-gray-800 rounded-2xl flex items-center justify-center hover:bg-[#ff6a4a] hover:border-[#ff6a4a] hover:text-white transition-all duration-300 transform hover:-translate-y-1"
             >
               <FaYoutube />
             </a>
+          </div>
+          <div className="mt-8 text-right">
+            <p className="text-gray-500 text-xs italic">
+              "Transforming spaces, one pixel at a time."
+            </p>
           </div>
         </div>
       </div>

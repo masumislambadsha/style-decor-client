@@ -37,6 +37,7 @@ const ManageServices = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [editing, setEditing] = useState(null);
   const [uploading, setUploading] = useState(false);
+  const [saving, setSaving] = useState(false);
 
   const {
     register,
@@ -90,6 +91,7 @@ const ManageServices = () => {
     }
 
     try {
+      setSaving(true);
       if (editing) {
         await axiosSecure.patch(`/services/${editing._id}`, body);
         toast.success("Service updated");
@@ -104,6 +106,8 @@ const ManageServices = () => {
     } catch (err) {
       console.error(err);
       toast.error("Failed to save service");
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -178,7 +182,7 @@ const ManageServices = () => {
   if (isLoading) return <LoadingSpinner />;
 
   return (
-    <div className="min-h-screen bg-gray-50 py-6 sm:py-8 px-4">
+    <div className="min-h-screen bg-base-200 py-6 sm:py-8 px-4">
       <motion.div
         className="max-w-5xl mx-auto"
         initial={{ opacity: 0, y: 15 }}
@@ -187,10 +191,10 @@ const ManageServices = () => {
       >
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 sm:mb-8">
           <div className="text-center sm:text-left">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-base-content">
               Manage Services
             </h2>
-            <p className="text-gray-500 mt-1">
+            <p className="text-base-content/60 mt-1">
               Create, edit, activate or remove StyleDecor services.
             </p>
             <p className="text-xs sm:text-sm text-[#ff6a4a] mt-1">
@@ -208,12 +212,12 @@ const ManageServices = () => {
         </div>
 
         {services.length === 0 && (
-          <div className="bg-white rounded-xl sm:rounded-2xl shadow-md p-8 sm:p-12 text-center">
+          <div className="bg-base-100 rounded-xl sm:rounded-2xl shadow-md p-8 sm:p-12 text-center">
             <div className="text-4xl sm:text-6xl mb-4 text-gray-300">🎨</div>
-            <p className="text-lg sm:text-xl font-semibold text-gray-700">
+            <p className="text-lg sm:text-xl font-semibold text-base-content/80">
               No services found
             </p>
-            <p className="text-gray-500 mt-1">
+            <p className="text-base-content/60 mt-1">
               Click “Add Service” to create your first one.
             </p>
           </div>
@@ -224,7 +228,7 @@ const ManageServices = () => {
             {services.map((s, idx) => (
               <motion.div
                 key={s._id}
-                className="bg-white rounded-xl sm:rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 overflow-hidden"
+                className="bg-base-100 rounded-xl sm:rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 border border-base-300 overflow-hidden"
                 variants={cardVariants}
                 initial="hidden"
                 animate="visible"
@@ -237,8 +241,8 @@ const ManageServices = () => {
                   <span
                     className={`px-2 sm:px-3 py-1 rounded-full text-xs font-semibold border ${
                       s.isActive
-                        ? "bg-green-100 text-green-800 border-green-300"
-                        : "bg-gray-100 text-gray-600 border-gray-300"
+                        ? "bg-success/10 text-success border-success/30"
+                        : "bg-base-300/50 text-base-content/60 border-base-300"
                     }`}
                   >
                     {s.isActive ? "Active" : "Inactive"}
@@ -253,23 +257,23 @@ const ManageServices = () => {
                           <motion.img
                             src={s.image}
                             alt={s.service_name}
-                            className="w-full sm:w-32 md:w-40 h-24 sm:h-28 object-cover rounded-xl border border-gray-100"
+                            className="w-full sm:w-32 md:w-40 h-24 sm:h-28 object-cover rounded-xl border border-base-300"
                             initial={{ opacity: 0, scale: 0.97 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 0.2 }}
                           />
                         )}
                         <div>
-                          <h4 className="text-xl sm:text-2xl font-bold text-gray-900">
+                          <h4 className="text-xl sm:text-2xl font-bold text-base-content">
                             {s.service_name}
                           </h4>
-                          <p className="text-xs uppercase tracking-wide text-gray-500 mt-1">
+                          <p className="text-xs uppercase tracking-wide text-base-content/60 mt-1">
                             Category:{" "}
                             <span className="font-semibold capitalize">
                               {s.service_category}
                             </span>
                           </p>
-                          <p className="text-gray-600 text-xs sm:text-sm mt-2 line-clamp-3">
+                          <p className="text-base-content/70 text-xs sm:text-sm mt-2 line-clamp-3">
                             {s.description}
                           </p>
                         </div>
@@ -277,13 +281,13 @@ const ManageServices = () => {
 
                       <div className="flex flex-wrap gap-3 text-xs sm:text-sm md:text-base mt-2">
                         <div>
-                          <span className="text-gray-500">Cost: </span>
+                          <span className="text-base-content/60">Cost: </span>
                           <span className="font-bold text-white px-2 py-1 rounded-xl sm:rounded-2xl bg-[#ff6a4a]">
                             {s.cost?.toLocaleString()} BDT
                           </span>
                         </div>
                         <div>
-                          <span className="text-gray-500">Unit: </span>
+                          <span className="text-base-content/60">Unit: </span>
                           <span className="font-semibold">{s.unit}</span>
                         </div>
                       </div>
@@ -293,11 +297,11 @@ const ManageServices = () => {
                       <motion.button whileTap={{ scale: 0.97 }}>
                         <button
                           onClick={() => toggleActive(s)}
-                          className="w-full bg-gray-100 border border-gray-300 text-gray-700 hover:bg-gray-200 font-semibold py-2 rounded-lg shadow-sm flex items-center justify-center gap-2 text-xs sm:text-sm"
+                          className="w-full bg-base-100 border border-base-300 text-base-content/80 hover:bg-base-200 font-semibold py-2 rounded-lg shadow-sm flex items-center justify-center gap-2 text-xs sm:text-sm"
                         >
                           {s.isActive ? (
                             <>
-                              <ToggleRight className="text-gray-500" />
+                              <ToggleRight className="text-base-content/40" />
                               Deactivate
                             </>
                           ) : (
@@ -344,7 +348,7 @@ const ManageServices = () => {
             exit={{ opacity: 0 }}
           >
             <motion.div
-              className="bg-white rounded-xl sm:rounded-3xl shadow-2xl max-w-lg w-full p-4 sm:p-8 relative"
+              className="bg-base-100 rounded-xl sm:rounded-3xl shadow-2xl max-w-lg w-full p-4 sm:p-8 relative"
               initial={{ opacity: 0, scale: 0.9, y: 10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 10 }}
@@ -355,7 +359,7 @@ const ManageServices = () => {
                   setModalOpen(false);
                   reset(emptyService);
                 }}
-                className="absolute top-2 right-2 sm:top-4 sm:right-4 text-gray-400 hover:text-gray-700"
+                className="absolute top-2 right-2 sm:top-4 sm:right-4 text-base-content/40 hover:text-base-content"
               >
                 ✕
               </button>
@@ -367,7 +371,7 @@ const ManageServices = () => {
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 sm:space-y-5">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="font-medium text-gray-700">Service Name</label>
+                    <label className="font-medium text-base-content/80">Service Name</label>
                     <input
                       type="text"
                       className="input outline-0 input-bordered w-full text-xs sm:text-sm"
@@ -379,7 +383,7 @@ const ManageServices = () => {
                   </div>
 
                   <div>
-                    <label className="font-medium text-gray-700">Category</label>
+                    <label className="font-medium text-base-content/80">Category</label>
                     <select
                       className="select outline-0 select-bordered w-full text-xs sm:text-sm"
                       {...register("service_category", { required: true })}
@@ -396,7 +400,7 @@ const ManageServices = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div>
-                    <label className="font-medium text-gray-700">Cost</label>
+                    <label className="font-medium text-base-content/80">Cost</label>
                     <input
                       type="number"
                       className="input outline-0 input-bordered w-full text-xs sm:text-sm"
@@ -408,7 +412,7 @@ const ManageServices = () => {
                   </div>
 
                   <div className="md:col-span-2">
-                    <label className="font-medium text-gray-700">Unit</label>
+                    <label className="font-medium text-base-content/80">Unit</label>
                     <input
                       type="text"
                       className="input outline-0 input-bordered w-full text-xs sm:text-sm"
@@ -421,7 +425,7 @@ const ManageServices = () => {
                 <div>
                   <label className="font-medium text-gray-700">Image</label>
                   <div className="mt-1 flex flex-col sm:flex-row gap-3 items-start sm:items-center">
-                    <label className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-dashed border-gray-300 cursor-pointer bg-slate-50 hover:bg-slate-100 text-xs sm:text-sm text-gray-700">
+                    <label className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-dashed border-base-300 cursor-pointer bg-base-200 hover:bg-base-300 text-xs sm:text-sm text-base-content/70">
                       <Upload size={16} />
                       <span>{uploading ? "Uploading..." : "Upload image"}</span>
                       <input
@@ -445,7 +449,7 @@ const ManageServices = () => {
 
                   {imageValue && (
                     <div className="mt-3">
-                      <p className="text-xs text-gray-500 mb-1">Preview</p>
+                      <p className="text-xs text-base-content/40 mb-1">Preview</p>
                       <img
                         src={imageValue}
                         alt="Service preview"
@@ -456,7 +460,7 @@ const ManageServices = () => {
                 </div>
 
                 <div>
-                  <label className="font-medium text-gray-700">Description</label>
+                  <label className="font-medium text-base-content/80">Description</label>
                   <textarea
                     className="textarea outline-0 textarea-bordered w-full min-h-[90px] text-xs sm:text-sm"
                     {...register("description", { required: true })}
@@ -473,7 +477,7 @@ const ManageServices = () => {
                     {...register("isActive")}
                     defaultChecked
                   />
-                  <span className="text-xs sm:text-sm font-medium text-gray-700">
+                  <span className="text-xs sm:text-sm font-medium text-base-content/80">
                     Service is active (visible to users)
                   </span>
                 </div>
@@ -491,9 +495,17 @@ const ManageServices = () => {
                   </button>
                   <button
                     type="submit"
-                    className="btn bg-[#ff6a4a] hover:bg-black text-white "
+                    disabled={saving}
+                    className="btn bg-[#ff6a4a] hover:bg-black text-white flex items-center gap-2"
                   >
-                    {editing ? "Save Changes" : "Create Service"}
+                    {saving && <span className="loading loading-spinner loading-xs"></span>}
+                    {editing
+                      ? saving
+                        ? "Saving..."
+                        : "Save Changes"
+                      : saving
+                      ? "Creating..."
+                      : "Create Service"}
                   </button>
                 </div>
               </form>
@@ -506,3 +518,4 @@ const ManageServices = () => {
 };
 
 export default ManageServices;
+

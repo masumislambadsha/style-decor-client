@@ -42,8 +42,10 @@ const AuthProvider = ({ children }) => {
     return signOut(auth);
   };
 
-  const updateUserProfile = (profile) =>
-    updateProfile(auth.currentUser, profile);
+  const updateUserProfile = async (profile) => {
+    await updateProfile(auth.currentUser, profile);
+    setUser((prev) => ({ ...prev, ...auth.currentUser }));
+  };
   const getToken = async (email) => {
     try {
       const res = await axios.post(`${import.meta.env.VITE_API_URL}/jwt`, {

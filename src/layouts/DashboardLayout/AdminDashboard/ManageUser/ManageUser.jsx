@@ -113,10 +113,10 @@ const ManageUser = () => {
         transition={{ delay: 0.05, duration: 0.2 }}
       >
         <div>
-          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-slate-900">
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-base-content">
             Manage Users
           </h1>
-          <p className="text-xs sm:text-sm text-slate-500 mt-1">
+          <p className="text-xs sm:text-sm text-base-content/60 mt-1">
             View all users and promote them to admin or revert to user.
           </p>
         </div>
@@ -127,19 +127,19 @@ const ManageUser = () => {
             placeholder="Search by name or email"
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
-            className="input input-sm sm:input-md input-bordered w-full md:w-64 bg-white"
+            className="input input-sm sm:input-md input-bordered w-full md:w-64 bg-base-100"
           />
         </div>
       </motion.div>
 
       <motion.div
-        className="overflow-x-auto bg-white rounded-xl sm:rounded-2xl shadow border border-slate-100"
+        className="overflow-x-auto bg-base-100 rounded-xl sm:rounded-2xl shadow border border-base-300"
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.08, duration: 0.22 }}
       >
         <table className="table table-xs sm:table-sm md:table-md text-xs sm:text-sm">
-          <thead className="bg-slate-50">
+          <thead className="bg-base-200">
             <tr>
               <th className="hidden sm:table-cell">#</th>
               <th>User</th>
@@ -172,13 +172,13 @@ const ManageUser = () => {
                       </div>
                     </div>
                     <div className="min-w-0">
-                      <div className="font-semibold text-slate-900 truncate max-w-[120px] sm:max-w-[180px]">
+                      <div className="font-semibold text-base-content truncate max-w-[120px] sm:max-w-[180px]">
                         {u.name || u.displayName || "Unnamed user"}
                       </div>
-                      <div className="md:hidden text-[10px] text-slate-500 truncate max-w-40">
+                      <div className="md:hidden text-[10px] text-base-content/60 truncate max-w-40">
                         {u.email}
                       </div>
-                      <div className="hidden sm:block text-[10px] text-slate-500">
+                      <div className="hidden sm:block text-[10px] text-base-content/60">
                         Joined{" "}
                         {u.createdAt
                           ? new Date(u.createdAt).toLocaleDateString()
@@ -225,7 +225,7 @@ const ManageUser = () => {
             ))}
             {filteredUsers.length === 0 && (
               <tr>
-                <td colSpan={5} className="text-center py-6 text-slate-500">
+                <td colSpan={5} className="text-center py-6 text-base-content/60">
                   No users found
                 </td>
               </tr>
@@ -238,3 +238,4 @@ const ManageUser = () => {
 };
 
 export default ManageUser;
+
