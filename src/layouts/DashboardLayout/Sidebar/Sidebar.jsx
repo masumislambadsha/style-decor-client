@@ -87,9 +87,9 @@ const Sidebar = ({ role = "user" }) => {
     <>
       <button
         onClick={() => setMobileOpen(!mobileOpen)}
-        className="md:hidden fixed md:top-20 md:left-4 right-0 z-50 btn btn-ghost btn-circle"
+        className="md:hidden fixed top-4 left-4 z-50 btn btn-ghost btn-circle bg-base-100/50 backdrop-blur-sm shadow-md"
       >
-        {mobileOpen ? <X /> : <Menu />}
+        {mobileOpen ? <X size={24} /> : <Menu size={24} />}
       </button>
 
       <button

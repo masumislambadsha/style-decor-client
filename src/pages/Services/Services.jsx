@@ -8,7 +8,7 @@ import ServiceCard from "../../Components/ServiceCard/ServiceCard";
 import ServiceCardSkeleton from "../../Components/Skeletons/ServiceCardSkeleton";
 
 const Services = () => {
-   useEffect(() => {
+  useEffect(() => {
     document.title = "Style Decor | All Service";
   }, []);
   const [searchTerm, setSearchTerm] = useState("");
@@ -16,6 +16,8 @@ const Services = () => {
   const [priceRange, setPriceRange] = useState([0, 0]);
   const [maxPrice, setMaxPrice] = useState(0);
   const [sortBy, setSortBy] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
 
   const { data: services = [], isLoading } = useQuery({
     queryKey: ["services"],
@@ -52,6 +54,17 @@ const Services = () => {
     if (sortBy === "name") return (a.service_name || "").localeCompare(b.service_name || "");
     return 0;
   });
+
+  // Reset to first page when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, selectedType, priceRange, sortBy]);
+
+  const totalPages = Math.ceil(sortedServices.length / itemsPerPage);
+  const paginatedServices = sortedServices.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
   const categories = [...new Set(services.map((s) => s.service_category))];
 
@@ -145,7 +158,7 @@ const Services = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-10">
-          {sortedServices.map((service, idx) => (
+          {paginatedServices.map((service, idx) => (
             <motion.div
               key={service._id}
               initial={{ opacity: 0, y: 30 }}
@@ -163,6 +176,51 @@ const Services = () => {
             <p className="text-lg sm:text-xl text-base-content/60">
               No services found matching your criteria
             </p>
+          </div>
+        )}
+
+        {/* Pagination UI */}
+        {totalPages > 1 && (
+          <div className="flex justify-center items-center mt-12 sm:mt-16 gap-2">
+            <button
+              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+              disabled={currentPage === 1}
+              className={`btn btn-circle sm:btn-md border-none ${
+                currentPage === 1
+                  ? "btn-disabled bg-base-300"
+                  : "bg-white hover:bg-[#ff6a4a] hover:text-white text-gray-800 shadow-md"
+              }`}
+            >
+              ❮
+            </button>
+
+            <div className="flex gap-1 sm:gap-2">
+              {[...Array(totalPages)].map((_, i) => (
+                <button
+                  key={i + 1}
+                  onClick={() => setCurrentPage(i + 1)}
+                  className={`btn btn-circle btn-sm sm:btn-md border-none transition-all duration-300 ${
+                    currentPage === i + 1
+                      ? "bg-[#ff6a4a] text-white shadow-lg scale-110"
+                      : "bg-white hover:bg-gray-100 text-gray-800 shadow-sm"
+                  }`}
+                >
+                  {i + 1}
+                </button>
+              ))}
+            </div>
+
+            <button
+              onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+              disabled={currentPage === totalPages}
+              className={`btn btn-circle sm:btn-md border-none ${
+                currentPage === totalPages
+                  ? "btn-disabled bg-base-300"
+                  : "bg-white hover:bg-[#ff6a4a] hover:text-white text-gray-800 shadow-md"
+              }`}
+            >
+              ❯
+            </button>
           </div>
         )}
       </div>

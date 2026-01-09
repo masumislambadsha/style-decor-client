@@ -29,10 +29,10 @@ const DashboardLayout = () => {
       <Sidebar role={normalizedRole} />
       <main className="flex-1 overflow-auto relative">
         {/* Dashboard Header/Top Bar */}
-        <div className="absolute top-4 right-4 md:top-8 md:right-10 z-20">
+        <div className="fixed top-4 right-4 z-30">
           <button
             onClick={toggleTheme}
-            className="p-3 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-100 shadow-lg hover:scale-110 transition-all border border-gray-200 dark:border-gray-700 cursor-pointer"
+            className="p-3 rounded-full bg-base-100/50 backdrop-blur-sm text-base-content shadow-md hover:scale-110 transition-all border border-base-content/10 cursor-pointer"
             aria-label="Toggle theme"
           >
             {theme === "light" ? (
