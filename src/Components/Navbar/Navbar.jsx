@@ -6,8 +6,9 @@ import toast from "react-hot-toast";
 import Logo from "../Logo/Logo";
 import { Sun, Moon } from "lucide-react";
 import { useTheme } from "../../Context/ThemeProvider";
+import NavbarSkeleton from "../Skeletons/NavbarSkeleton";
 const Navbar = () => {
-  const { user, logOut } = useAuth();
+  const { user, logOut, loading } = useAuth();
   const [role] = useRole();
   const navigate = useNavigate();
   const { theme, toggleTheme } = useTheme();
@@ -177,7 +178,9 @@ const Navbar = () => {
               <Sun className="w-6 h-6" />
             )}
           </button>
-          {user ? (
+          {loading ? (
+             <NavbarSkeleton />
+          ) : user ? (
             <div className="dropdown dropdown-end">
               <label tabIndex={0} className="avatar cursor-pointer">
                 <div className="w-12 rounded-full ring-4 ring-[#ff6a4a] ring-offset-2">
@@ -309,7 +312,9 @@ const Navbar = () => {
                   </>
                 )}
               </button>
-              {user ? (
+              {loading ? (
+                 <NavbarSkeleton />
+              ) : user ? (
                 <div className="space-y-6">
                   <Link
                     to="/dashboard"
@@ -346,4 +351,4 @@ const Navbar = () => {
     </>
   );
 };
-export default Navbar;
+export default Navbar;
