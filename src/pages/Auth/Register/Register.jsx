@@ -16,14 +16,12 @@ const Register = () => {
   const [showPass, setShowPass] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [imagePreview, setImagePreview] = useState(null);
-
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm();
-
   const uploadImage = async (file) => {
     const formData = new FormData();
     formData.append("image", file);
@@ -37,16 +35,13 @@ const Register = () => {
     const data = await res.json();
     return data.data.url;
   };
-
   const onSubmit = async (data) => {
     try {
       setUploading(true);
       let photoURL = "https://i.ibb.co.com/5Y0X5gY/user.png";
-
       if (data.photo[0]) {
         photoURL = await uploadImage(data.photo[0]);
       }
-
       await registerUser(data.email, data.password);
       await updateUserProfile({ displayName: data.name, photoURL });
       toast.success("Welcome to StyleDecor!");
@@ -61,12 +56,10 @@ const Register = () => {
       setUploading(false);
     }
   };
-
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) setImagePreview(URL.createObjectURL(file));
   };
-
   const handleGoogle = async () => {
     try {
       await signInGoogle();
@@ -76,7 +69,6 @@ const Register = () => {
       toast.error("Google signup failed", err);
     }
   };
-
   return (
     <div className="min-h-screen bg-linear-to-br from-gray-50 to-orange-50 dark:from-gray-950 dark:to-gray-900 flex items-center justify-center py-10 px-4 transition-colors duration-300">
       <div className="max-w-lg w-full">
@@ -92,7 +84,6 @@ const Register = () => {
               Create your free account
             </p>
           </div>
-
           <div className="p-8 sm:p-10">
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 sm:space-y-7">
               <div>
@@ -115,7 +106,6 @@ const Register = () => {
                   </p>
                 )}
               </div>
-
               <div>
                 <label className="flex items-center gap-3 text-gray-700 dark:text-gray-300 font-semibold mb-2">
                   <Mail size={20} sm:size={22} className="text-[#ff6a4a]" />
@@ -136,7 +126,6 @@ const Register = () => {
                   </p>
                 )}
               </div>
-
               <div className="relative">
                 <label className="flex items-center gap-3 text-gray-700 dark:text-gray-300 font-semibold mb-2">
                   <Lock size={20} sm:size={22} className="text-[#ff6a4a]" />
@@ -167,7 +156,6 @@ const Register = () => {
                   </p>
                 )}
               </div>
-
               <div>
                 <label className="flex items-center gap-3 text-gray-700 dark:text-gray-300 font-semibold mb-3">
                   <Camera size={20} sm:size={22} className="text-[#ff6a4a]" />
@@ -189,7 +177,6 @@ const Register = () => {
                   />
                 </div>
               </div>
-
               <button
                 type="submit"
                 disabled={uploading}
@@ -205,7 +192,6 @@ const Register = () => {
                 )}
               </button>
             </form>
-
             <div className="mt-8 sm:mt-10">
               <div className="relative">
                 <div className="absolute inset-0 flex items-center">
@@ -217,7 +203,6 @@ const Register = () => {
                   </span>
                 </div>
               </div>
-
               <button
                 onClick={handleGoogle}
                 className="mt-6 sm:mt-8 btn btn-outline w-full h-12 sm:h-14 text-base sm:text-lg hover:bg-[#ff6a4a] dark:text-white dark:border-gray-700 dark:hover:border-[#ff6a4a] hover:text-white font-semibold rounded-lg sm:rounded-xl flex items-center justify-center gap-2"
@@ -225,7 +210,6 @@ const Register = () => {
                 <FcGoogle className="mx-1 sm:mx-2" size={20} sm:size={24} /> Continue with Google
               </button>
             </div>
-
             <p className="text-center mt-8 sm:mt-10 text-gray-600 dark:text-gray-400 text-sm sm:text-lg">
               Already have an account?{" "}
               <Link
@@ -241,5 +225,4 @@ const Register = () => {
     </div>
   );
 };
-
-export default Register;
+export default Register;

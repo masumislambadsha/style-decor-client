@@ -2,15 +2,12 @@ import React, { useEffect } from "react";
 import { Link } from "react-router";
 import { motion } from "framer-motion";
 import { blogPosts } from "../../constants/blogData.jsx";
-
 const Blog = () => {
   useEffect(() => {
     document.title = "Style Decor | Blog";
     window.scrollTo(0, 0);
   }, []);
-
   const posts = blogPosts;
-
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pt-32 pb-20 transition-colors duration-300">
       <div className="container mx-auto px-6">
@@ -27,7 +24,6 @@ const Blog = () => {
             Insights, inspiration, and expert advice for creating the space of your dreams.
           </p>
         </motion.div>
-
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {posts.map((post, index) => (
             <motion.article
@@ -73,5 +69,4 @@ const Blog = () => {
     </div>
   );
 };
-
-export default Blog;
+export default Blog;

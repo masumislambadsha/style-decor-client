@@ -6,29 +6,23 @@ import Sidebar from "./Sidebar/Sidebar";
 import LoadingSpinner from "../../Components/Spinner/LoadingSpinner";
 import { Sun, Moon } from "lucide-react";
 import { useTheme } from "../../Context/ThemeProvider";
-
 const DashboardLayout = () => {
   const { user, loading } = useAuth();
   const [role, roleLoading] = useRole();
   const navigate = useNavigate();
   const { theme, toggleTheme } = useTheme();
-
   if (loading || roleLoading) {
     return <LoadingSpinner />;
   }
-
   if (!user) {
     navigate("/login");
     return null;
   }
-
   const normalizedRole = (role || "user").toLowerCase();
-
   return (
     <div className="flex h-screen bg-white dark:bg-gray-950 transition-colors duration-300">
       <Sidebar role={normalizedRole} />
       <main className="flex-1 overflow-auto relative">
-        {/* Dashboard Header/Top Bar */}
         <div className="fixed top-4 right-4 z-30">
           <button
             onClick={toggleTheme}
@@ -42,7 +36,6 @@ const DashboardLayout = () => {
             )}
           </button>
         </div>
-
         <div className="p-4 mt-16 md:p-10 ">
           <Outlet />
         </div>
@@ -50,5 +43,4 @@ const DashboardLayout = () => {
     </div>
   );
 };
-
-export default DashboardLayout;
+export default DashboardLayout;

@@ -6,13 +6,11 @@ import toast from "react-hot-toast";
 import Logo from "../Logo/Logo";
 import { Sun, Moon } from "lucide-react";
 import { useTheme } from "../../Context/ThemeProvider";
-
 const Navbar = () => {
   const { user, logOut } = useAuth();
   const [role] = useRole();
   const navigate = useNavigate();
   const { theme, toggleTheme } = useTheme();
-
   const handleLogout = async () => {
     try {
       await logOut();
@@ -22,7 +20,6 @@ const Navbar = () => {
       toast.error("Logout Failed");
     }
   };
-
   const menuItems = (
     <>
       <li>
@@ -48,7 +45,6 @@ const Navbar = () => {
           )}
         </NavLink>
       </li>
-
       {["Services", "About", "Contact Us", "Coverage"].map((item) => {
         const path =
           item === "Services"
@@ -58,7 +54,6 @@ const Navbar = () => {
             : item === "Coverage"
             ? "/service-coverage"
             : "/contact";
-
         return (
           <li key={item}>
             <NavLink
@@ -96,7 +91,6 @@ const Navbar = () => {
       })}
     </>
   );
-
   return (
     <>
       <div className="navbar justify-between fixed top-0 z-40 px-6 lg:px-20 h-20 transition-colors duration-300 backdrop-blur-sm ">
@@ -107,7 +101,6 @@ const Navbar = () => {
             </div>
           </Link>
         </div>
-
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal gap-12 text-black font-bold text-lg">
             <li>
@@ -172,9 +165,7 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
-
         <div className="navbar-end hidden lg:flex items-center gap-4">
-          {/* Theme Toggle */}
           <button
             onClick={toggleTheme}
             className="btn btn-ghost btn-circle"
@@ -186,7 +177,6 @@ const Navbar = () => {
               <Sun className="w-6 h-6" />
             )}
           </button>
-
           {user ? (
             <div className="dropdown dropdown-end">
               <label tabIndex={0} className="avatar cursor-pointer">
@@ -240,7 +230,6 @@ const Navbar = () => {
             </Link>
           )}
         </div>
-
         <div className="lg:hidden">
   <label htmlFor="mobile-drawer" className="btn btn-ghost">
     <button
@@ -268,9 +257,7 @@ const Navbar = () => {
     </button>
   </label>
 </div>
-
       </div>
-
       <div className="drawer lg:hidden">
         <input
           id="mobile-drawer"
@@ -283,7 +270,6 @@ const Navbar = () => {
             aria-label="close sidebar"
             className="drawer-overlay"
           ></label>
-
           <div className="min-h-full w-80 bg-black text-white p-8 pt-10 flex flex-col">
             <div className="flex justify-between items-start mb-12 relative">
               <label
@@ -305,11 +291,8 @@ const Navbar = () => {
                 </svg>
               </label>
             </div>
-
             <ul className="space-y-8 flex-1">{menuItems}</ul>
-
             <div className="mt-auto pt-10 border-t border-gray-800">
-              {/* Mobile Theme Toggle */}
               <button
                 onClick={toggleTheme}
                 className="w-full btn btn-outline text-white hover:bg-[#ff6a4a] hover:border-[#ff6a4a] mb-6 flex items-center justify-center gap-2"
@@ -326,7 +309,6 @@ const Navbar = () => {
                   </>
                 )}
               </button>
-
               {user ? (
                 <div className="space-y-6">
                   <Link
@@ -364,5 +346,4 @@ const Navbar = () => {
     </>
   );
 };
-
-export default Navbar;
+export default Navbar;

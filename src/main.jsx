@@ -4,7 +4,6 @@ import "./index.css";
 
 import { RouterProvider } from "react-router";
 
-
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import { Toaster } from "react-hot-toast";

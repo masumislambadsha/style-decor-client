@@ -17,7 +17,6 @@ const emptyService = {
   image: "",
   isActive: true,
 };
-
 const cardVariants = {
   hidden: { opacity: 0, y: 20, scale: 0.98 },
   visible: (i) => ({
@@ -27,9 +26,7 @@ const cardVariants = {
     transition: { delay: i * 0.05, duration: 0.25, ease: "easeOut" },
   }),
 };
-
 const ManageServices = () => {
-
   useEffect(()=>{
     document.title = "Style Decor | Manage Service"
   },[])
@@ -38,7 +35,6 @@ const ManageServices = () => {
   const [editing, setEditing] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [saving, setSaving] = useState(false);
-
   const {
     register,
     handleSubmit,
@@ -47,7 +43,6 @@ const ManageServices = () => {
     watch,
     formState: { errors },
   } = useForm({ defaultValues: emptyService });
-
   const { data: services = [], isLoading, refetch } = useQuery({
     queryKey: ["admin-services"],
     queryFn: async () => {
@@ -55,15 +50,12 @@ const ManageServices = () => {
       return res.data;
     },
   });
-
   const imageValue = watch("image");
-
   const openCreate = () => {
     setEditing(null);
     reset(emptyService);
     setModalOpen(true);
   };
-
   const openEdit = (service) => {
     setEditing(service);
     reset({
@@ -77,19 +69,16 @@ const ManageServices = () => {
     });
     setModalOpen(true);
   };
-
   const onSubmit = async (data) => {
     const body = {
       ...data,
       cost: Number(data.cost),
       isActive: !!data.isActive,
     };
-
     if (!body.image) {
       toast.error("Please upload an image");
       return;
     }
-
     try {
       setSaving(true);
       if (editing) {
@@ -110,7 +99,6 @@ const ManageServices = () => {
       setSaving(false);
     }
   };
-
   const handleDelete = async (service) => {
     const result = await Swal.fire({
       title: "Delete this service?",
@@ -122,9 +110,7 @@ const ManageServices = () => {
       confirmButtonColor: "#dc2626",
       cancelButtonColor: "#6b7280",
     });
-
     if (!result.isConfirmed) return;
-
     try {
       await axiosSecure.delete(`/services/${service._id}`);
       toast.success("Service deleted");
@@ -134,7 +120,6 @@ const ManageServices = () => {
       toast.error("Failed to delete service");
     }
   };
-
   const toggleActive = async (service) => {
     try {
       await axiosSecure.patch(`/services/${service._id}`, {
@@ -146,20 +131,16 @@ const ManageServices = () => {
       toast.error("Failed to update status");
     }
   };
-
   const handleImageUpload = async (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
-
     const key = import.meta.env.VITE_image_host_key;
     if (!key) {
       toast.error("Image API key missing");
       return;
     }
-
     const formData = new FormData();
     formData.append("image", file);
-
     try {
       setUploading(true);
       const res = await fetch(`https://api.imgbb.com/1/upload?key=${key}`, {
@@ -178,9 +159,7 @@ const ManageServices = () => {
       setUploading(false);
     }
   };
-
   if (isLoading) return <LoadingSpinner />;
-
   return (
     <div className="min-h-screen bg-base-200 py-6 sm:py-8 px-4">
       <motion.div
@@ -210,7 +189,6 @@ const ManageServices = () => {
             Add Service
           </motion.button>
         </div>
-
         {services.length === 0 && (
           <div className="bg-base-100 rounded-xl sm:rounded-2xl shadow-md p-8 sm:p-12 text-center">
             <div className="text-4xl sm:text-6xl mb-4 text-gray-300">🎨</div>
@@ -222,7 +200,6 @@ const ManageServices = () => {
             </p>
           </div>
         )}
-
         <AnimatePresence>
           <div className="space-y-4 sm:space-y-6">
             {services.map((s, idx) => (
@@ -248,7 +225,6 @@ const ManageServices = () => {
                     {s.isActive ? "Active" : "Inactive"}
                   </span>
                 </div>
-
                 <div className="p-4 sm:p-5">
                   <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-5">
                     <div className="lg:col-span-2 space-y-4">
@@ -278,7 +254,6 @@ const ManageServices = () => {
                           </p>
                         </div>
                       </div>
-
                       <div className="flex flex-wrap gap-3 text-xs sm:text-sm md:text-base mt-2">
                         <div>
                           <span className="text-base-content/60">Cost: </span>
@@ -292,7 +267,6 @@ const ManageServices = () => {
                         </div>
                       </div>
                     </div>
-
                     <div className="flex flex-col justify-center lg:px-4 gap-2 sm:gap-3">
                       <motion.button whileTap={{ scale: 0.97 }}>
                         <button
@@ -312,7 +286,6 @@ const ManageServices = () => {
                           )}
                         </button>
                       </motion.button>
-
                       <motion.button
                         whileTap={{ scale: 0.97 }}
                         onClick={() => openEdit(s)}
@@ -321,7 +294,6 @@ const ManageServices = () => {
                         <Pencil size={16} />
                         Edit
                       </motion.button>
-
                       <motion.button
                         whileTap={{ scale: 0.97 }}
                         onClick={() => handleDelete(s)}
@@ -338,7 +310,6 @@ const ManageServices = () => {
           </div>
         </AnimatePresence>
       </motion.div>
-
       <AnimatePresence>
         {modalOpen && (
           <motion.div
@@ -363,11 +334,9 @@ const ManageServices = () => {
               >
                 ✕
               </button>
-
               <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">
                 {editing ? "Edit Service" : "Add New Service"}
               </h3>
-
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 sm:space-y-5">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
@@ -381,7 +350,6 @@ const ManageServices = () => {
                       <p className="text-xs text-red-500 mt-1">Name is required.</p>
                     )}
                   </div>
-
                   <div>
                     <label className="font-medium text-base-content/80">Category</label>
                     <select
@@ -397,7 +365,6 @@ const ManageServices = () => {
                     </select>
                   </div>
                 </div>
-
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div>
                     <label className="font-medium text-base-content/80">Cost</label>
@@ -410,7 +377,6 @@ const ManageServices = () => {
                       <p className="text-xs text-red-500 mt-1">Valid cost is required.</p>
                     )}
                   </div>
-
                   <div className="md:col-span-2">
                     <label className="font-medium text-base-content/80">Unit</label>
                     <input
@@ -421,7 +387,6 @@ const ManageServices = () => {
                     />
                   </div>
                 </div>
-
                 <div>
                   <label className="font-medium text-gray-700">Image</label>
                   <div className="mt-1 flex flex-col sm:flex-row gap-3 items-start sm:items-center">
@@ -446,7 +411,6 @@ const ManageServices = () => {
                   {errors.image && (
                     <p className="text-xs text-red-500 mt-1">Image is required.</p>
                   )}
-
                   {imageValue && (
                     <div className="mt-3">
                       <p className="text-xs text-base-content/40 mb-1">Preview</p>
@@ -458,7 +422,6 @@ const ManageServices = () => {
                     </div>
                   )}
                 </div>
-
                 <div>
                   <label className="font-medium text-base-content/80">Description</label>
                   <textarea
@@ -469,7 +432,6 @@ const ManageServices = () => {
                     <p className="text-xs text-red-500 mt-1">Description is required.</p>
                   )}
                 </div>
-
                 <div className="flex items-center gap-3">
                   <input
                     type="checkbox"
@@ -481,7 +443,6 @@ const ManageServices = () => {
                     Service is active (visible to users)
                   </span>
                 </div>
-
                 <div className="flex justify-end gap-3 pt-4">
                   <button
                     type="button"
@@ -516,6 +477,4 @@ const ManageServices = () => {
     </div>
   );
 };
-
-export default ManageServices;
-
+export default ManageServices;

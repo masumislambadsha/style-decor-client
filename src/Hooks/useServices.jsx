@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-
 const useServices = () => {
   const {
     data: services = [],
@@ -13,8 +12,6 @@ const useServices = () => {
       return res.data;
     },
   });
-
   return { services, loading, refetch };
 };
-
-export default useServices;
+export default useServices;

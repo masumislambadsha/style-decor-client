@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { motion } from "framer-motion";
-
 const pageVariants = {
   hidden: { opacity: 0, y: 30 },
   visible: {
@@ -9,7 +8,6 @@ const pageVariants = {
     transition: { duration: 0.45, ease: "easeOut" },
   },
 };
-
 const headerVariants = {
   hidden: { opacity: 0, y: 14 },
   visible: {
@@ -18,7 +16,6 @@ const headerVariants = {
     transition: { duration: 0.35, ease: "easeOut" },
   },
 };
-
 const leftColumnVariants = {
   hidden: { opacity: 0, x: -18 },
   visible: {
@@ -27,7 +24,6 @@ const leftColumnVariants = {
     transition: { duration: 0.35, ease: "easeOut", delay: 0.1 },
   },
 };
-
 const rightColumnVariants = {
   hidden: { opacity: 0, x: 18 },
   visible: {
@@ -36,7 +32,6 @@ const rightColumnVariants = {
     transition: { duration: 0.35, ease: "easeOut", delay: 0.18 },
   },
 };
-
 const cardStagger = {
   hidden: { opacity: 0, y: 18, scale: 0.96 },
   visible: (i) => ({
@@ -50,7 +45,6 @@ const cardStagger = {
     },
   }),
 };
-
 const About = () => {
    useEffect(() => {
     document.title = "Style Decor | About";
@@ -95,7 +89,6 @@ const About = () => {
             decorators to design memorable homes and events with zero hassle.
           </motion.p>
         </motion.div>
-
         <div className="grid md:grid-cols-3 gap-6">
           <motion.div
             className="md:col-span-2 space-y-5"
@@ -122,7 +115,6 @@ const About = () => {
                 and enjoy the moment.
               </p>
             </motion.div>
-
             <div className="grid sm:grid-cols-3 gap-4">
               {[
                 {
@@ -164,7 +156,6 @@ const About = () => {
               ))}
             </div>
           </motion.div>
-
           <motion.div
             className="space-y-4"
             variants={rightColumnVariants}
@@ -192,7 +183,6 @@ const About = () => {
                 <li>• End‑to‑end support from planning to setup.</li>
               </ul>
             </motion.div>
-
             <motion.div
               className="bg-[#ff6a4a] rounded-3xl text-white p-6 relative overflow-hidden"
               custom={5}
@@ -232,5 +222,4 @@ const About = () => {
     </motion.div>
   );
 };
-
-export default About;
+export default About;

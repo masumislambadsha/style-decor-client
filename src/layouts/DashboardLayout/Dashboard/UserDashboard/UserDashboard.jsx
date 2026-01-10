@@ -11,7 +11,6 @@ import useAuth from "../../../../Hooks/useAuth";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import StatCardSkeleton from "../../../../Components/Skeletons/StatCardSkeleton";
 import TableSkeleton from "../../../../Components/Skeletons/TableSkeleton";
-
 const containerVariants = {
   hidden: { opacity: 0, y: 15 },
   visible: {
@@ -20,21 +19,17 @@ const containerVariants = {
     transition: { staggerChildren: 0.1, duration: 0.4, ease: "easeOut" },
   },
 };
-
 const cardVariants = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0 },
 };
-
 const UserDashboard = () => {
   const { user } = useAuth();
   const [role] = useRole();
   const axiosSecure = useAxiosSecure();
-
   useEffect(() => {
     document.title = "Style Decor | Dashboard";
   }, []);
-
   const { data: bookings = [], isLoading } = useQuery({
     queryKey: ["user-bookings-stats", user?.email],
     queryFn: async () => {
@@ -43,33 +38,26 @@ const UserDashboard = () => {
     },
     enabled: !!user?.email,
   });
-
   if (isLoading) {
     return (
       <div className="min-h-screen py-6 sm:py-8 px-4">
         <div className="max-w-6xl mx-auto space-y-8">
-          {/* Header Skeleton */}
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 animate-pulse">
             <div>
               <div className="h-10 bg-base-300 rounded-lg w-64 mb-2"></div>
               <div className="h-5 bg-base-300 rounded-md w-48"></div>
             </div>
           </div>
-
-          {/* Stats Grid Skeleton */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {[...Array(4)].map((_, i) => (
               <StatCardSkeleton key={i} />
             ))}
           </div>
-
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Chart Placeholder */}
             <div className="lg:col-span-2 bg-white dark:bg-gray-900 p-6 rounded-3xl border border-gray-100 dark:border-gray-800 h-[400px] animate-pulse">
               <div className="h-7 bg-base-300 rounded-lg w-48 mb-6"></div>
               <div className="h-[300px] bg-base-300 rounded-2xl w-full"></div>
             </div>
-            {/* Quick Actions Placeholder */}
             <div className="bg-white dark:bg-gray-900 p-6 rounded-3xl border border-gray-100 dark:border-gray-800 h-[400px] animate-pulse">
               <div className="h-7 bg-base-300 rounded-lg w-32 mb-6"></div>
               <div className="space-y-4">
@@ -79,44 +67,34 @@ const UserDashboard = () => {
               </div>
             </div>
           </div>
-
-          {/* Table Skeleton */}
           <TableSkeleton />
         </div>
       </div>
     );
   }
-
   const normalizedRole = (role || "user").toLowerCase();
   const isAdmin = normalizedRole.includes("admin");
   const isDecorator = normalizedRole.includes("decorator");
-
-  // Calculate Stats
   const stats = {
     total: bookings.length,
     pending: bookings.filter(b => b.status === "pending_payment").length,
     active: bookings.filter(b => ["assigned", "assigned_pending"].includes(b.status)).length,
     completed: bookings.filter(b => b.status === "completed").length,
   };
-
-  // Chart Data
   const chartData = [
     { name: "Pending", count: stats.pending, color: "#f59e0b" },
     { name: "Active", count: stats.active, color: "#3b82f6" },
     { name: "Completed", count: stats.completed, color: "#10b981" },
   ];
-
   const statCards = [
     { label: "Total Bookings", value: stats.total, icon: ShoppingBag, color: "text-blue-500", bg: "bg-blue-100 dark:bg-blue-500/10" },
     { label: "Pending Payment", value: stats.pending, icon: Clock, color: "text-amber-500", bg: "bg-amber-100 dark:bg-amber-500/10" },
     { label: "Active Services", value: stats.active, icon: CreditCard, color: "text-indigo-500", bg: "bg-indigo-100 dark:bg-indigo-500/10" },
     { label: "Completed", value: stats.completed, icon: CheckCircle, color: "text-emerald-500", bg: "bg-emerald-100 dark:bg-emerald-500/10" },
   ];
-
   return (
     <div className="min-h-screen py-6 sm:py-8 px-4 ">
       <div className="max-w-6xl mx-auto space-y-8">
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -136,8 +114,6 @@ const UserDashboard = () => {
             </Link>
           )}
         </motion.div>
-
-        {/* Stats Grid */}
         <motion.div
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6"
           variants={containerVariants}
@@ -156,9 +132,7 @@ const UserDashboard = () => {
             </motion.div>
           ))}
         </motion.div>
-
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Chart */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -184,8 +158,6 @@ const UserDashboard = () => {
               </ResponsiveContainer>
             </div>
           </motion.div>
-
-          {/* Recent Activity / Quick Links */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -218,8 +190,6 @@ const UserDashboard = () => {
             </div>
           </motion.div>
         </div>
-
-        {/* Recent Bookings Table */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -284,5 +254,4 @@ const UserDashboard = () => {
     </div>
   );
 };
-
-export default UserDashboard;
+export default UserDashboard;

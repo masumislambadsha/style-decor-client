@@ -5,21 +5,17 @@ import Swal from "sweetalert2";
 import { motion, AnimatePresence } from "framer-motion";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import LoadingSpinner from "../../../../Components/Spinner/LoadingSpinner";
-
 const StatusBadge = ({ status }) => {
   const key = status?.toLowerCase() || "inactive";
-
   const badgeStyles = {
     active: "bg-green-500/10 text-green-600 border-green-500/30",
     inactive: "bg-base-300/50 text-base-content/60 border-base-300",
     pending: "bg-[#ff6a4a]/10 text-[#ff6a4a] border-[#ff6a4a]/30",
   };
   motion
-
   const label = status
     ? status.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
     : "Inactive";
-
   return (
     <span
       className={`px-3 py-1 rounded-full text-xs font-semibold border ${
@@ -30,7 +26,6 @@ const StatusBadge = ({ status }) => {
     </span>
   );
 };
-
 const cardVariants = {
   hidden: { opacity: 0, y: 20, scale: 0.98 },
   visible: (i) => ({
@@ -45,14 +40,11 @@ const cardVariants = {
   }),
   exit: { opacity: 0, y: -20, scale: 0.98, transition: { duration: 0.2 } },
 };
-
 const ManageDecorators = () => {
-
   useEffect(()=>{
     document.title = "Style Decor | Manage Decorator"
   },[])
   const axiosSecure = useAxiosSecure();
-
   const {
     data: decorators = [],
     isLoading,
@@ -64,7 +56,6 @@ const ManageDecorators = () => {
       return res.data;
     },
   });
-
   const handleDeleteDecorator = async (decorator) => {
     const result = await Swal.fire({
       title: "Delete decorator?",
@@ -76,9 +67,7 @@ const ManageDecorators = () => {
       confirmButtonColor: "#dc2626",
       cancelButtonColor: "#6b7280",
     });
-
     if (!result.isConfirmed) return;
-
     try {
       await axiosSecure.delete(`/decorators/${decorator._id}`);
       await refetch();
@@ -94,13 +83,11 @@ const ManageDecorators = () => {
       Swal.fire("Error", "Failed to delete decorator", "error");
     }
   };
-
   if (isLoading) {
     return (
       <LoadingSpinner/>
     );
   }
-
   return (
     <div className="min-h-screen bg-base-200 py-8 px-4">
       <motion.div
@@ -136,7 +123,6 @@ const ManageDecorators = () => {
             {decorators.length !== 1 && "s"} in the system
           </motion.p>
         </div>
-
         {decorators.length === 0 && (
           <motion.div
             className="bg-base-100 rounded-2xl shadow-md p-12 text-center"
@@ -153,12 +139,10 @@ const ManageDecorators = () => {
             </p>
           </motion.div>
         )}
-
         <AnimatePresence>
           <div className="space-y-5">
             {decorators.map((d, index) => {
               const imageSrc = d.photoURL || d.photo;
-
               return (
                 <motion.div
                   key={d._id}
@@ -176,7 +160,6 @@ const ManageDecorators = () => {
                     </h3>
                     <StatusBadge status={d.status} />
                   </div>
-
                   <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start">
                     <motion.div
                       className="shrink-0"
@@ -196,7 +179,6 @@ const ManageDecorators = () => {
                         )}
                       </div>
                     </motion.div>
-
                     <div className="flex-1 w-full">
                       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 md:gap-4">
                         <div>
@@ -212,7 +194,6 @@ const ManageDecorators = () => {
                             </p>
                           )}
                         </div>
-
                         <motion.button
                           onClick={() => handleDeleteDecorator(d)}
                           whileTap={{ scale: 0.95 }}
@@ -222,7 +203,6 @@ const ManageDecorators = () => {
                           Remove
                         </motion.button>
                       </div>
-
                       <div className="grid sm:grid-cols-2 gap-4 mt-4">
                         <div>
                           <p className="text-xs font-medium text-base-content/60 mb-1">
@@ -232,7 +212,6 @@ const ManageDecorators = () => {
                             {d.specialty || "General Decorator"}
                           </p>
                         </div>
-
                         <div>
                           <p className="text-xs font-medium text-base-content/60 mb-1">
                             Rating
@@ -242,7 +221,6 @@ const ManageDecorators = () => {
                           </p>
                         </div>
                       </div>
-
                       <div className="flex flex-wrap gap-4 text-sm mt-4">
                         {d.phone && (
                           <div>
@@ -270,6 +248,4 @@ const ManageDecorators = () => {
     </div>
   );
 };
-
-export default ManageDecorators;
-
+export default ManageDecorators;

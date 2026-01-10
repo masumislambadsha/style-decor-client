@@ -6,7 +6,6 @@ import { Mail, Lock, Eye, EyeOff, Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
 import useAuth from "../../../Hooks/useAuth";
 import LoadingSpinner from "../../../Components/Spinner/LoadingSpinner";
-
 const Login = () => {
    useEffect(() => {
     document.title = "Style Decor | Login";
@@ -14,14 +13,12 @@ const Login = () => {
   const { signInUser, signInGoogle } = useAuth();
   const navigate = useNavigate();
   const [showPass, setShowPass] = useState(false);
-
   const {
     register,
     handleSubmit,
     setValue,
     formState: { errors },
   } = useForm();
-
   const onSubmit = async (data) => {
     try {
       await signInUser(data.email, data.password);
@@ -36,7 +33,6 @@ const Login = () => {
       toast.error(msg);
     }
   };
-
   const handleGoogle = async () => {
     try {
       await signInGoogle();
@@ -46,7 +42,6 @@ const Login = () => {
       toast.error("Google login failed", err);
     }
   };
-
   return (
     <div className="min-h-screen bg-linear-to-br from-gray-50 to-orange-50 dark:from-gray-950 dark:to-gray-900 flex items-center justify-center py-10 px-4 transition-colors duration-300">
       <div className="max-w-lg w-full">
@@ -62,10 +57,8 @@ const Login = () => {
               Login to your account
             </p>
           </div>
-
           <div className="p-8 sm:p-10">
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 sm:space-y-8">
-              {/* email */}
               <div>
                 <label className="flex items-center gap-3 text-gray-700 dark:text-gray-300 font-semibold mb-3">
                   <Mail size={20} sm:size={22} className="text-[#ff6a4a]" />
@@ -86,8 +79,6 @@ const Login = () => {
                   </p>
                 )}
               </div>
-
-              {/* password */}
               <div className="relative">
                 <label className="flex items-center gap-3 text-gray-700 dark:text-gray-300 font-semibold mb-3">
                   <Lock size={20} sm:size={22} className="text-[#ff6a4a]" />
@@ -121,8 +112,6 @@ const Login = () => {
                 Login Now
               </button>
             </form>
-
-            {/* Demo Logins */}
             <div className="grid grid-cols-3 gap-2 mt-6">
               <button
                 type="button"
@@ -155,7 +144,6 @@ const Login = () => {
                 User
               </button>
             </div>
-
             <div className="mt-8 sm:mt-10">
               <div className="relative">
                 <div className="absolute inset-0 flex items-center">
@@ -167,7 +155,6 @@ const Login = () => {
                   </span>
                 </div>
               </div>
-
               <button
                 onClick={handleGoogle}
                 className="mt-6 sm:mt-8 btn btn-outline w-full h-12 sm:h-14 text-base sm:text-lg hover:bg-[#ff6a4a] dark:text-white dark:border-gray-700 dark:hover:border-[#ff6a4a] hover:text-white font-semibold flex items-center justify-center gap-2 sm:gap-3 rounded-lg sm:rounded-xl"
@@ -193,7 +180,6 @@ const Login = () => {
                 Continue with Google
               </button>
             </div>
-
             <p className="text-center mt-8 sm:mt-10 text-gray-600 dark:text-gray-400 text-sm sm:text-lg">
               New to StyleDecor?{" "}
               <Link
@@ -209,5 +195,4 @@ const Login = () => {
     </div>
   );
 };
-
-export default Login;
+export default Login;

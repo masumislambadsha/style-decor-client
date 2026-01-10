@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router";
-
 const PaymentCancelled = () => (
   <div className="max-w-xl mx-auto text-center space-y-4 py-10 px-4">
     <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">Payment Cancelled</h2>
@@ -12,5 +11,4 @@ const PaymentCancelled = () => (
     </Link>
   </div>
 );
-
-export default PaymentCancelled;
+export default PaymentCancelled;

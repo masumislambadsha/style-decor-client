@@ -15,7 +15,6 @@ const statusColors = {
   completed: "bg-emerald-100 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-200 dark:border-emerald-500/20",
   cancelled: "bg-rose-100 dark:bg-rose-500/10 text-rose-700 dark:text-rose-400 border-rose-200 dark:border-rose-500/20",
 };
-
 const cardVariants = {
   hidden: { opacity: 0, y: 20, scale: 0.98 },
   visible: (i) => ({
@@ -25,7 +24,6 @@ const cardVariants = {
     transition: { delay: i * 0.05, duration: 0.25, ease: "easeOut" },
   }),
 };
-
 const getNextStatus = (current) => {
   switch (current) {
     case "assigned":
@@ -42,7 +40,6 @@ const getNextStatus = (current) => {
       return null;
   }
 };
-
 const getNextLabel = (nextStatus) => {
   switch (nextStatus) {
     case "planning":
@@ -59,14 +56,12 @@ const getNextLabel = (nextStatus) => {
       return "";
   }
 };
-
 const AssignedProjects = () => {
     useEffect(() => {
     document.title = "Style Decor | Assigned Projects";
   }, []);
   const axiosSecure = useAxiosSecure();
   const [updatingId, setUpdatingId] = useState(null);
-
   const {
     data: bookings = [],
     isLoading,
@@ -78,13 +73,10 @@ const AssignedProjects = () => {
       return res.data;
     },
   });
-
   const handleUpdateStatus = async (booking) => {
     const nextStatus = getNextStatus(booking.status);
     if (!nextStatus) return;
-
     const nextLabel = getNextLabel(nextStatus);
-
     const result = await Swal.fire({
       title: "Update project status?",
       text: `Do you want to move this project to "${nextLabel}"?`,
@@ -95,15 +87,12 @@ const AssignedProjects = () => {
       confirmButtonText: "Yes, update",
       cancelButtonText: "Cancel",
     });
-
     if (!result.isConfirmed) return;
-
     try {
       setUpdatingId(booking._id);
       await axiosSecure.patch(`/bookings/${booking._id}/status`, {
         status: nextStatus,
       });
-
       await Swal.fire({
         icon: "success",
         title: "Status updated",
@@ -111,7 +100,6 @@ const AssignedProjects = () => {
         timer: 1900,
         showConfirmButton: true,
       });
-
       refetch();
     } catch (err) {
       console.error(err);
@@ -120,13 +108,11 @@ const AssignedProjects = () => {
       setUpdatingId(null);
     }
   };
-
   if (isLoading) {
      return (
       <LoadingSpinner/>
     );
   }
-
   if (!bookings.length) {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-950 py-6 sm:py-8 px-4">
@@ -144,7 +130,6 @@ const AssignedProjects = () => {
               All bookings where you are the assigned decorator will appear here.
             </p>
           </div>
-
           <motion.div
             className="bg-white dark:bg-gray-900 rounded-xl sm:rounded-2xl shadow-md p-8 sm:p-12 text-center"
             initial={{ opacity: 0, scale: 0.97 }}
@@ -163,7 +148,6 @@ const AssignedProjects = () => {
       </div>
     );
   }
-
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 sm:py-8 px-4">
       <motion.div
@@ -185,7 +169,6 @@ const AssignedProjects = () => {
             Total: {bookings.length} project{bookings.length !== 1 && "s"}
           </p>
         </motion.div>
-
         <AnimatePresence>
           <div className="space-y-4 sm:space-y-6">
             {bookings.map((b, idx) => {
@@ -193,15 +176,12 @@ const AssignedProjects = () => {
               const badgeClass =
                 statusColors[statusKey] ||
                 "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-700";
-
               const dateLabel = b.bookingDate
                 ? new Date(b.bookingDate).toLocaleDateString("en-GB")
                 : "Not set";
-
               const nextStatus = getNextStatus(statusKey);
               const nextLabel = getNextLabel(nextStatus);
               const isUpdating = updatingId === b._id;
-
               return (
                 <motion.div
                   key={b._id}
@@ -225,7 +205,6 @@ const AssignedProjects = () => {
                         .replace(/\b\w/g, (c) => c.toUpperCase())}
                     </span>
                   </div>
-
                   <div className="p-4 sm:p-5">
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-5">
                       <div className="lg:col-span-2 space-y-4">
@@ -242,7 +221,6 @@ const AssignedProjects = () => {
                             </p>
                           )}
                         </div>
-
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                           <div className="flex items-start gap-2">
                             <CalendarDays className="w-4 h-4 text-gray-500 mt-0.5" />
@@ -257,7 +235,6 @@ const AssignedProjects = () => {
                               </p>
                             </div>
                           </div>
-
                           <div className="flex items-start gap-2">
                             <MapPin className="w-4 h-4 text-gray-500 mt-0.5" />
                             <div>
@@ -270,7 +247,6 @@ const AssignedProjects = () => {
                             </div>
                           </div>
                         </div>
-
                         <div className="flex flex-wrap gap-2 sm:gap-4 text-xs sm:text-sm md:text-base">
                           <div>
                             <span className="text-gray-500 dark:text-gray-400">Budget: </span>
@@ -296,7 +272,6 @@ const AssignedProjects = () => {
                           )}
                         </div>
                       </div>
-
                       <div className="flex flex-col justify-center items-center gap-4">
                         <motion.div
                           className="h-20 sm:w-24 sm:h-24 bg-[#ff6a4a]/5 dark:bg-[#ff6a4a]/10 border-2 border-dashed border-[#ff6a4a]/40 rounded-xl sm:rounded-2xl flex items-center justify-center text-xl sm:text-3xl text-[#ff6a4a]/60 w-full"
@@ -306,7 +281,6 @@ const AssignedProjects = () => {
                         >
                           🎨
                         </motion.div>
-
                         <div className="w-full flex flex-col gap-2">
                           {nextStatus ? (
                             <button
@@ -326,7 +300,6 @@ const AssignedProjects = () => {
                                 : "No actions available"}
                             </button>
                           )}
-
                           <a
                             href={`/services/${b.serviceId}`}
                             className="w-full bg-gray-900 text-white hover:bg-black font-semibold py-2 rounded-lg shadow-sm flex items-center justify-center gap-2 text-xs sm:text-sm transition cursor-pointer"
@@ -347,5 +320,4 @@ const AssignedProjects = () => {
     </div>
   );
 };
-
-export default AssignedProjects;
+export default AssignedProjects;

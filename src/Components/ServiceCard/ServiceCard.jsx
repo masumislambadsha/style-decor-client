@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router";
-
 const ServiceCard = ({ service, accentClass }) => {
   return (
     <div>
@@ -20,16 +19,13 @@ const ServiceCard = ({ service, accentClass }) => {
               className="w-full h-full object-cover"
             />
           </div>
-
           <div className="p-6 flex-1 flex flex-col">
             <h3 className={`text-xl font-bold mb-2 ${accentClass}`}>
               {service.service_name}
             </h3>
-
             <p className="text-sm text-base-content/70 leading-relaxed mb-4">
               {service.description}
             </p>
-
             <div className="mt-auto pt-2 flex items-baseline gap-2 text-sm">
               <span className="text-lg font-bold text-[#ff6a4a]">
                 {service.cost.toLocaleString()} BDT
@@ -42,5 +38,4 @@ const ServiceCard = ({ service, accentClass }) => {
     </div>
   );
 };
-
-export default ServiceCard;
+export default ServiceCard;

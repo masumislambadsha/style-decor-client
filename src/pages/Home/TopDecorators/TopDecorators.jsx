@@ -1,10 +1,8 @@
 import React from "react";
 import useDecorators from "../../../Hooks/useDecorators";
 import DecoratorCardSkeleton from "../../../Components/Skeletons/DecoratorCardSkeleton";
-
 const TopDecorators = () => {
   const { decorators, loading } = useDecorators();
-
   if (loading) {
     return (
       <section className="py-16 sm:py-20 bg-base-100">
@@ -21,13 +19,10 @@ const TopDecorators = () => {
       </section>
     );
   }
-
   const topSix = decorators.slice(0, 6);
-
   const renderStars = (rating) => {
     const full = Math.floor(rating);
     const hasHalf = rating % 1 >= 0.5;
-
     return (
       <div className="flex items-center gap-1">
         {[...Array(5)].map((_, i) => (
@@ -73,14 +68,12 @@ const TopDecorators = () => {
       </div>
     );
   };
-
   return (
     <section className="py-16 sm:py-20 bg-base-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-center mb-10 sm:mb-16 text-base-content">
           Meet Our Top Decorators
         </h2>
-
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 sm:gap-10 md:space-y-0 space-y-5">
           {topSix.map((decorator) => {
             const imgSrc = decorator.photoURL || decorator.photo;
@@ -96,14 +89,12 @@ const TopDecorators = () => {
                     <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </div>
                 </div>
-
                 <h3 className="font-bold text-base sm:text-lg text-base-content leading-tight">
                   {decorator.name}
                 </h3>
                 <p className="text-xs sm:text-sm text-base-content/60 mt-1 mb-3">
                   {decorator.specialty}
                 </p>
-
                 <div className="flex justify-center">
                   {renderStars(decorator.rating || 4.8)}
                 </div>
@@ -115,5 +106,4 @@ const TopDecorators = () => {
     </section>
   );
 };
-
-export default TopDecorators;
+export default TopDecorators;

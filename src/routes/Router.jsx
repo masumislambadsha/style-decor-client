@@ -1,30 +1,24 @@
 import React from "react";
 import { createBrowserRouter } from "react-router";
-
 import RootLayout from "../layouts/RootLayout/RootLayout";
 import DashboardLayout from "../layouts/DashboardLayout/DashboardLayout";
-
 import Home from "../pages/Home/Home";
 import Services from "../pages/Services/Services";
 import ServiceDetails from "../pages/ServiceDetails/ServiceDetails";
 import Login from "../pages/Auth/Login/Login";
 import Register from "../pages/Auth/Register/Register";
 import ErrorPage from "../Components/Error/ErrorPage";
-
 import UserDashboard from "../layouts/DashboardLayout/Dashboard/UserDashboard/UserDashboard";
 import MyBookings from "../layouts/DashboardLayout/Dashboard/MyBookings/MyBookings";
 import PaymentHistory from "../layouts/DashboardLayout/Dashboard/PaymentHistory/PaymentHistory";
-
 import ManageServices from "../layouts/DashboardLayout/AdminDashboard/ManageServices/ManageServices";
 import ManageDecorators from "../layouts/DashboardLayout/AdminDashboard/ManageDecorators/ManageDecorators";
 import ManageBookings from "../layouts/DashboardLayout/AdminDashboard/ManageBookings/ManageBookings";
 import Analytics from "../layouts/DashboardLayout/AdminDashboard/Analytics/Analytics";
-
 import DecoratorDashboard from "../layouts/DashboardLayout/DecoratorDashboard/DecoratorDashboard";
 import AssignedProjects from "../layouts/DashboardLayout/DecoratorDashboard/AssignedProjects/AssignedProjects";
 import TodaySchedule from "../layouts/DashboardLayout/DecoratorDashboard/TodaySchedule/TodaySchedule";
 import Earnings from "../layouts/DashboardLayout/DecoratorDashboard/Earnings/Earnings";
-
 import PrivateRoute from "./PrivateRoute";
 import AdminRoute from "./AdminRoute";
 import DecoratorRoute from "./DecoratorRoute";
@@ -43,9 +37,7 @@ import Help from "../pages/Help/Help";
 import Privacy from "../pages/Privacy/Privacy";
 import Terms from "../pages/Terms/Terms";
 import ManageUser from "../layouts/DashboardLayout/AdminDashboard/ManageUser/ManageUser";
-
 import DashboardHome from "../layouts/DashboardLayout/Dashboard/DashboardHome";
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -80,7 +72,6 @@ const router = createBrowserRouter([
       },
     ],
   },
-
   {
     path: "/dashboard",
     element: (
@@ -95,7 +86,6 @@ const router = createBrowserRouter([
       { path: "payment-history", element: <PaymentHistory /> },
       { path: "payment-success", element: <PaymentSuccess /> },
       { path: "payment-cancelled", element: <PaymentCancelled /> },
-
       {
         path: "admin/manage-services",
         element: (
@@ -128,7 +118,6 @@ const router = createBrowserRouter([
           </AdminRoute>
         ),
       },
-
       {
         path: "admin/analytics",
         element: (
@@ -145,7 +134,6 @@ const router = createBrowserRouter([
           </AdminRoute>
         ),
       },
-
       {
         path: "decorator",
         element: (
@@ -181,5 +169,4 @@ const router = createBrowserRouter([
     ],
   },
 ]);
-
-export default router;
+export default router;

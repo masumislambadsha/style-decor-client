@@ -6,18 +6,15 @@ import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import LoadingSpinner from "../../../Components/Spinner/LoadingSpinner";
 import { Dot } from "lucide-react";
-
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
   iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
   shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
 });
-
 const ServiceCoverageArea = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const mapRef = useRef(null);
-
   const {
     data: serviceCenters = [],
     isLoading,
@@ -29,26 +26,22 @@ const ServiceCoverageArea = () => {
       return res.data;
     },
   });
-
   const handleSearch = (e) => {
     e.preventDefault();
     const term = searchTerm.toLowerCase().trim();
     if (!term || !serviceCenters.length) return;
-
     const found = serviceCenters.find(
       (c) =>
         c.district.toLowerCase().includes(term) ||
         c.city.toLowerCase().includes(term) ||
         c.covered_area.some((a) => a.toLowerCase().includes(term))
     );
-
     if (found && mapRef.current) {
       mapRef.current.flyTo([found.latitude, found.longitude], 10, {
         duration: 1.8,
       });
     }
   };
-
   const handleAreaClick = (center) => {
     if (!mapRef.current) return;
     setSearchTerm(center.district);
@@ -56,7 +49,6 @@ const ServiceCoverageArea = () => {
       duration: 1.8,
     });
   };
-
   if (isLoading) return <LoadingSpinner />;
   if (error)
     return (
@@ -64,7 +56,6 @@ const ServiceCoverageArea = () => {
         Failed to load service areas
       </div>
     );
-
   return (
     <section className="py-16 sm:py-20 bg-base-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -78,7 +69,6 @@ const ServiceCoverageArea = () => {
             interior decorators will walk you through our service options.
           </p>
         </div>
-
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 justify-center items-center">
           <div className="relative order-1 lg:order-2">
             <div className="h-64 sm:h-72 md:h-[490px] rounded-xl sm:rounded-3xl shadow-2xl overflow-hidden">
@@ -115,12 +105,10 @@ const ServiceCoverageArea = () => {
                 ))}
               </MapContainer>
             </div>
-
             <button className="absolute top-4 sm:top-6 right-4 sm:right-6 btn bg-[#ff6a4a] hover:bg-black text-white font-bold px-6 sm:px-8 py-2 sm:py-3 rounded-none shadow-lg flex items-center gap-2 z-10 text-xs sm:text-sm">
               SEE ALL AREA
             </button>
           </div>
-
           <div className="bg-base-100 rounded-xl sm:rounded-3xl shadow-xl p-6 sm:p-8 order-2 lg:order-1">
             <form onSubmit={handleSearch} className="mb-6 sm:mb-8">
               <div className="flex flex-col sm:flex-row gap-3">
@@ -139,7 +127,6 @@ const ServiceCoverageArea = () => {
                 </button>
               </div>
             </form>
-
             <div className="space-y-4 max-h-72 sm:max-h-96 overflow-y-auto">
               {serviceCenters.map((center, idx) => (
                 <div
@@ -180,5 +167,4 @@ const ServiceCoverageArea = () => {
     </section>
   );
 };
-
-export default ServiceCoverageArea;
+export default ServiceCoverageArea;

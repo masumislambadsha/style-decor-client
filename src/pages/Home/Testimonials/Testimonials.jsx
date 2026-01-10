@@ -3,7 +3,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, FreeMode } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/free-mode";
-
 const Testimonials = () => {
     const reviews = [
         {
@@ -55,13 +54,10 @@ const Testimonials = () => {
             rating: 5
         }
     ];
-
     return (
         <section className="py-24 bg-gray-50 dark:bg-gray-950 overflow-hidden relative transition-colors duration-300">
-            {/* Subtle Ornaments */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-[#ff6a4a]/5 rounded-full blur-3xl -mr-32 -mt-32"></div>
             <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#ff6a4a]/5 rounded-full blur-3xl -ml-32 -mb-32"></div>
-
             <div className="container mx-auto px-6 mb-16 text-center">
                 <h2 className="text-4xl md:text-5xl font-black text-gray-800 dark:text-white mb-4 tracking-tight leading-tight">
                     What Our Clients Say
@@ -70,7 +66,6 @@ const Testimonials = () => {
                     We take pride in delivering exceptional service. Here is what some of our satisfied clients have to say.
                 </p>
             </div>
-
             <div className="relative cursor-grab active:cursor-grabbing">
                 <Swiper
                     modules={[Autoplay, FreeMode]}
@@ -126,12 +121,9 @@ const Testimonials = () => {
                     ))}
                 </Swiper>
             </div>
-
-            {/* Fade effect on sides */}
             <div className="absolute top-0 left-0 w-32 md:w-48 h-full bg-linear-to-r from-gray-50 dark:from-gray-950 to-transparent pointer-events-none z-10"></div>
             <div className="absolute top-0 right-0 w-32 md:w-48 h-full bg-linear-to-l from-gray-50 dark:from-gray-950 to-transparent pointer-events-none z-10"></div>
         </section>
     );
 };
-
-export default Testimonials;
+export default Testimonials;

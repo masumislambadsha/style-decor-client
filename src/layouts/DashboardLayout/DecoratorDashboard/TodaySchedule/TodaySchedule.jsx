@@ -13,13 +13,11 @@ const cardVariants = {
     transition: { delay: i * 0.05, duration: 0.25, ease: "easeOut" },
   }),
 };
-
 const TodaysSchedule = () => {
     useEffect(() => {
     document.title = "Style Decor | Today's Schedule";
   }, []);
   const axiosSecure = useAxiosSecure();
-
   const { data: bookings = [], isLoading } = useQuery({
     queryKey: ["decorator-bookings"],
     queryFn: async () => {
@@ -27,18 +25,15 @@ const TodaysSchedule = () => {
       return res.data;
     },
   });
-
   const todayStr = new Date().toISOString().slice(0, 10);
   const todaysBookings = bookings.filter(
     (b) => b.bookingDate && b.bookingDate.slice(0, 10) === todayStr
   );
-
   if (isLoading) {
      return (
       <LoadingSpinner/>
     );
   }
-
   if (!todaysBookings.length) {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-950 px-4">
@@ -56,7 +51,6 @@ const TodaysSchedule = () => {
               No events scheduled for today ({new Date().toLocaleDateString("en-GB")}).
             </p>
           </div>
-
           <motion.div
             className="bg-white dark:bg-gray-900 rounded-xl sm:rounded-2xl shadow-md p-8 sm:p-12 text-center"
             initial={{ opacity: 0, scale: 0.97 }}
@@ -75,7 +69,6 @@ const TodaysSchedule = () => {
       </div>
     );
   }
-
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 px-4">
       <motion.div
@@ -100,7 +93,6 @@ const TodaysSchedule = () => {
             Total: {todaysBookings.length} project{todaysBookings.length !== 1 && "s"}
           </p>
         </motion.div>
-
         <AnimatePresence>
           <div className="space-y-4 sm:space-y-5">
             {todaysBookings.map((b, idx) => (
@@ -132,7 +124,6 @@ const TodaysSchedule = () => {
                     {b.status?.replace(/_/g, " ").toUpperCase() || "ASSIGNED"}
                   </span>
                 </div>
-
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs sm:text-sm mt-2">
                   <div className="flex items-center gap-2">
                     <CalendarDays className="w-4 h-4 text-gray-500 dark:text-gray-400" />
@@ -143,7 +134,6 @@ const TodaysSchedule = () => {
                       </p>
                     </div>
                   </div>
-
                   <div className="flex items-center gap-2">
                     <Clock className="w-4 h-4 text-gray-500 dark:text-gray-400" />
                     <div>
@@ -153,7 +143,6 @@ const TodaysSchedule = () => {
                       </p>
                     </div>
                   </div>
-
                   <div className="flex items-center gap-2">
                     <MapPin className="w-4 h-4 text-gray-500 dark:text-gray-400" />
                     <div>
@@ -164,7 +153,6 @@ const TodaysSchedule = () => {
                     </div>
                   </div>
                 </div>
-
                 <div className="flex flex-wrap items-center justify-between gap-3 mt-4 text-xs sm:text-sm">
                   <div className="flex flex-wrap gap-2 sm:gap-3">
                     {b.trackingId && (
@@ -187,5 +175,4 @@ const TodaysSchedule = () => {
     </div>
   );
 };
-
-export default TodaysSchedule;
+export default TodaysSchedule;

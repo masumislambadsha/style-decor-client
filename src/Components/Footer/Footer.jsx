@@ -7,17 +7,14 @@ import {
   FaYoutube,
 } from "react-icons/fa";
 import Logo from "../Logo/Logo";
-
 const Footer = () => {
   return (
     <footer className="bg-black text-white pt-16 pb-10">
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-12 gap-10">
-
         <div className="md:col-span-4">
           <Link to="/" className="flex items-center gap-3 mb-6">
             <Logo />
           </Link>
-
           <h3 className="text-xl font-bold mb-3">
             Color Your Life With StyleDecor
           </h3>
@@ -27,9 +24,6 @@ const Footer = () => {
             interior solutions.
           </p>
         </div>
-
-
-        {/* Company Links */}
         <div className="md:col-span-2">
           <h4 className="text-lg font-bold mb-6 text-white tracking-tight uppercase text-xs">Company</h4>
           <ul className="space-y-4 text-gray-400 text-sm">
@@ -50,8 +44,6 @@ const Footer = () => {
             ))}
           </ul>
         </div>
-
-        {/* Support Links */}
         <div className="md:col-span-2">
           <h4 className="text-lg font-bold mb-6 text-white tracking-tight uppercase text-xs">Support</h4>
           <ul className="space-y-4 text-gray-400 text-sm">
@@ -72,8 +64,6 @@ const Footer = () => {
             ))}
           </ul>
         </div>
-
-        {/* Social & Connect */}
         <div className="md:col-span-4 flex flex-col items-start md:items-end">
           <h4 className="text-lg font-bold mb-6 text-white tracking-tight uppercase text-xs">Connect With Us</h4>
           <div className="flex gap-4">
@@ -117,8 +107,6 @@ const Footer = () => {
           </div>
         </div>
       </div>
-
-
       <div className="mt-16 pt-8 border-t border-gray-800 text-center">
         <p className="text-gray-500 text-sm">
           © 2025 StyleDecor. All rights reserved. Developed with ❤️ by MasunIslamBadsha
@@ -127,5 +115,4 @@ const Footer = () => {
     </footer>
   );
 };
-
-export default Footer;
+export default Footer;

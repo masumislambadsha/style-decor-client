@@ -11,9 +11,7 @@ import {
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import StatCardSkeleton from "../../../Components/Skeletons/StatCardSkeleton";
 import TableSkeleton from "../../../Components/Skeletons/TableSkeleton";
-
-const SHARE = 0.3; // Decorator gets 30% share
-
+const SHARE = 0.3;
 const containerVariants = {
   hidden: { opacity: 0, y: 15 },
   visible: {
@@ -22,19 +20,15 @@ const containerVariants = {
     transition: { staggerChildren: 0.1, duration: 0.4, ease: "easeOut" },
   },
 };
-
 const cardVariants = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0 },
 };
-
 const DecoratorDashboard = () => {
   const axiosSecure = useAxiosSecure();
-
   useEffect(() => {
     document.title = "Style Decor | Decorator Dashboard";
   }, []);
-
   const { data: bookings = [], isLoading } = useQuery({
     queryKey: ["decorator-bookings-stats"],
     queryFn: async () => {
@@ -42,16 +36,13 @@ const DecoratorDashboard = () => {
       return res.data;
     },
   });
-
   const stats = useMemo(() => {
     const completed = bookings.filter(b => b.status === "completed");
     const pending = bookings.filter(b => !["completed", "cancelled"].includes(b.status));
-
     const totalEarnings = completed.reduce((acc, b) => {
       const cost = Number(b.cost) || 0;
       return acc + (cost * SHARE);
     }, 0);
-
     return {
       total: bookings.length,
       completed: completed.length,
@@ -59,32 +50,25 @@ const DecoratorDashboard = () => {
       earnings: totalEarnings,
     };
   }, [bookings]);
-
   if (isLoading) {
     return (
       <div className="min-h-screen py-6 sm:py-8 px-4">
         <div className="max-w-6xl mx-auto space-y-8">
-          {/* Header Skeleton */}
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 animate-pulse">
             <div>
               <div className="h-10 bg-base-300 rounded-lg w-64 mb-2"></div>
               <div className="h-5 bg-base-300 rounded-md w-48"></div>
             </div>
           </div>
-
-          {/* Stats Grid Skeleton */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {[...Array(4)].map((_, i) => (
               <StatCardSkeleton key={i} />
             ))}
           </div>
-
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
-            {/* Table Skeleton */}
             <div className="lg:col-span-3">
               <TableSkeleton />
             </div>
-            {/* Chart Placeholder */}
             <div className="lg:col-span-2 bg-white dark:bg-gray-900 p-6 rounded-3xl border border-gray-100 dark:border-gray-800 h-[400px] animate-pulse">
               <div className="h-7 bg-base-300 rounded-lg w-48 mb-6 mx-auto"></div>
               <div className="h-[200px] w-[200px] bg-base-300 rounded-full mx-auto mb-6"></div>
@@ -95,25 +79,20 @@ const DecoratorDashboard = () => {
       </div>
     );
   }
-
-  // Chart Data
   const chartData = [
     { name: "Completed", value: stats.completed, color: "#10b981" },
     { name: "Ongoing", value: stats.pending, color: "#3b82f6" },
     { name: "Others", value: stats.total - stats.completed - stats.pending, color: "#9ca3af" },
   ].filter(d => d.value > 0);
-
   const statCards = [
     { label: "Assigned Projects", value: stats.total, icon: Briefcase, color: "text-blue-500", bg: "bg-blue-100 dark:bg-blue-500/10" },
     { label: "Earnings (30% Share)", value: `${stats.earnings.toLocaleString()} BDT`, icon: TrendingUp, color: "text-[#ff6a4a]", bg: "bg-[#ff6a4a]/10" },
     { label: "Active Tasks", value: stats.pending, icon: AlertCircle, color: "text-amber-500", bg: "bg-amber-100 dark:bg-amber-500/10" },
     { label: "Completed", value: stats.completed, icon: CheckCircle2, color: "text-emerald-500", bg: "bg-emerald-100 dark:bg-emerald-500/10" },
   ];
-
   return (
     <div className="min-h-screen py-6 sm:py-8 px-4">
       <div className="max-w-6xl mx-auto space-y-8">
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -133,8 +112,6 @@ const DecoratorDashboard = () => {
             </Link>
           </div>
         </motion.div>
-
-        {/* Stats Grid */}
         <motion.div
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6"
           variants={containerVariants}
@@ -153,9 +130,7 @@ const DecoratorDashboard = () => {
             </motion.div>
           ))}
         </motion.div>
-
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
-          {/* Recent Projects Table */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -209,10 +184,7 @@ const DecoratorDashboard = () => {
               )}
             </div>
           </motion.div>
-
-          {/* Right Column: Distribution & Quick Actions */}
           <div className="lg:col-span-2 space-y-8">
-            {/* Distribution Chart */}
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -242,7 +214,6 @@ const DecoratorDashboard = () => {
                   </PieChart>
                 </ResponsiveContainer>
               </div>
-
               <div className="mt-6 p-5 rounded-2xl bg-gray-50 dark:bg-gray-800/50 border border-gray-100 dark:border-gray-800">
                 <div className="flex items-center justify-between mb-4">
                   <span className="text-sm font-bold text-gray-600 dark:text-gray-300">Earnings Goal</span>
@@ -257,8 +228,6 @@ const DecoratorDashboard = () => {
                 </div>
               </div>
             </motion.div>
-
-            {/* Quick Actions */}
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -287,5 +256,4 @@ const DecoratorDashboard = () => {
     </div>
   );
 };
-
-export default DecoratorDashboard;
+export default DecoratorDashboard;

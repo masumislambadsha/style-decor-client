@@ -6,7 +6,6 @@ import { Search, Filter } from "lucide-react";
 import LoadingSpinner from "../../Components/Spinner/LoadingSpinner";
 import ServiceCard from "../../Components/ServiceCard/ServiceCard";
 import ServiceCardSkeleton from "../../Components/Skeletons/ServiceCardSkeleton";
-
 const Services = () => {
   useEffect(() => {
     document.title = "Style Decor | All Service";
@@ -18,7 +17,6 @@ const Services = () => {
   const [sortBy, setSortBy] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
-
   const { data: services = [], isLoading } = useQuery({
     queryKey: ["services"],
     queryFn: async () => {
@@ -26,7 +24,6 @@ const Services = () => {
       return res.data;
     },
   });
-
   useEffect(() => {
     if (services.length) {
       const max = Math.max(...services.map((s) => Number(s.cost) || 0));
@@ -34,40 +31,30 @@ const Services = () => {
       setPriceRange([0, max]);
     }
   }, [services]);
-
   const filteredServices = services.filter((service) => {
     const name = (service.service_name || "").toLowerCase();
     const category = service.service_category || "";
     const cost = Number(service.cost);
-
     const matchesSearch = name.includes(searchTerm.toLowerCase());
     const matchesType = !selectedType || category === selectedType;
     const matchesPrice = Number.isNaN(cost) || (cost >= priceRange[0] && cost <= priceRange[1]);
-
     return matchesSearch && matchesType && matchesPrice;
   });
-
-  // Apply sorting
   const sortedServices = [...filteredServices].sort((a, b) => {
     if (sortBy === "price-low") return Number(a.cost) - Number(b.cost);
     if (sortBy === "price-high") return Number(b.cost) - Number(a.cost);
     if (sortBy === "name") return (a.service_name || "").localeCompare(b.service_name || "");
     return 0;
   });
-
-  // Reset to first page when filters change
   useEffect(() => {
     setCurrentPage(1);
   }, [searchTerm, selectedType, priceRange, sortBy]);
-
   const totalPages = Math.ceil(sortedServices.length / itemsPerPage);
   const paginatedServices = sortedServices.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
-
   const categories = [...new Set(services.map((s) => s.service_category))];
-
   if (isLoading) {
     return (
       <div className="min-h-screen bg-base-200 py-8 sm:py-16">
@@ -81,7 +68,6 @@ const Services = () => {
       </div>
     );
   }
-
   return (
     <div className="min-h-screen bg-base-200 py-8 sm:py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -97,7 +83,6 @@ const Services = () => {
             Find the perfect design for your space
           </p>
         </motion.div>
-
         <div className="bg-base-100 rounded-xl sm:rounded-2xl lg:rounded-3xl shadow-xl p-6 sm:p-8 mb-8 sm:mb-12">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             <div className="relative">
@@ -110,7 +95,6 @@ const Services = () => {
                 className="input outline-0 input-bordered w-full pl-5 h-10 sm:h-12 lg:h-14 text-sm sm:text-base lg:text-lg"
               />
             </div>
-
             <div className="relative">
               <Filter className="absolute left-4 top-4 text-base-content/40" size={20} sm:size={24} />
               <select
@@ -126,7 +110,6 @@ const Services = () => {
                 ))}
               </select>
             </div>
-
             <div className="relative">
               <select
                 value={sortBy}
@@ -139,7 +122,6 @@ const Services = () => {
                 <option value="name">Name: A to Z</option>
               </select>
             </div>
-
             <div>
               <label className="block text-base-content font-medium mb-3 text-sm sm:text-base">
                 Price Range: {priceRange[0]} BDT - {priceRange[1]} BDT
@@ -156,7 +138,6 @@ const Services = () => {
             </div>
           </div>
         </div>
-
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-10">
           {paginatedServices.map((service, idx) => (
             <motion.div
@@ -170,7 +151,6 @@ const Services = () => {
             </motion.div>
           ))}
         </div>
-
         {sortedServices.length === 0 && (
           <div className="text-center py-12 sm:py-16">
             <p className="text-lg sm:text-xl text-base-content/60">
@@ -178,8 +158,6 @@ const Services = () => {
             </p>
           </div>
         )}
-
-        {/* Pagination UI */}
         {totalPages > 1 && (
           <div className="flex justify-center items-center mt-12 sm:mt-16 gap-2">
             <button
@@ -193,7 +171,6 @@ const Services = () => {
             >
               ❮
             </button>
-
             <div className="flex gap-1 sm:gap-2">
               {[...Array(totalPages)].map((_, i) => (
                 <button
@@ -209,7 +186,6 @@ const Services = () => {
                 </button>
               ))}
             </div>
-
             <button
               onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
               disabled={currentPage === totalPages}
@@ -227,5 +203,4 @@ const Services = () => {
     </div>
   );
 };
-
-export default Services;
+export default Services;

@@ -18,7 +18,6 @@ const ServiceDetails = () => {
   const axiosSecure = useAxiosSecure();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [bookingLoading, setBookingLoading] = useState(false);
-
   const { data: service, isLoading } = useQuery({
     queryKey: ["service", id],
     queryFn: async () => {
@@ -27,15 +26,12 @@ const ServiceDetails = () => {
     },
     enabled: !!id,
   });
-
   const handleBooking = async (e) => {
     e.preventDefault();
-
     if (!user) {
       toast.error("Please login to book");
       return;
     }
-
     const bookingData = {
       serviceId: service._id,
       serviceName: service.service_name,
@@ -47,11 +43,9 @@ const ServiceDetails = () => {
       status: "pending_payment",
       createdAt: new Date(),
     };
-
     try {
       setBookingLoading(true);
       const res = await axiosSecure.post("/bookings", bookingData);
-
       if (res.data.insertedId) {
         toast.success("Booking request sent successfully!");
         setIsModalOpen(false);
@@ -73,14 +67,11 @@ const ServiceDetails = () => {
       setBookingLoading(false);
     }
   };
-
   if (isLoading)
      return (
       <LoadingSpinner/>
     );
-
   if (!service) return <p className="text-center py-20">Service not found</p>;
-
   return (
     <div className="min-h-screen bg-base-200 py-10 sm:py-20">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
@@ -92,7 +83,6 @@ const ServiceDetails = () => {
             alt={service.service_name}
             className="w-full h-64 sm:h-80 md:h-96 object-cover rounded-2xl sm:rounded-3xl shadow-xl border"
           />
-
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -101,11 +91,9 @@ const ServiceDetails = () => {
             <h1 className="text-3xl sm:text-4xl md:text-[55px] font-bold text-base-content leading-tight">
               {service.service_name}
             </h1>
-
             <p className="text-base sm:text-lg text-base-content/70 leading-relaxed">
               {service.description}
             </p>
-
             <div className="bg-base-100 rounded-2xl sm:rounded-3xl shadow-lg p-6 sm:p-8 border border-base-300 space-y-6">
               <div className="flex items-center justify-between">
                 <span className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#ff6a4a]">
@@ -115,11 +103,9 @@ const ServiceDetails = () => {
                   per {service.unit}
                 </span>
               </div>
-
               <div className="badge badge-sm sm:badge-lg badge-outline text-base-content/80">
                 {service.service_category}
               </div>
-
               <button
                 onClick={() =>
                   user ? setIsModalOpen(true) : navigate("/login")
@@ -137,7 +123,6 @@ const ServiceDetails = () => {
           </motion.div>
         </div>
       </div>
-
       {isModalOpen && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
           <motion.div
@@ -151,11 +136,9 @@ const ServiceDetails = () => {
             >
               ✕
             </button>
-
             <h2 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8">
               Complete Your Booking
             </h2>
-
             <form onSubmit={handleBooking} className="space-y-6">
               <div className="bg-base-200 p-4 rounded-xl">
                 <p className="font-semibold text-base-content">
@@ -165,7 +148,6 @@ const ServiceDetails = () => {
                   {service.cost?.toLocaleString() || 0} BDT
                 </p>
               </div>
-
               <div>
                 <label className="flex items-center gap-3 mb-2 font-medium text-base-content/80">
                   <User size={18} sm:size={20} /> Name
@@ -177,7 +159,6 @@ const ServiceDetails = () => {
                   className="input outline-0 input-bordered w-full bg-base-200 text-base-content/60 text-xs sm:text-sm"
                 />
               </div>
-
               <div>
                 <label className="flex items-center gap-3 mb-2 font-medium text-base-content/80">
                   <Mail size={18} sm:size={20} /> Email
@@ -189,7 +170,6 @@ const ServiceDetails = () => {
                   className="input outline-0 input-bordered w-full bg-base-200 text-base-content/60 text-xs sm:text-sm"
                 />
               </div>
-
               <div>
                 <label className="flex items-center gap-3 mb-2 font-medium text-base-content/80">
                   <Calendar size={18} sm:size={20} /> Preferred Date
@@ -202,7 +182,6 @@ const ServiceDetails = () => {
                   className="input outline-0 input-bordered w-full bg-base-100 text-base-content text-xs sm:text-sm"
                 />
               </div>
-
               <div>
                 <label className="flex items-center gap-3 mb-2 font-medium text-base-content/80">
                   <MapPin size={18} sm:size={20} /> Location
@@ -215,7 +194,6 @@ const ServiceDetails = () => {
                   className="input outline-0 input-bordered w-full bg-base-100 text-base-content text-xs sm:text-sm"
                 />
               </div>
-
               <div className="flex gap-4 pt-4">
                 <button
                   type="submit"
@@ -240,5 +218,4 @@ const ServiceDetails = () => {
     </div>
   );
 };
-
-export default ServiceDetails;
+export default ServiceDetails;

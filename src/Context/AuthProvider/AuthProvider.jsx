@@ -10,38 +10,30 @@ import {
 } from "firebase/auth";
 import axios from "axios";
 import { auth } from "../../Firebase/firebase.init";
-
 export const AuthContext = createContext(null);
-
 const googleProvider = new GoogleAuthProvider();
-
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(true);
-
   const registerUser = (email, password) => {
     setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
-
   const signInUser = (email, password) => {
     setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
-
   const signInGoogle = () => {
     setLoading(true);
     return signInWithPopup(auth, googleProvider);
   };
-
   const logOut = () => {
     setLoading(true);
     setToken(null);
     localStorage.removeItem("access-token");
     return signOut(auth);
   };
-
   const updateUserProfile = async (profile) => {
     await updateProfile(auth.currentUser, profile);
     setUser((prev) => ({ ...prev, ...auth.currentUser }));
@@ -60,7 +52,6 @@ const AuthProvider = ({ children }) => {
       throw err;
     }
   };
-
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       try {
@@ -71,12 +62,8 @@ const AuthProvider = ({ children }) => {
             photoURL:
               currentUser.photoURL || "https://i.ibb.co.com/5Y0X5gY/user.png",
           };
-
-
           await axios.post(`${import.meta.env.VITE_API_URL}/users`, userData);
-
           const t = await getToken(currentUser.email);
-
           setUser({ ...currentUser, accessToken: t });
         } else {
           setUser(null);
@@ -90,10 +77,8 @@ const AuthProvider = ({ children }) => {
         setLoading(false);
       }
     });
-
     return () => unsubscribe();
   }, []);
-
   const authInfo = {
     user,
     loading,
@@ -104,10 +89,8 @@ const AuthProvider = ({ children }) => {
     logOut,
     updateUserProfile,
   };
-
   return (
     <AuthContext value={authInfo}>{children}</AuthContext>
   );
 };
-
-export default AuthProvider;
+export default AuthProvider;

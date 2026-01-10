@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { motion } from "framer-motion";
-
 const pageVariants = {
   hidden: { opacity: 0, y: 24 },
   visible: {
@@ -9,7 +8,6 @@ const pageVariants = {
     transition: { duration: 0.45, ease: "easeOut" },
   },
 };
-
 const leftVariants = {
   hidden: { opacity: 0, x: -18 },
   visible: {
@@ -18,7 +16,6 @@ const leftVariants = {
     transition: { duration: 0.38, ease: "easeOut", delay: 0.08 },
   },
 };
-
 const rightVariants = {
   hidden: { opacity: 0, x: 18 },
   visible: {
@@ -27,7 +24,6 @@ const rightVariants = {
     transition: { duration: 0.4, ease: "easeOut", delay: 0.14 },
   },
 };
-
 const Contact = () => {
    useEffect(() => {
     document.title = "Style Decor | Contact";
@@ -35,7 +31,6 @@ const Contact = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
   };
-
   return (
     <motion.div
       className="min-h-screen bg-base-200 pt-24 pb-16 px-4"
@@ -58,7 +53,6 @@ const Contact = () => {
           >
             Contact
           </motion.span>
-
           <motion.h1
             className="text-3xl md:text-4xl font-extrabold text-base-content"
             initial={{ opacity: 0, y: 14 }}
@@ -67,7 +61,6 @@ const Contact = () => {
           >
             Let’s plan your next space or event
           </motion.h1>
-
           <motion.p
             className="text-base-content/70 text-sm md:text-base"
             initial={{ opacity: 0, y: 12 }}
@@ -77,7 +70,6 @@ const Contact = () => {
             Share a few details and our team or a verified decorator will get
             back to you with concepts, timelines, and an estimated budget.
           </motion.p>
-
           <motion.div
             className="space-y-3 text-sm text-base-content/80"
             initial={{ opacity: 0, y: 10 }}
@@ -95,7 +87,6 @@ const Contact = () => {
             </p>
           </motion.div>
         </motion.div>
-
         <motion.div
           className="md:col-span-3"
           variants={rightVariants}
@@ -119,7 +110,6 @@ const Contact = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ duration: 0.6, ease: "easeOut", delay: 0.28 }}
             />
-
             <div className="grid md:grid-cols-2 gap-4">
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
@@ -137,7 +127,6 @@ const Contact = () => {
                   placeholder="Your name"
                 />
               </motion.div>
-
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -155,7 +144,6 @@ const Contact = () => {
                 />
               </motion.div>
             </div>
-
             <div className="grid md:grid-cols-2 gap-4">
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
@@ -172,7 +160,6 @@ const Contact = () => {
                   placeholder="+8801XXXXXXXXX"
                 />
               </motion.div>
-
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -193,7 +180,6 @@ const Contact = () => {
                 </select>
               </motion.div>
             </div>
-
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -209,7 +195,6 @@ const Contact = () => {
                 placeholder="Tell us about your event, date, location and budget range."
               />
             </motion.div>
-
             <motion.button
               type="submit"
               className="btn bg-[#ff6a4a] hover:bg-black text-white font-semibold px-10 border-none rounded-full shadow-md"
@@ -225,5 +210,4 @@ const Contact = () => {
     </motion.div>
   );
 };
-
-export default Contact;
+export default Contact;

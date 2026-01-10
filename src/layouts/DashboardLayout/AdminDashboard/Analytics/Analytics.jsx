@@ -6,9 +6,7 @@ import { User, Briefcase, TrendingUp, ArrowRight } from "lucide-react";
 import { Link } from "react-router";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import LoadingSpinner from "../../../../Components/Spinner/LoadingSpinner";
-
 const Analytics = () => {
-
     useEffect(()=>{
       document.title = "Style Decor | Analytics"
     },[])
@@ -20,20 +18,17 @@ const Analytics = () => {
       return res.data;
     }, 
   });
-
   if (isLoading) {
    return (
       <LoadingSpinner/>
     );
   }
-
   const {
     totalRevenue = 0,
     totalUsers = 0,
     totalBookings = 0,
     serviceDemand = [],
   } = data || {};
-
   const cardVariant = {
     hidden: { opacity: 0, y: 20 },
     show: (i) => ({
@@ -42,20 +37,15 @@ const Analytics = () => {
       transition: { delay: 0.1 * i, duration: 0.4, ease: "easeOut" },
     }),
   };
-
-  // Prepare data for charts
   const barChartData = serviceDemand.slice(0, 8).map(s => ({
     name: s.service_name.length > 15 ? s.service_name.substring(0, 15) + '...' : s.service_name,
     bookings: s.count
   }));
-
   const pieChartData = serviceDemand.slice(0, 5).map(s => ({
     name: s.service_name,
     value: s.count
   }));
-
   const COLORS = ['#ff6a4a', '#f97316', '#fb923c', '#fdba74', '#fed7aa'];
-
   return (
     <div className="space-y-6 sm:space-y-8">
       <motion.div
@@ -69,7 +59,6 @@ const Analytics = () => {
           Overview of revenue, users, bookings and service demand.
         </p>
       </motion.div>
-
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
         {[
           {
@@ -112,10 +101,7 @@ const Analytics = () => {
           </motion.div>
         ))}
       </div>
-
-      {/* Charts Section */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Bar Chart */}
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
@@ -134,8 +120,6 @@ const Analytics = () => {
             </BarChart>
           </ResponsiveContainer>
         </motion.div>
-
-        {/* Pie Chart */}
         <motion.div
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
@@ -164,7 +148,6 @@ const Analytics = () => {
           </ResponsiveContainer>
         </motion.div>
       </div>
-
       <motion.div
         initial={{ opacity: 0, y: 25 }}
         animate={{ opacity: 1, y: 0 }}
@@ -207,8 +190,6 @@ const Analytics = () => {
           </table>
         </div>
       </motion.div>
-
-      {/* Quick Actions */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -224,7 +205,6 @@ const Analytics = () => {
           </div>
           <ArrowRight size={18} className="text-[#ff6a4a] transform group-hover:translate-x-1 transition-transform" />
         </Link>
-
         <Link to="/dashboard/bookings" className="bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 flex items-center justify-between hover:border-[#ff6a4a]/50 transition-all group">
           <div className="flex items-center gap-4">
             <div className="p-3 rounded-xl bg-amber-100 dark:bg-amber-500/10 text-amber-500">
@@ -234,7 +214,6 @@ const Analytics = () => {
           </div>
           <ArrowRight size={18} className="text-[#ff6a4a] transform group-hover:translate-x-1 transition-transform" />
         </Link>
-
         <Link to="/dashboard/payment-history" className="bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 flex items-center justify-between hover:border-[#ff6a4a]/50 transition-all group">
           <div className="flex items-center gap-4">
             <div className="p-3 rounded-xl bg-emerald-100 dark:bg-emerald-500/10 text-emerald-500">
@@ -248,6 +227,4 @@ const Analytics = () => {
     </div>
   );
 };
-
-export default Analytics;
-
+export default Analytics;

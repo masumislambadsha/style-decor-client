@@ -1,13 +1,11 @@
 import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import { HelpCircle, MessageCircle, Phone, FileText } from "lucide-react";
-
 const Help = () => {
   useEffect(() => {
     document.title = "Style Decor | Help & Support";
     window.scrollTo(0, 0);
   }, []);
-
   const faqs = [
     {
       q: "How do I book a decoration service?",
@@ -22,7 +20,6 @@ const Help = () => {
       a: "We currently accept all major credit/debit cards, bKash, and Rocket via our secure payment gateway.",
     },
   ];
-
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pt-32 pb-20 transition-colors duration-300">
       <div className="container mx-auto px-6">
@@ -35,7 +32,6 @@ const Help = () => {
           <div className="bg-[#ff6a4a] p-12 md:p-20 text-center relative overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-32 -mt-32"></div>
             <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -ml-32 -mb-32"></div>
-
             <h1 className="text-4xl md:text-6xl font-black text-white mb-6 relative z-10">
               How can we <span className="text-black">help?</span>
             </h1>
@@ -43,7 +39,6 @@ const Help = () => {
               Find answers to commonly asked questions or reach out to our support team for personalized assistance.
             </p>
           </div>
-
           <div className="p-8 md:p-16">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
               {[
@@ -61,7 +56,6 @@ const Help = () => {
                 </div>
               ))}
             </div>
-
             <div className="max-w-3xl mx-auto">
               <h2 className="text-3xl font-bold text-gray-800 dark:text-white mb-10 text-center">Frequently Asked Questions</h2>
               <div className="space-y-6">
@@ -79,5 +73,4 @@ const Help = () => {
     </div>
   );
 };
-
-export default Help;
+export default Help;

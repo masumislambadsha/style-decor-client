@@ -7,12 +7,10 @@ import { useQueryClient } from "@tanstack/react-query";
 import useUserProfile from "../../../../Hooks/useUserProfile";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import LoadingSpinner from "../../../../Components/Spinner/LoadingSpinner";
-
 const MyProfile = () => {
   useEffect(() => {
     document.title = "Style Decor | My Profile";
   }, []);
-
   const { user, updateUserProfile } = useAuth();
   const { profile, isLoading: profileLoading } = useUserProfile();
   const axiosSecure = useAxiosSecure();
@@ -20,14 +18,12 @@ const MyProfile = () => {
   const queryClient = useQueryClient();
   const [updating, setUpdating] = useState(false);
   const [imagePreview, setImagePreview] = useState(null);
-
   const {
     register,
     handleSubmit,
     setValue,
     formState: { errors },
   } = useForm();
-
   useEffect(() => {
     if (profile) {
       setValue("name", profile.name || user?.displayName || "");
@@ -35,7 +31,6 @@ const MyProfile = () => {
       setValue("address", profile.address || "");
     }
   }, [profile, user, setValue]);
-
   const uploadImage = async (file) => {
     const formData = new FormData();
     formData.append("image", file);
@@ -49,30 +44,23 @@ const MyProfile = () => {
     const data = await res.json();
     return data.data.url;
   };
-
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       setImagePreview(URL.createObjectURL(file));
     }
   };
-
   const onUpdateProfile = async (data) => {
     try {
       setUpdating(true);
       let photoURL = user?.photoURL;
-
       if (data.photo?.[0]) {
         photoURL = await uploadImage(data.photo[0]);
       }
-
-      // 1. Update Firebase
       await updateUserProfile({
         displayName: data.name,
         photoURL: photoURL,
       });
-
-      // 2. Update Backend DB
       const userData = {
         name: data.name,
         email: user?.email,
@@ -80,12 +68,8 @@ const MyProfile = () => {
         phone: data.phone,
         address: data.address,
       };
-
       await axiosSecure.post("/users", userData);
-
-      // 3. Invalidate query to refresh UI
       await queryClient.invalidateQueries(["user-profile", user?.email]);
-
       toast.success("Profile updated successfully!");
       setIsEditing(false);
       setImagePreview(null);
@@ -96,13 +80,11 @@ const MyProfile = () => {
       setUpdating(false);
     }
   };
-
   if (!user || profileLoading) {
     return (
      <LoadingSpinner/>
     );
   }
-
   return (
     <div className="space-y-6 mt-10 sm:mt-15">
       <div className="flex items-center justify-between">
@@ -117,7 +99,6 @@ const MyProfile = () => {
           {isEditing ? "Cancel" : "Edit Profile"}
         </button>
       </div>
-
       <div className="bg-white dark:bg-gray-900 rounded-xl sm:rounded-3xl shadow-xl p-6 sm:p-8 border border-gray-100 dark:border-gray-800 transition-colors duration-300">
         <div className="flex flex-col sm:flex-row sm:items-center gap-6 mb-8">
           <div className="relative group mx-auto sm:mx-0">
@@ -151,7 +132,6 @@ const MyProfile = () => {
             </div>
           </div>
         </div>
-
         <form onSubmit={handleSubmit(onUpdateProfile)} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
@@ -203,7 +183,6 @@ const MyProfile = () => {
               />
             </div>
           </div>
-
           {isEditing && (
             <div className="pt-4">
               <button
@@ -221,5 +200,4 @@ const MyProfile = () => {
     </div>
   );
 };
-
-export default MyProfile;
+export default MyProfile;

@@ -2,27 +2,22 @@ import React, { useRef } from "react";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { useLoaderData } from "react-router";
-
 const ServiceCoverage = () => {
   const position = [23.8041, 90.4152];
   const serviceCenters = useLoaderData();
   const mapRef = useRef(null);
-
   const handleSearch = (e) => {
     e.preventDefault();
     const location = e.target.location.value.trim();
     if (!location) return;
-
     const district = serviceCenters.find((c) =>
       c.district.toLowerCase().includes(location.toLowerCase())
     );
-
     if (district && mapRef.current) {
       const coord = [district.latitude, district.longitude];
       mapRef.current.flyTo(coord, 9, { duration: 1.2 });
     }
   };
-
   return (
     <div className="min-h-screen bg-base-200 py-10 sm:py-12">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-6 sm:space-y-8">
@@ -38,7 +33,6 @@ const ServiceCoverage = () => {
             districts of Bangladesh.
           </p>
         </div>
-
         <div className="bg-base-100 rounded-xl sm:rounded-3xl shadow-md p-4 sm:p-6">
           <form
             onSubmit={handleSearch}
@@ -79,7 +73,6 @@ const ServiceCoverage = () => {
             Tip: Start typing a district name to quickly zoom to that area on the map.
           </p>
         </div>
-
         <div className="bg-base-100 rounded-xl sm:rounded-3xl shadow-md overflow-hidden">
           <div className="w-full h-64 sm:h-72 md:h-80 lg:h-[560px]">
             <MapContainer
@@ -117,5 +110,4 @@ const ServiceCoverage = () => {
     </div>
   );
 };
-
-export default ServiceCoverage;
+export default ServiceCoverage;

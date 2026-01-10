@@ -30,7 +30,6 @@ const StatusBadge = ({ status }) => {
     </span>
   );
 };
-
 const cardVariants = {
   hidden: { opacity: 0, y: 20, scale: 0.98 },
   visible: (i) => ({
@@ -40,19 +39,15 @@ const cardVariants = {
     transition: { delay: i * 0.05, duration: 0.25, ease: "easeOut" },
   }),
 };
-
 const ManageBookings = () => {
-
     useEffect(()=>{
       document.title = "Style Decor | Manage Bookings"
     },[])
   const axiosSecure = useAxiosSecure();
-
   const [selectedBooking, setSelectedBooking] = useState(null);
   const [selectedDecorator, setSelectedDecorator] = useState(null);
   const [actionLoading, setActionLoading] = useState(false);
   const [sortBy, setSortBy] = useState("date_desc");
-
   const {
     data: bookings = [],
     isLoading: bookingsLoading,
@@ -64,7 +59,6 @@ const ManageBookings = () => {
       return res.data;
     },
   });
-
   const { data: decorators = [], isLoading: decoratorsLoading } = useQuery({
     queryKey: ["decorators-active"],
     queryFn: async () => {
@@ -72,10 +66,8 @@ const ManageBookings = () => {
       return res.data;
     },
   });
-
   const handleCancelBooking = async (id, isCancelled) => {
     if (isCancelled) return;
-
     const result = await Swal.fire({
       title: "Cancel this booking?",
       text: "This action cannot be undone.",
@@ -86,9 +78,7 @@ const ManageBookings = () => {
       confirmButtonText: "Yes, cancel it",
       cancelButtonText: "No, keep it",
     });
-
     if (!result.isConfirmed) return;
-
     try {
       setActionLoading(true);
       await axiosSecure.patch(`/bookings/${id}/cancel`);
@@ -107,12 +97,10 @@ const ManageBookings = () => {
       setActionLoading(false);
     }
   };
-
   const openAssignModal = (booking) => {
     setSelectedBooking(booking);
     setSelectedDecorator(null);
   };
-
   const handleConfirmAssign = async () => {
     if (!selectedBooking || !selectedDecorator) return;
     try {
@@ -133,19 +121,15 @@ const ManageBookings = () => {
       setActionLoading(false);
     }
   };
-
   const visibleBookingsRaw = bookings.filter((b) =>
     ["assigned_pending", "assigned", "cancelled"].includes(b.status)
   );
-
   const statusRank = {
     assigned_pending: 0,
     assigned: 1,
     cancelled: 2,
   };
-
   let visibleBookings = [];
-
   if (sortBy === "pending") {
     visibleBookings = visibleBookingsRaw.filter(
       (b) => b.status === "assigned_pending"
@@ -161,10 +145,8 @@ const ManageBookings = () => {
       const sa = statusRank[a.status] ?? 99;
       const sb = statusRank[b.status] ?? 99;
       if (sa !== sb) return sa - sb;
-
       const aDate = new Date(a.bookingDate || a.createdAt || 0);
       const bDate = new Date(b.bookingDate || b.createdAt || 0);
-
       if (sortBy === "date_desc") {
         return bDate - aDate;
       }
@@ -174,11 +156,9 @@ const ManageBookings = () => {
       return 0;
     });
   }
-
   if (bookingsLoading) {
     return <LoadingSpinner />;
   }
-
   return (
     <div className="min-h-screen bg-base-200 py-6 sm:py-8 px-4">
       <motion.div
@@ -206,7 +186,6 @@ const ManageBookings = () => {
               {visibleBookings.length !== 1 && "s"}
             </p>
           </div>
-
           <div className="flex items-center gap-2 sm:gap-3 justify-center sm:justify-end">
             <select
               className="select select-bordered select-xs sm:select-sm text-xs sm:text-sm outline-0  border font-medium border-[#ff6a4a]"
@@ -221,7 +200,6 @@ const ManageBookings = () => {
             </select>
           </div>
         </motion.div>
-
         {visibleBookings.length === 0 && (
           <motion.div
             className="bg-base-100 rounded-xl sm:rounded-2xl shadow-md p-8 sm:p-12 text-center"
@@ -238,13 +216,11 @@ const ManageBookings = () => {
             </p>
           </motion.div>
         )}
-
         <AnimatePresence>
           <div className="space-y-4 sm:space-y-6">
             {visibleBookings.map((b, index) => {
               const isAssigned = b.status === "assigned";
               const isCancelled = b.status === "cancelled";
-
               return (
                 <motion.div
                   key={b._id}
@@ -262,7 +238,6 @@ const ManageBookings = () => {
                     </h3>
                     <StatusBadge status={b.status} />
                   </div>
-
                   <div className="p-4 sm:p-5">
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-5">
                       <div className="lg:col-span-2 space-y-4">
@@ -282,7 +257,6 @@ const ManageBookings = () => {
                             Booked by: {b.userEmail}
                           </p>
                         </div>
-
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                           <div>
                             <p className="text-xs font-medium text-base-content/50 mb-1">
@@ -301,7 +275,6 @@ const ManageBookings = () => {
                             </p>
                           </div>
                         </div>
-
                         <div className="flex flex-wrap gap-2 sm:gap-4 text-xs sm:text-sm md:text-base">
                           <div>
                             <span className="text-base-content/60">Cost: </span>
@@ -327,7 +300,6 @@ const ManageBookings = () => {
                           </div>
                         </div>
                       </div>
-
                       <div className="flex flex-col justify-center items-center gap-4">
                         <motion.div
                           className=" sm:w-24 lg:w-28 h-20 sm:h-24 lg:h-28 bg-[#ff6a4a]/5 border-2 border-dashed border-[#ff6a4a]/40 rounded-xl sm:rounded-2xl flex items-center justify-center text-2xl sm:text-3xl text-[#ff6a4a]/60 w-full"
@@ -337,7 +309,6 @@ const ManageBookings = () => {
                         >
                           🎉
                         </motion.div>
-
                         <div className="w-full flex flex-col sm:flex-row gap-2 sm:gap-3">
                           {!isAssigned && (
                             <motion.button
@@ -355,7 +326,6 @@ const ManageBookings = () => {
                               {isCancelled ? "Canceled" : "Cancel"}
                             </motion.button>
                           )}
-
                           {isAssigned ? (
                             <button className="flex-1 bg-green-500 text-white font-semibold py-2 rounded-lg shadow-sm text-xs sm:text-sm cursor-not-allowed">
                               Assigned
@@ -380,7 +350,6 @@ const ManageBookings = () => {
           </div>
         </AnimatePresence>
       </motion.div>
-
       {selectedBooking && (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 px-4">
           <motion.div
@@ -399,7 +368,6 @@ const ManageBookings = () => {
                 <X size={18} />
               </button>
             </div>
-
             <div className="bg-base-200 rounded-xl p-3 sm:p-4 text-xs sm:text-sm space-y-1">
               <p className="font-semibold">{selectedBooking.serviceName}</p>
               <p className="text-base-content/60">User: {selectedBooking.userEmail}</p>
@@ -412,7 +380,6 @@ const ManageBookings = () => {
                   : "N/A"}
               </p>
             </div>
-
             <div className="space-y-2 max-h-64 overflow-y-auto border rounded-xl">
               {decoratorsLoading ? (
                 <LoadingSpinner />
@@ -445,7 +412,6 @@ const ManageBookings = () => {
                 ))
               )}
             </div>
-
             <div className="flex justify-end gap-2 sm:gap-3 pt-2">
               <button
                 onClick={() => setSelectedBooking(null)}
@@ -467,6 +433,4 @@ const ManageBookings = () => {
     </div>
   );
 };
-
-export default ManageBookings;
-
+export default ManageBookings;

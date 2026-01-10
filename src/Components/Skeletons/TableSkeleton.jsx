@@ -1,5 +1,4 @@
 import React from "react";
-
 const TableSkeleton = () => {
   return (
     <div className="bg-white dark:bg-gray-900 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden animate-pulse">
@@ -23,5 +22,4 @@ const TableSkeleton = () => {
     </div>
   );
 };
-
-export default TableSkeleton;
+export default TableSkeleton;

@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import useAuth from "../../Hooks/useAuth";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import toast from "react-hot-toast";
-
 const BeADecorator = () => {
    useEffect(() => {
     document.title = "Style Decor | Be A Decorate";
@@ -10,11 +9,9 @@ const BeADecorator = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const [submitting, setSubmitting] = React.useState(false);
-
   const handleRequest = async (e) => {
     e.preventDefault();
     const form = e.target;
-
     const payload = {
       name: user.displayName || user.name,
       email: user.email,
@@ -30,12 +27,10 @@ const BeADecorator = () => {
       status: "pending",
       createdAt: new Date(),
     };
-
     if (!payload.agreedToTerms) {
       toast.error("You must agree to the terms to apply");
       return;
     }
-
     try {
       setSubmitting(true);
       await axiosSecure.post("/decorator-applications", payload);
@@ -48,7 +43,6 @@ const BeADecorator = () => {
       setSubmitting(false);
     }
   };
-
   if (!user) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-950">
@@ -63,7 +57,6 @@ const BeADecorator = () => {
       </div>
     );
   }
-
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 py-10 sm:py-16 px-4 transition-colors duration-300">
       <div className="max-w-4xl mx-auto">
@@ -78,7 +71,6 @@ const BeADecorator = () => {
             Fill out this short application so the admin can review your experience and add you to the official decorator team.
           </p>
         </div>
-
         <div className="bg-white dark:bg-slate-900 rounded-xl sm:rounded-3xl shadow-xl border border-slate-100 dark:border-slate-800 p-6 sm:p-8 space-y-6 sm:space-y-8">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
             <div className="flex items-center gap-4">
@@ -99,7 +91,6 @@ const BeADecorator = () => {
                 <p className="text-xs text-slate-500 dark:text-slate-400">{user.email}</p>
               </div>
             </div>
-
             <div className="flex-1">
               <ol className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs text-slate-500 dark:text-slate-400">
                 <li className="flex items-center gap-2">
@@ -123,9 +114,7 @@ const BeADecorator = () => {
               </ol>
             </div>
           </div>
-
           <div className="h-px bg-linear-to-r from-transparent via-slate-200 dark:via-slate-800 to-transparent" />
-
           <form onSubmit={handleRequest} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
@@ -151,7 +140,6 @@ const BeADecorator = () => {
                 />
               </div>
             </div>
-
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1 uppercase tracking-wide">
@@ -178,7 +166,6 @@ const BeADecorator = () => {
                 />
               </div>
             </div>
-
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1 uppercase tracking-wide">
@@ -207,7 +194,6 @@ const BeADecorator = () => {
                 />
               </div>
             </div>
-
             <div>
               <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1 uppercase tracking-wide">
                 Portfolio link (optional)
@@ -219,7 +205,6 @@ const BeADecorator = () => {
                 className="input outline-0 input-bordered w-full text-xs sm:text-sm bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white"
               />
             </div>
-
             <div>
               <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1 uppercase tracking-wide">
                 Short bio
@@ -232,7 +217,6 @@ const BeADecorator = () => {
                 placeholder="Describe your style, services, locations you cover and notable projects."
               />
             </div>
-
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1 uppercase tracking-wide">
@@ -253,7 +237,6 @@ const BeADecorator = () => {
                 Tip: Mention your peak seasons and dates you usually cannot work in the bio above.
               </div>
             </div>
-
             <label className="flex items-start gap-2 text-xs text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-950 border border-dashed border-slate-200 dark:border-slate-800 rounded-xl p-3">
               <input
                 type="checkbox"
@@ -265,7 +248,6 @@ const BeADecorator = () => {
                 I confirm that the information provided is accurate and I agree to StyleDecor contacting me regarding decorator opportunities and bookings.
               </span>
             </label>
-
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
               <p className="text-xs text-slate-500 dark:text-slate-400">
                 After submission, an admin will review your details. You will see decorator options in your dashboard once approved.
@@ -285,5 +267,4 @@ const BeADecorator = () => {
     </div>
   );
 };
-
-export default BeADecorator;
+export default BeADecorator;

@@ -1,13 +1,11 @@
 import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import { Shield, Lock, Eye } from "lucide-react";
-
 const Privacy = () => {
   useEffect(() => {
     document.title = "Style Decor | Privacy Policy";
     window.scrollTo(0, 0);
   }, []);
-
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pt-32 pb-20 transition-colors duration-300">
       <div className="container mx-auto px-6">
@@ -25,7 +23,6 @@ const Privacy = () => {
               Privacy <span className="text-[#ff6a4a]">Policy</span>
             </h1>
           </div>
-
           <div className="prose prose-lg dark:prose-invert max-w-none space-y-12">
             <section>
               <div className="flex items-center gap-3 mb-4">
@@ -36,7 +33,6 @@ const Privacy = () => {
                 We collect information you provide directly to us, such as when you create an account, make a purchase, or communicate with us. This may include your name, email address, phone number, and address.
               </p>
             </section>
-
             <section>
               <div className="flex items-center gap-3 mb-4">
                 <Lock className="text-[#ff6a4a]" size={24} />
@@ -46,7 +42,6 @@ const Privacy = () => {
                 We take reasonable measures to help protect information about you from loss, theft, misuse and unauthorized access, disclosure, alteration and destruction.
               </p>
             </section>
-
             <section>
               <div className="flex items-center gap-3 mb-4">
                 <Shield className="text-[#ff6a4a]" size={24} />
@@ -56,7 +51,6 @@ const Privacy = () => {
                 You have the right to access, collect, and correct your personal data. You can also request that we delete your personal information, subject to certain legal obligations.
               </p>
             </section>
-
             <p className="text-sm text-gray-400 dark:text-gray-500 italic text-center pt-8 border-t border-gray-100 dark:border-gray-800">
               Last updated: January 10, 2026
             </p>
@@ -66,5 +60,4 @@ const Privacy = () => {
     </div>
   );
 };
-
-export default Privacy;
+export default Privacy;

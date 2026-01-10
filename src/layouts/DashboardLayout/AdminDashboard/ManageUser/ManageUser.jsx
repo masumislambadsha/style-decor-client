@@ -14,19 +14,15 @@ const rowVariants = {
     transition: { delay: i * 0.03, duration: 0.18 },
   }),
 };
-
 const ManageUser = () => {
-
   useEffect(()=>{
     document.title = "Style Decor | Manage User"
   },[])
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
   const queryClient = useQueryClient();
-
   const [searchInput, setSearchInput] = useState("");
   const [updatingId, setUpdatingId] = useState(null);
-
   const { data: users = [], isLoading } = useQuery({
     queryKey: ["admin-users-all"],
     queryFn: async () => {
@@ -35,12 +31,9 @@ const ManageUser = () => {
     },
     enabled: !!user?.email,
   });
-
   const handleChangeRole = async (u, newRole) => {
     if (u.role === newRole) return;
-
     const actionLabel = newRole === "admin" ? "Make Admin" : "Make User";
-
     const result = await Swal.fire({
       title: "Are you sure?",
       html: `<strong>${u.name || u.displayName || u.email}</strong><br/>${actionLabel}?`,
@@ -52,7 +45,6 @@ const ManageUser = () => {
       cancelButtonText: "Cancel",
       reverseButtons: true,
     });
-
     if (!result.isConfirmed) {
       await Swal.fire({
         icon: "info",
@@ -63,7 +55,6 @@ const ManageUser = () => {
       });
       return;
     }
-
     try {
       setUpdatingId(u._id);
       await axiosSecure.patch(`/users/${u._id}/role`, { role: newRole });
@@ -82,23 +73,18 @@ const ManageUser = () => {
       setUpdatingId(null);
     }
   };
-
   const filteredUsers = users.filter((u) => {
     const q = searchInput.trim().toLowerCase();
     if (!q) return true;
-
     const name = (u.name || u.displayName || "").toLowerCase();
     const email = (u.email || "").toLowerCase();
-
     return name.includes(q) || email.includes(q);
   });
-
   if (isLoading) {
      return (
       <LoadingSpinner/>
     );
   }
-
   return (
     <motion.div
       className="px-3 sm:px-6 lg:px-8 py-6 sm:py-8"
@@ -120,7 +106,6 @@ const ManageUser = () => {
             View all users and promote them to admin or revert to user.
           </p>
         </div>
-
         <div className="w-full md:w-auto">
           <input
             type="text"
@@ -131,7 +116,6 @@ const ManageUser = () => {
           />
         </div>
       </motion.div>
-
       <motion.div
         className="overflow-x-auto bg-base-100 rounded-xl sm:rounded-2xl shadow border border-base-300"
         initial={{ opacity: 0, y: 8 }}
@@ -236,6 +220,4 @@ const ManageUser = () => {
     </motion.div>
   );
 };
-
-export default ManageUser;
-
+export default ManageUser;

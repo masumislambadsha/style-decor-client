@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-
 const useDecorators = () => {
   const {
     data: decorators = [],
@@ -13,8 +12,6 @@ const useDecorators = () => {
       return res.data;
     },
   });
-
   return { decorators, loading, refetch };
 };
-
-export default useDecorators;
+export default useDecorators;

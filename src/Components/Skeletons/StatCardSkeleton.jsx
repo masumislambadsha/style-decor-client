@@ -1,5 +1,4 @@
 import React from "react";
-
 const StatCardSkeleton = () => {
   return (
     <div className="bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 flex items-center gap-4 animate-pulse">
@@ -11,5 +10,4 @@ const StatCardSkeleton = () => {
     </div>
   );
 };
-
-export default StatCardSkeleton;
+export default StatCardSkeleton;

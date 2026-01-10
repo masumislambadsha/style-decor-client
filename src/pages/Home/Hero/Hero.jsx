@@ -36,21 +36,17 @@ const slides = [
       "Craft living areas that captivate and comfort. From contemporary to classic — spaces that tell your story.",
   },
 ];
-
 const Hero = () => {
   const [current, setCurrent] = useState(0);
-
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrent((prev) => (prev + 1) % slides.length);
     }, 4000);
     return () => clearInterval(timer);
   }, []);
-
   const goNext = () => setCurrent((prev) => (prev + 1) % slides.length);
   const goPrev = () =>
     setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
-
   return (
     <section className="relative h-[60vh] sm:h-[70vh] md:h-screen overflow-hidden -mt-20 sm:-mt-40">
       <AnimatePresence mode="wait">
@@ -69,7 +65,6 @@ const Hero = () => {
           <div className="absolute inset-0 bg-linear-to-b from-black/70 via-black/50 to-black/80" />
         </motion.div>
       </AnimatePresence>
-
       <div className="relative z-10 h-full flex items-center justify-center px-4 sm:px-6">
         <div className="text-center text-white max-w-xl sm:max-w-3xl md:max-w-5xl mx-auto">
           <AnimatePresence mode="wait">
@@ -83,15 +78,12 @@ const Hero = () => {
               <p className="text-sm sm:text-lg md:text-2xl font-light tracking-[0.25em] uppercase mb-4 sm:mb-6 text-gray-200">
                 {slides[current].quote}
               </p>
-
               <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 leading-tight">
                 {slides[current].title}
               </h1>
-
               <p className="text-sm sm:text-base md:text-xl text-gray-200 max-w-xl sm:max-w-2xl md:max-w-3xl mx-auto leading-relaxed mb-6 sm:mb-10">
                 {slides[current].description}
               </p>
-
               <button
                 onClick={() => (window.location.href = "/services")}
                 className="group inline-flex items-center gap-2 sm:gap-3 bg-[#ff6a4a] hover:bg-white text-white hover:text-black font-bold text-sm sm:text-lg px-6 sm:px-10 py-3 sm:py-4 rounded-full shadow-2xl transition-all duration-300"
@@ -103,21 +95,18 @@ const Hero = () => {
           </AnimatePresence>
         </div>
       </div>
-
       <button
         onClick={goPrev}
         className="absolute left-4 sm:left-6 top-1/2 -translate-y-1/2 z-20 bg-black/40 hover:bg-[#ff6a4a] text-white w-10 sm:w-12 h-10 sm:h-12 rounded-full flex items-center justify-center transition"
       >
         <ChevronLeft className="w-6 sm:w-8 h-6 sm:h-8" />
       </button>
-
       <button
         onClick={goNext}
         className="absolute right-4 sm:right-6 top-1/2 -translate-y-1/2 z-20 bg-black/40 hover:bg-[#ff6a4a] text-white w-10 sm:w-12 h-10 sm:h-12 rounded-full flex items-center justify-center transition"
       >
         <ChevronRight className="w-6 sm:w-8 h-6 sm:h-8" />
       </button>
-
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2 sm:gap-3 z-20">
         {slides.map((_, i) => (
           <button
@@ -132,5 +121,4 @@ const Hero = () => {
     </section>
   );
 };
-
-export default Hero;
+export default Hero;

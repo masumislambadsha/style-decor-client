@@ -6,7 +6,6 @@ import ServiceCoverageArea from './ServiceCoverageMap/ServiceCoverageMap';
 import Testimonials from './Testimonials/Testimonials';
 import FAQ from './FAQ/FAQ';
 import Newsletter from './Newsletter/Newsletter';
-
 const Home = () => {
    useEffect(() => {
     document.title = "Style Decor | Home ";
@@ -23,5 +22,4 @@ const Home = () => {
     </div>
   );
 };
-
-export default Home;
+export default Home;

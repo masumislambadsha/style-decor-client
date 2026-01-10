@@ -3,10 +3,8 @@ import { Link } from "react-router";
 import useServices from "../../../Hooks/useServices";
 import ServiceCardSkeleton from "../../../Components/Skeletons/ServiceCardSkeleton";
 import ServiceCard from "../../../Components/ServiceCard/ServiceCard";
-
 const ServiceCategories = () => {
   const { services, loading } = useServices();
-
   if (loading) {
     return (
       <section className="py-12 sm:py-16 bg-base-200">
@@ -23,7 +21,6 @@ const ServiceCategories = () => {
       </section>
     );
   }
-
   const getAccentColorClass = (category) => {
     switch (category?.toLowerCase()) {
       case "home":
@@ -43,18 +40,15 @@ const ServiceCategories = () => {
         return "text-[#ff6a4a]";
     }
   };
-
   return (
     <section className="py-12 sm:py-16 bg-base-200">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-0">
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-8 sm:mb-10 text-base-content capitalize">
           Interior design & decoration services we provide
         </h2>
-
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
           {services.slice(0, 6).map((service) => {
             const accentClass = getAccentColorClass(service.service_category);
-
             return (
               <ServiceCard
                 accentClass={accentClass}
@@ -68,5 +62,4 @@ const ServiceCategories = () => {
     </section>
   );
 };
-
-export default ServiceCategories;
+export default ServiceCategories;

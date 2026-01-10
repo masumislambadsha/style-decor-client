@@ -3,14 +3,12 @@ import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../../Hooks/useAuth";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import LoadingSpinner from "../../../../Components/Spinner/LoadingSpinner";
-
 const PaymentHistory = () => {
     useEffect(() => {
     document.title = "Style Decor | Payment History";
   }, []);
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
-
   const { data: payments = [], isLoading } = useQuery({
     queryKey: ["payments", user?.email],
     queryFn: async () => {
@@ -19,17 +17,14 @@ const PaymentHistory = () => {
     },
     enabled: !!user?.email,
   });
-
   if (isLoading) {
     return (
       <LoadingSpinner/>
     );
   }
-
   return (
     <div className="space-y-6">
       <h2 className="text-2xl sm:text-3xl font-bold text-base-content mt-15">Payment History</h2>
-
       {payments.length === 0 ? (
         <div className="text-center py-16 bg-base-100 rounded-xl sm:rounded-3xl shadow">
           <p className="text-base-content/60 text-sm sm:text-lg">No payments yet</p>
@@ -63,5 +58,4 @@ const PaymentHistory = () => {
     </div>
   );
 };
-
-export default PaymentHistory;
+export default PaymentHistory;

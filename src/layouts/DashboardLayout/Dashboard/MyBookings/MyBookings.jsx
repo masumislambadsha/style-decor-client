@@ -4,9 +4,7 @@ import toast from "react-hot-toast";
 import useAuth from "../../../../Hooks/useAuth";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
-
 import BookingCardSkeleton from "../../../../Components/Skeletons/BookingCardSkeleton";
-
 const MyBookings = () => {
   useEffect(() => {
     document.title = "Style Decor | My Bookings";
@@ -14,10 +12,8 @@ const MyBookings = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const [filter, setFilter] = useState("all");
-
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 5;
-
   const { data: bookings = [], refetch, isLoading } = useQuery({
     queryKey: ["my-bookings", user?.email],
     queryFn: async () => {
@@ -26,7 +22,6 @@ const MyBookings = () => {
     },
     enabled: !!user?.email,
   });
-
   const handleCancel = async (booking) => {
     const result = await Swal.fire({
       title: "Cancel this booking?",
@@ -40,9 +35,7 @@ const MyBookings = () => {
       confirmButtonText: "Yes, cancel",
       cancelButtonText: "No, keep it",
     });
-
     if (!result.isConfirmed) return;
-
     try {
       await axiosSecure.patch(`/bookings/${booking._id}/cancel`);
       await Swal.fire({
@@ -58,7 +51,6 @@ const MyBookings = () => {
       Swal.fire("Error", "Failed to cancel booking", "error");
     }
   };
-
   const handlePay = async (booking) => {
     try {
       const paymentInfo = {
@@ -67,12 +59,10 @@ const MyBookings = () => {
         userEmail: booking.userEmail,
         cost: booking.cost,
       };
-
       const res = await axiosSecure.post(
         "/create-checkout-session",
         paymentInfo
       );
-
       if (res.data?.url) {
         window.location.href = res.data.url;
       } else {
@@ -83,15 +73,12 @@ const MyBookings = () => {
       toast.error("Payment failed");
     }
   };
-
   const filteredBookings =
     filter === "all" ? bookings : bookings.filter((b) => b.status === filter);
-
   const handleFilterClick = (status) => {
     setFilter(status);
     setCurrentPage(1);
   };
-
   const totalItems = filteredBookings.length;
   const totalPages = Math.max(1, Math.ceil(totalItems / pageSize));
   const startIndex = (currentPage - 1) * pageSize;
@@ -99,7 +86,6 @@ const MyBookings = () => {
     startIndex,
     startIndex + pageSize
   );
-
   return (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 max-w-6xl mx-auto space-y-8">
@@ -131,7 +117,6 @@ const MyBookings = () => {
           ))}
         </div>
       </div>
-
       <div className="grid gap-4 sm:gap-6">
         {isLoading ? (
           [...Array(pageSize)].map((_, i) => <BookingCardSkeleton key={i} />)
@@ -171,7 +156,6 @@ const MyBookings = () => {
                   {booking.status.toUpperCase()}
                 </span>
               </div>
-
               <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 items-start sm:items-center">
                 {booking.status === "pending_payment" && (
                   <button
@@ -181,7 +165,6 @@ const MyBookings = () => {
                     Pay Now
                   </button>
                 )}
-
                 {(booking.status === "pending_payment" ||
                   booking.status === "assigned_pending") && (
                   <button
@@ -196,7 +179,6 @@ const MyBookings = () => {
           ))
         )}
       </div>
-
       {totalItems > pageSize && (
         <div className="flex items-center justify-center gap-2 sm:gap-3 mt-4">
           <button
@@ -208,11 +190,9 @@ const MyBookings = () => {
           >
             Prev
           </button>
-
           <span className="text-xs sm:text-sm text-base-content/70">
             Page {currentPage} of {totalPages}
           </span>
-
           <button
             className="btn btn-xs sm:btn-sm"
             onClick={() =>
@@ -227,5 +207,4 @@ const MyBookings = () => {
     </div>
   );
 };
-
-export default MyBookings;
+export default MyBookings;

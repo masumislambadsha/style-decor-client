@@ -5,13 +5,11 @@ import { CreditCard, CalendarDays, Briefcase } from "lucide-react";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import LoadingSpinner from "../../../../Components/Spinner/LoadingSpinner";
 const SHARE = 0.3;
-
 const Earnings = () => {
     useEffect(() => {
     document.title = "Style Decor | Earnings";
   }, []);
   const axiosSecure = useAxiosSecure();
-
   const { data: bookings = [], isLoading } = useQuery({
     queryKey: ["decorator-bookings"],
     queryFn: async () => {
@@ -19,27 +17,22 @@ const Earnings = () => {
       return res.data;
     },
   });
-
   const { completed, totalEarnings, avgPerProject } = useMemo(() => {
     const completedBookings =
       bookings.filter(
         (b) => b.status === "completed" && b.paymentStatus === "paid"
       ) || [];
-
     const sum = completedBookings.reduce((acc, b) => {
       const bookingAmount = Number(b.cost) || 0;
       return acc + bookingAmount * SHARE;
     }, 0);
-
     const avg = completedBookings.length > 0 ? sum / completedBookings.length : 0;
-
     return {
       completed: completedBookings,
       totalEarnings: sum,
       avgPerProject: avg,
     };
   }, [bookings]);
-
   if (isLoading) {
      return (
       <LoadingSpinner/>
@@ -62,7 +55,6 @@ const Earnings = () => {
               You haven't earned any rewards yet.
             </p>
           </div>
-
           <motion.div
             className="bg-white dark:bg-gray-900 rounded-xl sm:rounded-2xl shadow-md p-8 sm:p-12 text-center"
             initial={{ opacity: 0, scale: 0.97 }}
@@ -81,7 +73,6 @@ const Earnings = () => {
       </div>
     );
   }
-
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 sm:py-8 px-[20px] ">
       <motion.div
@@ -103,7 +94,6 @@ const Earnings = () => {
             Your current share is <span className="text-[#ff6a4a] font-bold">30%</span> per project.
           </p>
         </motion.div>
-
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
           <motion.div
             className="bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800"
@@ -117,7 +107,6 @@ const Earnings = () => {
               {totalEarnings.toLocaleString()} BDT
             </h3>
           </motion.div>
-
           <motion.div
             className="bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800"
             whileHover={{ y: -5 }}
@@ -130,7 +119,6 @@ const Earnings = () => {
               {completed.length}
             </h3>
           </motion.div>
-
           <motion.div
             className="bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800"
             whileHover={{ y: -5 }}
@@ -144,7 +132,6 @@ const Earnings = () => {
             </h3>
           </motion.div>
         </div>
-
         <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden mb-10">
           <div className="p-5 border-b border-gray-50 dark:border-gray-800">
             <h3 className="font-bold text-gray-800 dark:text-white">Recent Payouts</h3>
@@ -191,5 +178,4 @@ const Earnings = () => {
     </div>
   );
 };
-
-export default Earnings;
+export default Earnings;

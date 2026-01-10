@@ -3,18 +3,15 @@ import { useParams, Link } from "react-router";
 import { motion } from "framer-motion";
 import { ArrowLeft, Clock, User, Share2 } from "lucide-react";
 import { blogPosts } from "../../constants/blogData.jsx";
-
 const BlogDetails = () => {
   const { id } = useParams();
   const post = blogPosts.find(p => p.id === parseInt(id));
-
   useEffect(() => {
     window.scrollTo(0, 0);
     if(post) {
       document.title = `Style Decor | ${post.title}`;
     }
   }, [post]);
-
   if (!post) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-950">
@@ -27,7 +24,6 @@ const BlogDetails = () => {
       </div>
     );
   }
-
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pt-10 pb-20 transition-colors duration-300">
       <div className="container mx-auto px-6">
@@ -44,7 +40,6 @@ const BlogDetails = () => {
             Back to Blog
           </Link>
         </motion.div>
-
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -58,7 +53,6 @@ const BlogDetails = () => {
             <h1 className="text-4xl md:text-6xl font-black text-gray-800 dark:text-white mb-6 tracking-tight leading-tight">
               {post.title}
             </h1>
-
             <div className="flex flex-wrap items-center gap-6 text-gray-500 dark:text-gray-400 text-sm border-b border-gray-100 dark:border-gray-800 pb-8 mb-10">
               <div className="flex items-center gap-2">
                 <User size={16} className="text-[#ff6a4a]" />
@@ -74,7 +68,6 @@ const BlogDetails = () => {
               </div>
             </div>
           </div>
-
           <div className="aspect-video rounded-[3rem] overflow-hidden mb-12 shadow-2xl border border-gray-100 dark:border-white/5">
             <img
               src={post.image}
@@ -82,7 +75,6 @@ const BlogDetails = () => {
               alt={post.title}
             />
           </div>
-
           <div className="prose prose-lg dark:prose-invert max-w-none">
              <div className="text-gray-600 dark:text-gray-400 leading-relaxed whitespace-pre-line text-lg">
                 {post.content}
@@ -93,5 +85,4 @@ const BlogDetails = () => {
     </div>
   );
 };
-
-export default BlogDetails;
+export default BlogDetails;

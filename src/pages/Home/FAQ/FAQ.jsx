@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import { ChevronDown } from "lucide-react";
-
 const FAQ = () => {
     const [openIndex, setOpenIndex] = useState(null);
-
     const faqs = [
         {
             question: "What services does StyleDecor offer?",
@@ -38,7 +36,6 @@ const FAQ = () => {
             answer: "We currently serve major cities across the country. Check our Service Coverage page to see if we operate in your area."
         }
     ];
-
     return (
         <section className="py-20 bg-base-100">
             <div className="container mx-auto px-6">
@@ -50,7 +47,6 @@ const FAQ = () => {
                         Got questions? We've got answers. Find everything you need to know about our services.
                     </p>
                 </div>
-
                 <div className="max-w-4xl mx-auto space-y-4">
                     {faqs.map((faq, index) => (
                         <div
@@ -86,5 +82,4 @@ const FAQ = () => {
         </section>
     );
 };
-
-export default FAQ;
+export default FAQ;

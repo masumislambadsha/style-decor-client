@@ -16,21 +16,17 @@ import { GoSidebarCollapse } from "react-icons/go";
 import Logo from "../../../Components/Logo/Logo";
 import CollapsedLogo from "../../../Components/Logo/CollapsedLogo";
 import { FaServicestack, FaUser, FaUserPlus } from "react-icons/fa";
-
 const Sidebar = ({ role = "user" }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
   const location = useLocation();
   const { logOut } = useAuth();
-
   const isActive = (path) => location.pathname === path;
-
   const commonLinks = [
     { label: "Profile", path: "/dashboard/profile", icon: User },
     { label: "My Bookings", path: "/dashboard/bookings", icon: BookOpen },
     { label: "Payment History", path: "/dashboard/payment-history", icon: CreditCard },
   ];
-
   const menuGroups = {
     user: [
       { label: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
@@ -80,9 +76,7 @@ const Sidebar = ({ role = "user" }) => {
       ...commonLinks,
     ],
   };
-
   const currentMenu = menuGroups[role] || menuGroups.user;
-
   return (
     <>
       <button
@@ -91,7 +85,6 @@ const Sidebar = ({ role = "user" }) => {
       >
         {mobileOpen ? <X size={24} /> : <Menu size={24} />}
       </button>
-
       <button
         onClick={() => setCollapsed(!collapsed)}
         className={`hidden md:flex items-center justify-center fixed top-22.5 z-30 h-9 w-9 rounded-full bg-gray-800 text-gray-200 border border-gray-600 shadow cursor-pointer transition-all hover:scale-105
@@ -101,7 +94,6 @@ const Sidebar = ({ role = "user" }) => {
           <GoSidebarCollapse size={24} />
         </div>
       </button>
-
       <aside
         className={`fixed md:static inset-y-0 left-0 bg-black text-white transform transition-all z-40
         ${mobileOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
@@ -112,7 +104,6 @@ const Sidebar = ({ role = "user" }) => {
             {!collapsed ? <Logo /> : <CollapsedLogo />}
           </Link>
         </div>
-
         <nav className="p-4 space-y-1">
           {currentMenu.map((item) => {
             const Icon = item.icon;
@@ -135,7 +126,6 @@ const Sidebar = ({ role = "user" }) => {
             );
           })}
         </nav>
-
         <div className="absolute bottom-4 left-0 right-0 px-4">
           <button
             onClick={logOut}
@@ -149,5 +139,4 @@ const Sidebar = ({ role = "user" }) => {
     </>
   );
 };
-
-export default Sidebar;
+export default Sidebar;
