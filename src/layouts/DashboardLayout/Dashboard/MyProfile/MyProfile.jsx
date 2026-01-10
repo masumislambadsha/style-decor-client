@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import useAuth from "../../../../Hooks/useAuth";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { Loader2, User as UserIcon, Mail, Phone, MapPin, Camera } from "lucide-react";
+import { Loader2, User as UserIcon, Mail, Phone, MapPin, Camera, Lock, Eye, EyeOff } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
 import useUserProfile from "../../../../Hooks/useUserProfile";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
@@ -11,7 +11,7 @@ const MyProfile = () => {
   useEffect(() => {
     document.title = "Style Decor | My Profile";
   }, []);
-  const { user, updateUserProfile } = useAuth();
+  const { user, updateUserProfile, updateUserPassword, reAuthenticateUser } = useAuth();
   const { profile, isLoading: profileLoading } = useUserProfile();
   const axiosSecure = useAxiosSecure();
   const [isEditing, setIsEditing] = useState(false);
@@ -23,12 +23,24 @@ const MyProfile = () => {
     handleSubmit,
     setValue,
     formState: { errors },
+    reset: resetProfileForm,
   } = useForm();
+  const {
+    register: registerPassword,
+    handleSubmit: handleSubmitPassword,
+    watch: watchPassword,
+    reset: resetPasswordForm,
+    formState: { errors: passwordErrors },
+  } = useForm();
+  const [passwordUpdating, setPasswordUpdating] = useState(false);
+  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   useEffect(() => {
-    if (profile) {
-      setValue("name", profile.name || user?.displayName || "");
-      setValue("phone", profile.phone || "");
-      setValue("address", profile.address || "");
+    if (user) {
+      setValue("name", profile?.name || user?.displayName || "");
+      setValue("phone", profile?.phone || "");
+      setValue("address", profile?.address || "");
     }
   }, [profile, user, setValue]);
   const uploadImage = async (file) => {
@@ -80,6 +92,26 @@ const MyProfile = () => {
       setUpdating(false);
     }
   };
+  const onChangePassword = async (data) => {
+    try {
+      setPasswordUpdating(true);
+      await reAuthenticateUser(data.currentPassword);
+      await updateUserPassword(data.newPassword);
+      toast.success("Password updated successfully!");
+      resetPasswordForm();
+    } catch (err) {
+      console.error(err);
+      if (err.code === "auth/wrong-password") {
+        toast.error("Current password is incorrect");
+      } else if (err.code === "auth/requires-recent-login") {
+        toast.error("Sensitive operation requires recent login. Please log out and log back in.");
+      } else {
+        toast.error(err.message || "Failed to update password");
+      }
+    } finally {
+      setPasswordUpdating(false);
+    }
+  };
   if (!user || profileLoading) {
     return (
      <LoadingSpinner/>
@@ -99,7 +131,9 @@ const MyProfile = () => {
           {isEditing ? "Cancel" : "Edit Profile"}
         </button>
       </div>
-      <div className="bg-white dark:bg-gray-900 rounded-xl sm:rounded-3xl shadow-xl p-6 sm:p-8 border border-gray-100 dark:border-gray-800 transition-colors duration-300">
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="bg-white dark:bg-gray-900 rounded-xl sm:rounded-3xl shadow-xl p-6 sm:p-8 border border-gray-100 dark:border-gray-800 transition-colors duration-300 h-full flex flex-col">
         <div className="flex flex-col sm:flex-row sm:items-center gap-6 mb-8">
           <div className="relative group mx-auto sm:mx-0">
             <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-full border-4 border-[#ff6a4a] overflow-hidden relative">
@@ -132,13 +166,14 @@ const MyProfile = () => {
             </div>
           </div>
         </div>
-        <form onSubmit={handleSubmit(onUpdateProfile)} className="space-y-6">
+        <form onSubmit={handleSubmit(onUpdateProfile)} className="space-y-6 flex-1 flex flex-col">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label className="flex items-center gap-2 text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2">
                 <UserIcon size={16} /> Full Name
               </label>
               <input
+                defaultValue={profile?.name || user?.displayName || ""}
                 disabled={!isEditing}
                 {...register("name", {
                   required: "Name is required",
@@ -149,6 +184,7 @@ const MyProfile = () => {
               {errors.name && (
                 <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>
               )}
+
             </div>
             <div>
               <label className="flex items-center gap-2 text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2">
@@ -184,7 +220,7 @@ const MyProfile = () => {
             </div>
           </div>
           {isEditing && (
-            <div className="pt-4">
+            <div className="pt-4 mt-auto">
               <button
                 type="submit"
                 disabled={updating}
@@ -197,7 +233,115 @@ const MyProfile = () => {
           )}
         </form>
       </div>
+
+      {user?.providerData?.some((p) => p.providerId === "password") && (
+        <div className="bg-white dark:bg-gray-900 rounded-xl sm:rounded-3xl shadow-xl p-6 sm:p-8 border border-gray-100 dark:border-gray-800 transition-colors duration-300 h-full flex flex-col">
+          <div className="flex items-center gap-3 mb-8">
+            <div className="p-2 bg-[#ff6a4a]/10 rounded-lg">
+              <Lock className="text-[#ff6a4a]" size={24} />
+            </div>
+            <h3 className="text-xl font-bold text-gray-800 dark:text-white">Security Settings</h3>
+          </div>
+
+          <form onSubmit={handleSubmitPassword(onChangePassword)} className="space-y-4 flex-1 flex flex-col">
+            <div className="grid grid-cols-1 sm:grid-cols-12 items-center gap-2 sm:gap-4">
+              <label className="sm:col-span-4 text-sm font-semibold text-gray-600 dark:text-gray-400">
+                Current Password :
+              </label>
+              <div className="sm:col-span-8 relative">
+                <input
+                  type={showCurrentPassword ? "text" : "password"}
+                  placeholder="********"
+                  {...registerPassword("currentPassword", {
+                    required: "Current password is required",
+                  })}
+                  className="input input-bordered w-full dark:bg-gray-800 dark:border-gray-700 dark:text-white outline-0 focus:border-[#ff6a4a] pr-10"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowCurrentPassword(!showCurrentPassword)}
+                  className="absolute right-3 top-3 text-gray-500 hover:text-[#ff6a4a] transition-colors"
+                >
+                  {showCurrentPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                </button>
+                {passwordErrors.currentPassword && (
+                  <p className="text-red-500 text-xs mt-1">{passwordErrors.currentPassword.message}</p>
+                )}
+              </div>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-12 items-center gap-2 sm:gap-4">
+              <label className="sm:col-span-4 text-sm font-semibold text-gray-600 dark:text-gray-400">
+                New Password :
+              </label>
+              <div className="sm:col-span-8 relative">
+                <input
+                  type={showNewPassword ? "text" : "password"}
+                  placeholder="********"
+                  {...registerPassword("newPassword", {
+                    required: "New password is required",
+                    minLength: { value: 6, message: "Password must be at least 6 characters" },
+                  })}
+                  className="input input-bordered w-full dark:bg-gray-800 dark:border-gray-700 dark:text-white outline-0 focus:border-[#ff6a4a] pr-10"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowNewPassword(!showNewPassword)}
+                  className="absolute right-3 top-3 text-gray-500 hover:text-[#ff6a4a] transition-colors"
+                >
+                  {showNewPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                </button>
+                {passwordErrors.newPassword && (
+                  <p className="text-red-500 text-xs mt-1">{passwordErrors.newPassword.message}</p>
+                )}
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-12 items-center gap-2 sm:gap-4">
+              <label className="sm:col-span-4 text-sm font-semibold text-gray-600 dark:text-gray-400">
+                Confirm Password :
+              </label>
+              <div className="sm:col-span-8 relative">
+                <input
+                  type={showConfirmPassword ? "text" : "password"}
+                  placeholder="********"
+                  {...registerPassword("confirmPassword", {
+                    required: "Please confirm your password",
+                    validate: (val) => {
+                      if (watchPassword("newPassword") !== val) {
+                        return "Passwords do not match";
+                      }
+                    },
+                  })}
+                  className="input input-bordered w-full dark:bg-gray-800 dark:border-gray-700 dark:text-white outline-0 focus:border-[#ff6a4a] pr-10"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  className="absolute right-3 top-3 text-gray-500 hover:text-[#ff6a4a] transition-colors"
+                >
+                  {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                </button>
+                {passwordErrors.confirmPassword && (
+                  <p className="text-red-500 text-xs mt-1">{passwordErrors.confirmPassword.message}</p>
+                )}
+              </div>
+            </div>
+
+            <div className="pt-2 mt-auto">
+              <button
+                type="submit"
+                disabled={passwordUpdating}
+                className="btn btn-primary bg-[#ff6a4a] border-none text-white hover:bg-black w-full"
+              >
+                {passwordUpdating && <Loader2 className="animate-spin" size={18} />}
+                Update Password
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
+      </div>
     </div>
   );
 };
-export default MyProfile;
+export default MyProfile;

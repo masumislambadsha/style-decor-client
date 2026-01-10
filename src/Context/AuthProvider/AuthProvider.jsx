@@ -7,6 +7,9 @@ import {
   signInWithPopup,
   signOut,
   updateProfile,
+  updatePassword,
+  EmailAuthProvider,
+  reauthenticateWithCredential,
 } from "firebase/auth";
 import axios from "axios";
 import { auth } from "../../Firebase/firebase.init";
@@ -37,6 +40,15 @@ const AuthProvider = ({ children }) => {
   const updateUserProfile = async (profile) => {
     await updateProfile(auth.currentUser, profile);
     setUser((prev) => ({ ...prev, ...auth.currentUser }));
+  };
+  const updateUserPassword = (newPassword) => {
+    if (!auth.currentUser) throw new Error("No user logged in");
+    return updatePassword(auth.currentUser, newPassword);
+  };
+  const reAuthenticateUser = (password) => {
+    if (!auth.currentUser) throw new Error("No user logged in");
+    const credential = EmailAuthProvider.credential(auth.currentUser.email, password);
+    return reauthenticateWithCredential(auth.currentUser, credential);
   };
   const getToken = async (email) => {
     try {
@@ -88,9 +100,11 @@ const AuthProvider = ({ children }) => {
     signInGoogle,
     logOut,
     updateUserProfile,
+    updateUserPassword,
+    reAuthenticateUser,
   };
   return (
     <AuthContext value={authInfo}>{children}</AuthContext>
   );
 };
-export default AuthProvider;
+export default AuthProvider;
