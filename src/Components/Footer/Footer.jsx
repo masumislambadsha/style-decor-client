@@ -109,10 +109,10 @@ const Footer = () => {
       </div>
       <div className="mt-16 pt-8 border-t border-gray-800 text-center">
         <p className="text-gray-500 text-sm">
-          © 2025 StyleDecor. All rights reserved. Developed with ❤️ by MasunIslamBadsha
+          © {new Date().getFullYear()} StyleDecor. All rights reserved. Developed with ❤️ by MasumIslamBadsha
         </p>
       </div>
     </footer>
   );
 };
-export default Footer;
+export default Footer;
